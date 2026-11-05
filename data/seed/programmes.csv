@@ -1,0 +1,941 @@
+redbrick_name,programme_code,degree,year,redbrick_uuid
+AC1 (Chem & Pharma Science-1),AC1,Chem & Pharma Science,1,8dc12a98-c983-c7c2-0618-f6d8553d847b
+AC2 (Chem & Pharma Science-2),AC2,Chem & Pharma Science,2,9e89d9b0-ffdd-88ac-37f5-0a27d4ffa3ab
+AC3 (Chem & Pharma Science-3),AC3,Chem & Pharma Science,3,2964be13-c8ab-d9d8-a5ac-644f7699dfca
+AC3 (Chem & Pharma Science-AT-3),AC3,Chem & Pharma Science-AT,3,d1628c87-60d3-6694-3ab6-9a823cbddd03
+AC4 (Chem & Pharma Science-4),AC4,Chem & Pharma Science,4,7fe0ab12-2790-e280-3784-42b41ba36edb
+ACM1 (Actuarial Mathematics-1),ACM1,Actuarial Mathematics,1,21f59319-7e87-4baa-f816-3cd02e51638e
+ACM2 (Actuarial Mathematics-2),ACM2,Actuarial Mathematics,2,ac5196a7-57ba-2276-3a1d-fe219520b507
+ACM3 (Actuarial Mathematics-3),ACM3,Actuarial Mathematics,3,8268c211-37be-5713-5565-3b5ad182df0a
+ACM4 (Actuarial Mathematics-4),ACM4,Actuarial Mathematics,4,cad5fe23-33a2-a808-d7d8-dc6a078a14d4
+AF1 (Accounting & Finance-1),AF1,Accounting & Finance,1,58af6ea0-242d-20f7-5fc1-a9cc9be9dab1
+AF2 (Accounting & Finance-2),AF2,Accounting & Finance,2,ea379d30-4ae9-df77-2319-4f1409d41bcc
+AF3 (Accounting & Finance-3),AF3,Accounting & Finance,3,9ae7f19a-ad73-c80b-91d1-0c22c12e03f1
+AI1 (Chemistry with AI-1),AI1,Chemistry with AI,1,d95fe5c8-6bc1-a68a-c8e5-8d28be50c18a
+AI2 (Chemistry with AI-2),AI2,Chemistry with AI,2,8d5e28ae-fe3b-1233-573e-4006387b2452
+AI3 (Chemistry with AI-3),AI3,Chemistry with AI,3,3d99086d-3443-dff1-6a7e-10feef1f8577
+AI3 (Chemistry with AI-3-AT),AI3,Chemistry with AI (AT),3,deb4d503-429f-1abb-8865-d796bc5a6a76
+AI4 (Chemistry with AI-4),AI4,Chemistry with AI,4,1384a3f1-917b-86fe-3ecc-9ae819925bf5
+ALTS1 (Interm Fr & Begs Cn-1),ALTS1,Interm Fr & Begs Cn,1,4e088bb7-625b-0c63-64db-30202466a86c
+ALTS1 (Interm Fr & Begs Ger-1),ALTS1,Interm Fr & Begs Ger,1,c972909f-1dbe-ff82-f22b-fe2b365a1d75
+ALTS1 (Interm Fr & Begs Jpn-1),ALTS1,Interm Fr & Begs Jpn,1,75f6cf6d-12c7-625e-ae3d-65a00660e022
+ALTS1 (Interm Fr & Begs Sp-1),ALTS1,Interm Fr & Begs Sp,1,ec3f4fe6-f468-4026-6216-403bf76a9169
+ALTS1 (Interm Fr & Ger-1),ALTS1,Interm Fr & Ger,1,53c4b5f0-847d-7253-9d1f-4ec9a50ba4d2
+ALTS1 (Interm Fr & Sp-1),ALTS1,Interm Fr & Sp,1,fc609430-409f-c33e-2154-2fe6381d786e
+ALTS1 (Interm Ger & Begs Cn-1),ALTS1,Interm Ger & Begs Cn,1,721d9218-b59d-c7dc-c16f-2f04f77b4a51
+ALTS1 (Interm Ger & Begs Jpn-1),ALTS1,Interm Ger & Begs Jpn,1,72e972df-c0c5-2ca8-bdc7-39e5d75112af
+ALTS1 (Interm Ger & Begs Sp-1),ALTS1,Interm Ger & Begs Sp,1,be31506e-2ffd-40b1-f239-19c66bc2c573
+ALTS1 (Interm Ger & Sp-1),ALTS1,Interm Ger & Sp,1,9c6b2e78-80ec-febe-2ada-697cacdc02ee
+ALTS1 (Interm Sp & Begs Cn-1),ALTS1,Interm Sp & Begs Cn,1,f8d66e5c-f58e-f64a-e52b-1aefd72d9055
+ALTS1 (Interm Sp & Begs Ger-1),ALTS1,Interm Sp & Begs Ger,1,eba7b435-3143-9f0f-446c-35534f6423fa
+ALTS1 (Interm Sp & Begs Jpn-1),ALTS1,Interm Sp & Begs Jpn,1,beac7699-6bac-e130-7813-323ef111eb8a
+ALTS2 (Interm Fr & Begs Cn-2),ALTS2,Interm Fr & Begs Cn,2,66fb0509-24ac-cd88-5393-ab48c8346485
+ALTS2 (Interm Fr & Begs Ger-2),ALTS2,Interm Fr & Begs Ger,2,5673520a-2a04-8662-a7f0-d8684e13fdd0
+ALTS2 (Interm Fr & Begs Jpn-2),ALTS2,Interm Fr & Begs Jpn,2,d032c18d-a8be-983b-fd98-da01fdc16d88
+ALTS2 (Interm Fr & Begs Sp-2),ALTS2,Interm Fr & Begs Sp,2,0a53d994-018a-4947-5615-e2619cc4d282
+ALTS2 (Interm Fr & Ger-2),ALTS2,Interm Fr & Ger,2,44c17d8c-bb3b-9f44-a396-eacad28bb893
+ALTS2 (Interm Fr & Sp-2),ALTS2,Interm Fr & Sp,2,d0722e67-7dd6-50d6-6317-271fdf1a63db
+ALTS2 (Interm Ger & Begs Cn-2),ALTS2,Interm Ger & Begs Cn,2,84112891-2735-a157-e9ac-6be8b2e747cb
+ALTS2 (Interm Ger & Begs Jpn-2),ALTS2,Interm Ger & Begs Jpn,2,5b789d5f-701e-47ee-4c71-f369a82756f5
+ALTS2 (Interm Ger & Begs Sp-2),ALTS2,Interm Ger & Begs Sp,2,d4d94510-a6f7-8798-b708-3fd941ecf1fd
+ALTS2 (Interm Ger & Sp-2),ALTS2,Interm Ger & Sp,2,aa59b73f-6821-dcc7-a258-b279ef727091
+ALTS2 (Interm Sp & Begs Cn-2),ALTS2,Interm Sp & Begs Cn,2,fb7ea5d9-98fa-7512-50bc-459ae5539c5f
+ALTS2 (Interm Sp & Begs Ger-2),ALTS2,Interm Sp & Begs Ger,2,1c486104-004d-bfbb-3f75-c589dba8a57e
+ALTS2 (Interm Sp & Begs Jpn-2),ALTS2,Interm Sp & Begs Jpn,2,e671b4a2-5822-b727-2826-3884a6ed8bdc
+ALTS3 (Interm Fr & Begs Cn-3),ALTS3,Interm Fr & Begs Cn,3,07aeb992-b6a4-5b9d-42be-e1ead5dc4fdb
+ALTS3 (Interm Fr & Begs Jpn-3),ALTS3,Interm Fr & Begs Jpn,3,c5bc4ea2-2f4c-a68d-85ef-e2c1df4cb918
+ALTS3 (Interm Fr & Ger-3),ALTS3,Interm Fr & Ger,3,6730721e-5da1-12a1-d2bd-05a3ef8c8e6a
+ALTS3 (Interm Fr & Sp-3),ALTS3,Interm Fr & Sp,3,6b97a2cc-5f47-a8de-f713-685c8b29ea3d
+ALTS3 (Interm Ger & Begs Cn-3),ALTS3,Interm Ger & Begs Cn,3,b9f3570e-f6b3-6f55-4e46-418c67ad869a
+ALTS3 (Interm Ger & Begs Jpn-3),ALTS3,Interm Ger & Begs Jpn,3,cd9583f7-868a-ab3e-7180-b67c4b13d212
+ALTS3 (Interm Ger & Sp-3),ALTS3,Interm Ger & Sp,3,7f111443-276f-9c47-d077-9a526232e0db
+ALTS3 (Interm Sp & Begs Cn-3),ALTS3,Interm Sp & Begs Cn,3,6b43f9aa-0960-1171-a01f-132395c238e4
+ALTS3 (Interm Sp & Begs Jpn-3),ALTS3,Interm Sp & Begs Jpn,3,fef002e0-3a72-ba24-6ab9-886e27c09d3a
+AMPS1 (Aviation-1),AMPS1,Aviation,1,6cc3b6a2-b345-a1bc-8049-a86629162eef
+AMPS2 (Aviation-2),AMPS2,Aviation,2,7335eb5d-4b38-b425-0607-a2ae3f8e346c
+AMPS3 (Aviation-3),AMPS3,Aviation,3,b820b484-2ed0-3a3d-c21f-5b46e269c4c4
+AMPS4 (Aviation-4),AMPS4,Aviation,4,3e4cd861-6359-5e80-5354-aa0c77be69ad
+AP2 (Applied Physics-2),AP2,Applied Physics,2,a8ccbd18-fe6d-a528-f635-f3534d176c5e
+AP3 (Applied Physics-3),AP3,Applied Physics,3,80fa0c5b-7d90-6a5a-88bb-90cceefe3778
+AP4 (Applied Physics-4),AP4,Applied Physics,4,7ea381a3-8363-0e58-e123-d19156cd0ca9
+AS1 (Analytical Science-1),AS1,Analytical Science,1,25ba98ab-c1f4-7da7-70d4-2f00ee28d126
+AS2 (Analytical Science-2),AS2,Analytical Science,2,cb4c05e0-3f4f-67cc-9e6f-46062f576da7
+AS3 (Analytical Science-3),AS3,Analytical Science,3,1fbd2768-9588-2272-0117-1c0f024d31e0
+AS3 (Analytical Science-3-AT),AS3,Analytical Science (AT),3,902345d3-cf4e-dfaa-381a-5ccc5cb7c1d0
+AS4 (Analytical Science-4),AS4,Analytical Science,4,0e52ec90-c4c1-27f5-5c02-2776ead60cad
+ATT1 (Athl Therapy & Trng-1),ATT1,Athl Therapy & Trng,1,317dd109-0051-6393-d7e0-668baa680d87
+ATT2 (Athl Therapy & Trng-2),ATT2,Athl Therapy & Trng,2,85c6a51f-341e-fbfb-37c5-3b3e7b3bc8de
+ATT3 (Athl Therapy & Trng-3),ATT3,Athl Therapy & Trng,3,eb17b156-c030-25ea-363c-09a66d021bf7
+ATT4 (Athl Therapy & Trng-4),ATT4,Athl Therapy & Trng,4,637f62f6-71b6-b298-4284-358b83b80f2d
+ATTI4 (Athl Therapy & Trng-IG-4),ATTI4,Athl Therapy & Trng-IG,4,b23af18c-62e6-5af6-9bba-ef53391ca216
+ATTIM2 (Athl Therapy & Trng-2),ATTIM2,Athl Therapy & Trng,2,1acc25c2-5d01-894d-7132-363d18f34fbe
+ATTIM3 (Athl Therapy & Trng-3),ATTIM3,Athl Therapy & Trng,3,85697296-d6c9-5009-68ff-21d899e05ea3
+ATTIM5 (Athletic Ther Strength&Cond-5),ATTIM5,Athletic Ther Strength&Cond,5,b2bdc2e9-c405-8593-8449-6d9afcc068a5
+BA1 (Humanities & Soc Scis-1),BA1,Humanities & Soc Scis,1,e671477c-fecf-46ca-0a08-9fe37218baa3
+BAEH1 (English & History-1),BAEH1,English & History,1,40d22432-dd20-b9af-939b-8f88e0e971e4
+BAJH1 (Eng&Wrld Religs&Thlg-1),BAJH1,Eng&Wrld Religs&Thlg,1,5a4c0124-dfab-db23-84c2-42045f2f0d8b
+BAJH1 (English & Gaeilge-1),BAJH1,English & Gaeilge,1,6e6f0bd9-98cb-44f7-87ef-e7242b68ae7a
+BAJH1 (English & Geography-1),BAJH1,English & Geography,1,d5e660bb-de0c-b6c5-a7e1-cbcbfcb5a8b7
+BAJH1 (English & History-1),BAJH1,English & History,1,a98e1bd6-ee01-8668-6e57-c34cf779137c
+BAJH1 (English & Human Dev-1),BAJH1,English & Human Dev,1,6ffbc207-fbb2-ae12-86cd-93c1d40ef7b2
+BAJH1 (English & Music-1),BAJH1,English & Music,1,6fc23697-4909-ef89-ea19-605bc1615d81
+BAJH1 (English & Philosophy-1),BAJH1,English & Philosophy,1,fbadccfc-6ab0-7c66-3899-f36ebfb53d6f
+BAJH1 (Gae&Relig Wrld&Thlg-1),BAJH1,Gae&Relig Wrld&Thlg,1,fabdb53f-d638-3920-e5c2-e22e85cb2900
+BAJH1 (Gaeilge & Geography-1),BAJH1,Gaeilge & Geography,1,dec1083c-3322-1fe4-1b19-385a6abfd9a1
+BAJH1 (Gaeilge & History-1),BAJH1,Gaeilge & History,1,f02703b8-7d62-d550-d7bb-c10f6cf68805
+BAJH1 (Gaeilge & Human Dev-1),BAJH1,Gaeilge & Human Dev,1,f27fa095-2a2d-76f3-800f-f50bca9ee826
+BAJH1 (Gaeilge & Music-1),BAJH1,Gaeilge & Music,1,b5629441-78b6-902b-9abf-c77eddb8d67d
+BAJH1 (Gaeilge & Philosophy-1),BAJH1,Gaeilge & Philosophy,1,d0495b89-0afa-15fa-7388-0c8c216379fa
+BAJH1 (HD & Wrld Religs&Thlg-1),BAJH1,HD & Wrld Religs&Thlg,1,2e0981e3-b564-c31d-fb78-3e83aeee7b32
+BAJH1 (Hist&Wrld Religs&Thlg-1),BAJH1,Hist&Wrld Religs&Thlg,1,3498fb1e-fa6b-db30-2859-acb621508027
+BAJH1 (History & Geography-1),BAJH1,History & Geography,1,a1a92fa4-da92-72ee-873f-ebfe11a44073
+BAJH1 (Human Dev & Geography-1),BAJH1,Human Dev & Geography,1,3b3544a2-1c9c-47b1-b5a2-841d31e60b2a
+BAJH1 (Human Dev & History-1),BAJH1,Human Dev & History,1,d25f8897-2c43-a3b1-1887-ad5e0b842a1b
+BAJH1 (Human Dev & Music-1),BAJH1,Human Dev & Music,1,bb3cf309-d72c-23d0-be1b-c29c6848a701
+BAJH1 (Music & Geography-1),BAJH1,Music & Geography,1,df01c1f9-4c33-3b02-f639-22d22be50643
+BAJH1 (Music&Relig Wrld&Thlg-1),BAJH1,Music&Relig Wrld&Thlg,1,e83c912e-d9b1-11d6-f808-6d3e40970aaa
+BAJH1 (Phil&Relig Wrld&Thlg-1),BAJH1,Phil&Relig Wrld&Thlg,1,41f7fae4-b3cb-b595-f00e-7a0480b6eba0
+BAJH1 (Philosophy & Geography-1),BAJH1,Philosophy & Geography,1,54c0eff0-195d-917f-1b50-a6e1585320d6
+BAJH1 (Philosophy & History-1),BAJH1,Philosophy & History,1,545c27ef-c320-9ae9-daef-f340fd937d72
+BAJH1 (Philosophy & Music-1),BAJH1,Philosophy & Music,1,c96911d5-55a9-a1c5-fcbc-b3d2cbec1bdb
+BAJH2 (Eng&Wrld Religs&Thlg-2),BAJH2,Eng&Wrld Religs&Thlg,2,3824b4d4-e806-3eec-4fe2-cd875b574d6a
+BAJH2 (English & Gaeilge-2),BAJH2,English & Gaeilge,2,b67c3bd0-59ea-fe88-a10e-98218cdad3a6
+BAJH2 (English & Geography-2),BAJH2,English & Geography,2,72bbd760-9b84-a37f-0984-060020222d08
+BAJH2 (English & History-2),BAJH2,English & History,2,26bc3792-32cf-0306-1252-d7a6f2d883f8
+BAJH2 (English & Human Dev-2),BAJH2,English & Human Dev,2,a4827205-c11e-fc22-6570-142f9aac8df3
+BAJH2 (English & Music-2),BAJH2,English & Music,2,d3a55288-9046-0714-435c-e9940c8e0973
+BAJH2 (English & Philosophy-2),BAJH2,English & Philosophy,2,3b572910-ff66-abca-643a-52b8c5f69557
+BAJH2 (Gae&Relig Wrld&Thlg-2),BAJH2,Gae&Relig Wrld&Thlg,2,c453f9b9-0f86-043b-9d16-d4e25072e696
+BAJH2 (Gaeilge & Geography-2),BAJH2,Gaeilge & Geography,2,e10a169a-90c6-1dbf-c265-85fcdf03c6c0
+BAJH2 (Gaeilge & History-2),BAJH2,Gaeilge & History,2,09ca0beb-b4a8-8414-d154-90398da55ab0
+BAJH2 (Gaeilge & Human Dev-2),BAJH2,Gaeilge & Human Dev,2,1958968e-f2ec-5b31-ba45-a6cf2ef95861
+BAJH2 (Gaeilge & Music-2),BAJH2,Gaeilge & Music,2,49cfc333-9f38-8f9c-2563-95b6ed998e5d
+BAJH2 (Gaeilge & Philosophy-2),BAJH2,Gaeilge & Philosophy,2,65b18302-531e-5b81-656b-b7644a64de14
+BAJH2 (HD & Wrld Religs&Thlg-2),BAJH2,HD & Wrld Religs&Thlg,2,e896cf42-fada-99f8-73d8-9932af465780
+BAJH2 (Hist&Wrld Religs&Thlg-2),BAJH2,Hist&Wrld Religs&Thlg,2,abe42767-2372-beaa-46b9-815da7438613
+BAJH2 (History & Geography-2),BAJH2,History & Geography,2,bac531f3-433a-3743-7c2f-522d5b27e7e2
+BAJH2 (Human Dev & Geography-2),BAJH2,Human Dev & Geography,2,7d5cea1d-44d7-5a2d-3cc1-976d264fb54c
+BAJH2 (Human Dev & History-2),BAJH2,Human Dev & History,2,0ffc285a-c642-96cd-9b92-cf62646763fb
+BAJH2 (Human Dev & Music-2),BAJH2,Human Dev & Music,2,1ac4a887-2e77-9f01-a1bb-5325e058fbbd
+BAJH2 (Music & Geography-2),BAJH2,Music & Geography,2,86bd9029-f123-c00d-01c2-161c075d9434
+BAJH2 (Music&Relig Wrld&Thlg-2),BAJH2,Music&Relig Wrld&Thlg,2,ff7bea51-c47c-a213-0032-ab63e8edca01
+BAJH2 (Phil&Relig Wrld&Thlg-2),BAJH2,Phil&Relig Wrld&Thlg,2,56057237-1b4b-ca27-99c7-247b112cd484
+BAJH2 (Philosophy & Geography-2),BAJH2,Philosophy & Geography,2,fe0c35c3-dc34-888c-a652-deb67794066b
+BAJH2 (Philosophy & History-2),BAJH2,Philosophy & History,2,1539c3b6-8b21-6b5a-1acb-2a5ba5afae49
+BAJH2 (Philosophy & Music-2),BAJH2,Philosophy & Music,2,ecce5432-ac89-c927-27a3-e5cb1bbcdad0
+BAJH3 (Eng&Wrld Religs&Thlg-3),BAJH3,Eng&Wrld Religs&Thlg,3,ad690b9b-479f-86e1-11ac-bbf440b986ec
+BAJH3 (English & Gaeilge-3),BAJH3,English & Gaeilge,3,d31a6562-e727-ef09-e7cc-a52cbfd72f93
+BAJH3 (English & Geography-3),BAJH3,English & Geography,3,87070394-3baa-d44f-8aa0-6c15034406af
+BAJH3 (English & History-3),BAJH3,English & History,3,153ed82f-874e-3c66-b514-5d421d69ed79
+BAJH3 (English & Human Dev-3),BAJH3,English & Human Dev,3,9af19be6-9740-6796-1e3f-04abd56c9875
+BAJH3 (English & Music-3),BAJH3,English & Music,3,ff523ed4-e3ca-70ec-ffbd-482fb6be3f5c
+BAJH3 (English & Philosophy-3),BAJH3,English & Philosophy,3,2055ce00-d79d-ebd1-a338-2b13fd901429
+BAJH3 (Gae&Relig Wrld&Thlg-3),BAJH3,Gae&Relig Wrld&Thlg,3,986ca793-d86e-55fe-caa6-5063375a76d0
+BAJH3 (Gaeilge & Geography-3),BAJH3,Gaeilge & Geography,3,d90653de-3f43-115d-9bc3-8b5ae1a1ced2
+BAJH3 (Gaeilge & History-3),BAJH3,Gaeilge & History,3,c4e3933b-9e6b-061b-7657-839671ec9431
+BAJH3 (Gaeilge & Human Dev-3),BAJH3,Gaeilge & Human Dev,3,ddd250fe-d805-ccd3-1558-44e33cba804e
+BAJH3 (Gaeilge & Music-3),BAJH3,Gaeilge & Music,3,a9c5f0fe-5add-dc72-b87e-9570b2ae1626
+BAJH3 (Gaeilge & Philosophy-3),BAJH3,Gaeilge & Philosophy,3,df76a2c2-6bd6-5d56-648a-289d5f8347a7
+BAJH3 (HD & Wrld Religs&Thlg-3),BAJH3,HD & Wrld Religs&Thlg,3,e9a7449b-b9b8-ec32-5d62-626d20eefcf0
+BAJH3 (Hist&Wrld Religs&Thlg-3),BAJH3,Hist&Wrld Religs&Thlg,3,e34f0090-e119-b2c9-0159-041663ce4fe1
+BAJH3 (History & Geography-3),BAJH3,History & Geography,3,e522a049-6834-346e-3d8d-480c6988e012
+BAJH3 (Human Dev & Geography-3),BAJH3,Human Dev & Geography,3,da8f6065-6fd3-256c-595c-8257eddce25a
+BAJH3 (Human Dev & History-3),BAJH3,Human Dev & History,3,d3495578-9f92-ee32-d60a-7baefe9cb7bc
+BAJH3 (Human Dev & Music-3),BAJH3,Human Dev & Music,3,1717e219-20ea-3fea-9a03-c76c57c45271
+BAJH3 (Music & Geography-3),BAJH3,Music & Geography,3,89a87688-b0fa-da80-2585-2a17faf98e22
+BAJH3 (Music&Relig Wrld&Thlg-3),BAJH3,Music&Relig Wrld&Thlg,3,8b8ec4f2-49a3-5d2c-044d-935c75c3b0c0
+BAJH3 (Phil&Relig Wrld&Thlg-3),BAJH3,Phil&Relig Wrld&Thlg,3,d5c8318b-2113-78b0-acc4-7f363fda0774
+BAJH3 (Philosophy & Geography-3),BAJH3,Philosophy & Geography,3,78611cde-680e-13c2-cd2f-bd09216c6302
+BAJH3 (Philosophy & History-3),BAJH3,Philosophy & History,3,a503afbd-2637-d2be-e0c7-159146a76845
+BAJH3 (Philosophy & Music-3),BAJH3,Philosophy & Music,3,09b44e0d-ee8c-64c8-cb48-b83663f16676
+BAJHI4 (Eng & Rel/Wrld and Thlg-4),BAJHI4,Eng & Rel/Wrld and Thlg,4,fdb39f68-a40e-4955-86a1-68ac9d1038c3
+BAJHI4 (English & Geography-4),BAJHI4,English & Geography,4,b949c9c6-7c26-643b-dd6e-00e5a7557264
+BAJHI4 (English & History-4),BAJHI4,English & History,4,ee52d88b-941b-8462-afc5-a1a04aa5e13b
+BAJHI4 (English & Human Dev-4),BAJHI4,English & Human Dev,4,5468dd80-4390-ab3b-d36b-e590b00e1290
+BAJHI4 (English & Music-4),BAJHI4,English & Music,4,cce5b872-2930-63f7-f5fe-1111bf0557e1
+BAJHI4 (English & Phil-4),BAJHI4,English & Phil,4,e09caeb3-7b21-ffbf-5a65-ba45ff67bce9
+BAJHI4 (English and Gaeilge-4),BAJHI4,English and Gaeilge,4,7e42d83d-eaf0-6a5b-d951-4a54561066ca
+BAJHI4 (Gae & Rel/Wrld and Thlg-4),BAJHI4,Gae & Rel/Wrld and Thlg,4,c4cd0360-da52-8323-a10b-c35652fb8f0f
+BAJHI4 (Gaeilge & Geography-4),BAJHI4,Gaeilge & Geography,4,92fa6c98-e50f-b5c8-2d26-17293bc791ea
+BAJHI4 (Gaeilge & History-4),BAJHI4,Gaeilge & History,4,5696f484-52de-8ad2-51bb-c799b0cab5ef
+BAJHI4 (Gaeilge & Human Dev-4),BAJHI4,Gaeilge & Human Dev,4,80b4b8f0-0838-2458-ed91-a69b7d764d1d
+BAJHI4 (Gaeilge & Music-4),BAJHI4,Gaeilge & Music,4,394c2569-2bbc-2d72-8129-f7a4aea739e1
+BAJHI4 (Gaeilge & Phil-4),BAJHI4,Gaeilge & Phil,4,f4a6433e-033b-ad9e-9a4c-c3bc97d0c114
+BAJHI4 (Hist &Rel/Wrld and Thlg-4),BAJHI4,Hist &Rel/Wrld and Thlg,4,e901b45b-ec76-890f-3087-5b079690e254
+BAJHI4 (History and Geography-4),BAJHI4,History and Geography,4,104ad207-5bc4-59cb-0645-9749db815cea
+BAJHI4 (Human Dev & Geography-4),BAJHI4,Human Dev & Geography,4,74170c2a-6c2b-5ed1-0f87-5428e208b2ad
+BAJHI4 (Human Dev & History-4),BAJHI4,Human Dev & History,4,62558e7d-1cb4-1563-5e94-54bad4f34608
+BAJHI4 (Human Dev & Music-4),BAJHI4,Human Dev & Music,4,3de5ad38-9703-d468-046f-d37af5752a6e
+BAJHI4 (HumanDevRel/WrldandThlg-4),BAJHI4,HumanDevRel/WrldandThlg,4,e9c0e97c-64ed-01a8-ce30-a765bf81ac7a
+BAJHI4 (Music and Geography-4),BAJHI4,Music and Geography,4,09cb84b5-b892-a74d-b837-79a99713da81
+BAJHI4 (Music&Rel/Wrld and Thlg-4),BAJHI4,Music&Rel/Wrld and Thlg,4,9b4a9c75-ec24-3f5a-ff12-dbcea694e0e2
+BAJHI4 (Phil & Geography-4),BAJHI4,Phil & Geography,4,3ea4e2a0-25d2-8ffd-8d2a-e92aeb099c51
+BAJHI4 (Phil & History-4),BAJHI4,Phil & History,4,0189667a-b3eb-b08f-cff8-699406cacdfb
+BAJHI4 (Phil & Music-4),BAJHI4,Phil & Music,4,c778158a-d9ff-a6e4-bb54-1d6fbc5e4981
+BAJHN4 (Eng & Rel/Wrld and Thlg-4),BAJHN4,Eng & Rel/Wrld and Thlg,4,5adaeb4a-9aa1-d8ab-16f1-ba60b653668d
+BAJHN4 (English & Geography-4),BAJHN4,English & Geography,4,53fa2fb8-4272-0230-8824-09ef47b8a9e9
+BAJHN4 (English & History-4),BAJHN4,English & History,4,be657eda-08cf-a746-490b-b497bbb955cf
+BAJHN4 (English & Human Dev-4),BAJHN4,English & Human Dev,4,1691d7b6-83b3-873e-3e1c-b235e46b8d37
+BAJHN4 (English & Music-4),BAJHN4,English & Music,4,cec1fecf-f48d-3801-bf59-b84877ce1940
+BAJHN4 (English & Phil-4),BAJHN4,English & Phil,4,a213fd37-b185-795b-4bc0-4a827235ac9b
+BAJHN4 (English and Gaeilge-4),BAJHN4,English and Gaeilge,4,d1e1dab5-dd18-90ae-4d05-b51dd9e55369
+BAJHN4 (Gae & Rel/Wrld and Thlg-4),BAJHN4,Gae & Rel/Wrld and Thlg,4,39614fde-d550-c6de-25de-5c179e131691
+BAJHN4 (Gaeilge & Geography-4),BAJHN4,Gaeilge & Geography,4,4c970dd3-2a79-7da6-2eae-a34eb0c59eb3
+BAJHN4 (Gaeilge & History-4),BAJHN4,Gaeilge & History,4,d2c83258-b2b8-ac7c-42d5-56e6474edea6
+BAJHN4 (Gaeilge & Human Dev-4),BAJHN4,Gaeilge & Human Dev,4,0a5d9834-1810-7b2b-e19f-540c7d244304
+BAJHN4 (Gaeilge & Music-4),BAJHN4,Gaeilge & Music,4,6f53635e-42c1-c9da-5674-433848c93d79
+BAJHN4 (Gaeilge & Phil-4),BAJHN4,Gaeilge & Phil,4,c8ea3575-4a11-f24e-1efc-0710e0afa7ee
+BAJHN4 (Hist &Rel/Wrld and Thlg-4),BAJHN4,Hist &Rel/Wrld and Thlg,4,de66adaa-c442-dca5-3eb4-31284d033b69
+BAJHN4 (History and Geography-4),BAJHN4,History and Geography,4,5dac3391-f9f2-0027-03bd-77acd9e36492
+BAJHN4 (Human Dev & Geography-4),BAJHN4,Human Dev & Geography,4,ad95dd15-8c3e-915c-a4c8-4a65cb82d176
+BAJHN4 (Human Dev & History-4),BAJHN4,Human Dev & History,4,1517fe93-399a-58d3-ed3d-6f9c465e03ce
+BAJHN4 (Human Dev & Music-4),BAJHN4,Human Dev & Music,4,f26dc6b9-8951-a89a-9d00-fa6c2f69408e
+BAJHN4 (HumanDevRel/WrldandThlg-4),BAJHN4,HumanDevRel/WrldandThlg,4,de295fd4-50e9-2b92-50c1-ca8ade40d82f
+BAJHN4 (Music and Geography-4),BAJHN4,Music and Geography,4,cc67273b-cf09-1f94-3f23-9c5088db69b9
+BAJHN4 (Music&Rel/Wrld and Thlg-4),BAJHN4,Music&Rel/Wrld and Thlg,4,3af3aa8e-ce6d-dfcb-dce8-872957a4cbde
+BAJHN4 (Phil & Geography-4),BAJHN4,Phil & Geography,4,5bc7ec4a-3348-16ca-d765-50a414dd3dbc
+BAJHN4 (Phil & History-4),BAJHN4,Phil & History,4,18df2c60-1292-3d62-319d-e81456de9d50
+BAJHN4 (Phil & Music-4),BAJHN4,Phil & Music,4,27dc873b-16bd-3825-7e91-5dde47a7bcbc
+BAJI1 (Gaeilge & French-1),BAJI1,Gaeilge & French,1,475de09b-b952-f15f-d468-61eb0f3fa7a4
+BAJI1 (Gaeilge & German-1),BAJI1,Gaeilge & German,1,c66c6d45-dd0a-0cb8-c5f8-de229ba72351
+BAJI1 (Gaeilge & Spanish-1),BAJI1,Gaeilge & Spanish,1,0b6c41bb-7d87-2580-8d02-ab47f06c3819
+BAJI1 (Politics & French-1),BAJI1,Politics & French,1,d337d18a-add0-eb70-5d1e-6bf1a0ece1e5
+BAJI1 (Politics & German-1),BAJI1,Politics & German,1,0770c18a-ec6f-4389-0cfc-a06efbedfef9
+BAJI1 (Politics & Spanish-1),BAJI1,Politics & Spanish,1,a7e49d4a-5dc7-609e-8dae-e1dd23e759e5
+BAJI2 (Gaeilge & French-2),BAJI2,Gaeilge & French,2,ed421a7a-da85-fb77-7cb3-232230c7d62b
+BAJI2 (Gaeilge & German-2),BAJI2,Gaeilge & German,2,858559a5-9756-133a-2a7c-8e2de633deed
+BAJI2 (Gaeilge & Spanish-2),BAJI2,Gaeilge & Spanish,2,f050dba1-67b9-f6b7-5075-073393708f65
+BAJI2 (Politics & French-2),BAJI2,Politics & French,2,1d244cac-c682-0af6-e521-9315fc94738b
+BAJI2 (Politics & German-2),BAJI2,Politics & German,2,c2ead9c5-79e3-8605-8ff9-ec217929adf1
+BAJI2 (Politics & Spanish-2),BAJI2,Politics & Spanish,2,0ee79873-dff1-6f0d-41e8-11341dca8c96
+BAJI3 (Gaeilge & French-3),BAJI3,Gaeilge & French,3,cd74d7ab-387a-f2ef-bb21-1ea089bc99a0
+BAJI3 (Gaeilge & German-3),BAJI3,Gaeilge & German,3,2455337e-1335-096d-5a09-f84bba3f8974
+BAJI3 (Gaeilge & Spanish-3),BAJI3,Gaeilge & Spanish,3,25a1ef0d-84e7-d5f8-08c1-39e6b41a9e09
+BAJI3 (Politics & French-3),BAJI3,Politics & French,3,8cef3b9c-7271-ef04-09fc-2beb3239acfe
+BAJI3 (Politics & German-3),BAJI3,Politics & German,3,0b04e645-35af-b218-5d49-9354f07ecdb6
+BAJI3 (Politics & Spanish-3),BAJI3,Politics & Spanish,3,1d0701b9-927c-000b-f67f-9e6a2fd3f97c
+BAJII4 (Gaeilge & FR [Interm]-4),BAJII4,Gaeilge & FR [Interm],4,86324178-f335-caf2-501c-9909138ecdab
+BAJII4 (Gaeilge & GE [Interm]-4),BAJII4,Gaeilge & GE [Interm],4,eaf4e118-2670-ae89-435e-b5cf51b4accb
+BAJII4 (Gaeilge & SP [Interm]-4),BAJII4,Gaeilge & SP [Interm],4,cca394fe-59da-3930-4297-24c98efa5416
+BAJII4 (Politics & FR [Interm]-4),BAJII4,Politics & FR [Interm],4,4604e3dc-4a20-6e4e-2708-f5a513d7d401
+BAJII4 (Politics & GE [Interm]-4),BAJII4,Politics & GE [Interm],4,741db860-bd06-edc5-0757-91d942a8878d
+BAJII4 (Politics & SP [Interm]-4),BAJII4,Politics & SP [Interm],4,c2a337cd-f075-e16f-fa9d-ee9aab16738c
+BAJIN4 (Gaeilge & FR [Interm]-4),BAJIN4,Gaeilge & FR [Interm],4,f5546463-cc67-e80e-047f-77d9ee1739ba
+BAJIN4 (Gaeilge & GE [Interm]-4),BAJIN4,Gaeilge & GE [Interm],4,8b2624ef-5fa1-0557-db90-c934f6b84b93
+BAJIN4 (Gaeilge & SP [Interm]-4),BAJIN4,Gaeilge & SP [Interm],4,8d2f5040-94c0-4a09-4883-9680888ac48a
+BAJIN4 (Politics & FR [Interm]-4),BAJIN4,Politics & FR [Interm],4,14abcb08-1de5-8b31-4052-dd311a10f13e
+BAJIN4 (Politics & GE [Interm]-4),BAJIN4,Politics & GE [Interm],4,15c30a32-d995-cce9-9a0b-782e3368f90b
+BAJIN4 (Politics & SP [Interm]-4),BAJIN4,Politics & SP [Interm],4,7add3f53-00c6-b67e-8649-3b170ca43ed2
+BAJL1 (Law & French-1),BAJL1,Law & French,1,e28abb2e-32c6-a859-9cab-9fc0dd11fb63
+BAJL1 (Law & German-1),BAJL1,Law & German,1,7f065757-f2bf-a47d-1a5a-d08bcfe3870e
+BAJL1 (Law & History-1),BAJL1,Law & History,1,e8b80c91-48d2-9ca2-5617-c48eb33d798b
+BAJL1 (Law & Media Studies-1),BAJL1,Law & Media Studies,1,788d70f9-9484-5c66-ea52-d07a9f0118b6
+BAJL1 (Law & Spanish-1),BAJL1,Law & Spanish,1,3e112cc0-a0b0-45a8-7520-1d889fe76439
+BAJL2 (Law & French-2),BAJL2,Law & French,2,14f44fce-15d6-47b7-e4ca-8eed1d72bbe8
+BAJL2 (Law & German-2),BAJL2,Law & German,2,08979742-7e55-a518-7c96-80f241f8d60c
+BAJL2 (Law & History-2),BAJL2,Law & History,2,343896fc-f08f-6087-8ce6-a9b439debcb8
+BAJL2 (Law & Media Studies-2),BAJL2,Law & Media Studies,2,54d350a6-0abd-2084-8264-363eb6b2d514
+BAJL2 (Law & Spanish-2),BAJL2,Law & Spanish,2,9e9c6384-502e-1e55-5f74-583141263441
+BAJL3 (Law & French-3),BAJL3,Law & French,3,819b1ff9-504b-c579-b041-dd60ce76c782
+BAJL3 (Law & German-3),BAJL3,Law & German,3,a1a0d7dd-7ed9-aab3-10a3-fd7d717aeb7b
+BAJL3 (Law & History-3),BAJL3,Law & History,3,2cd4e207-8b95-1eb1-7312-411ed5ce2afd
+BAJL3 (Law & Media Studies-3),BAJL3,Law & Media Studies,3,0daf4c49-fa3d-2e2e-55b3-a3ae8ec07dbd
+BAJL3 (Law & Spanish-3),BAJL3,Law & Spanish,3,ad90664f-71aa-377b-6359-8a9b3ac3f374
+BAJLI4 (Law & FR-Interm-4),BAJLI4,Law & FR-Interm,4,fd75fffe-eaa3-eee4-85b6-9470e35791f9
+BAJLI4 (Law & GE-Interm-4),BAJLI4,Law & GE-Interm,4,1d4ea994-be2d-2dd9-4dd9-acb41db581f4
+BAJLI4 (Law & History-4),BAJLI4,Law & History,4,8a7a1afa-ec44-56a3-22e3-c50079e882a1
+BAJLI4 (Law & Media Studies-4),BAJLI4,Law & Media Studies,4,fdfba870-94c2-297a-a2e7-0c5d07629c7b
+BAJLI4 (Law & SP-Interm-4),BAJLI4,Law & SP-Interm,4,04febef4-6220-f66e-d79e-6832df1471b8
+BAJLN4 (Law & FR-Interm-4),BAJLN4,Law & FR-Interm,4,9dd5f365-65fc-7e12-9766-23b968abad8c
+BAJLN4 (Law & GE-Interm-4),BAJLN4,Law & GE-Interm,4,98abfae3-8ce3-e8a1-8305-8e52f28ca25c
+BAJLN4 (Law & History-4),BAJLN4,Law & History,4,46f3887a-448e-6e91-02ef-166177c8b6a7
+BAJLN4 (Law & Media Studies-4),BAJLN4,Law & Media Studies,4,95b30b7b-139f-2684-83ae-6dd76e29c978
+BAJLN4 (Law & SP-Interm-4),BAJLN4,Law & SP-Interm,4,6f53e7e7-66e9-ce52-082d-9451285b7cd7
+BAJM1 (Media Sts & English-1),BAJM1,Media Sts & English,1,0defe522-9e27-30a2-4395-7ba1dc9c01d7
+BAJM1 (Media Sts & Politics-1),BAJM1,Media Sts & Politics,1,1e6f8364-d3d1-3e0f-5247-334a8d32f6fd
+BAJM1 (Media Studies & French-1),BAJM1,Media Studies & French,1,832fc74a-0ba7-d9a5-eecc-59433862daad
+BAJM1 (Media Studies & German-1),BAJM1,Media Studies & German,1,7eb83bf2-2c65-94bf-7a64-f016ea108b2d
+BAJM1 (Media Studies & Spanish-1),BAJM1,Media Studies & Spanish,1,5777cd44-3390-8f94-2007-b36e9328da87
+BAJM2 (Media Sts & English-2),BAJM2,Media Sts & English,2,934785b5-46ed-5c12-04c7-a2d6f37e1bb9
+BAJM2 (Media Sts & Politics-2),BAJM2,Media Sts & Politics,2,fe92935f-c438-4e72-42c3-62a982e9a174
+BAJM2 (Media Studies & French-2),BAJM2,Media Studies & French,2,4f8711aa-d5ea-b6bf-0165-2266a4812f4b
+BAJM2 (Media Studies & German-2),BAJM2,Media Studies & German,2,199a1045-b9f3-7020-2b19-823b78067979
+BAJM2 (Media Studies & Spanish-2),BAJM2,Media Studies & Spanish,2,2d2a4f7f-7e3b-eea4-52ca-4139273f0216
+BAJM3 (Media Sts & English-3),BAJM3,Media Sts & English,3,267f2def-425d-ec70-f9ea-166bd1271743
+BAJM3 (Media Sts & Politics-3),BAJM3,Media Sts & Politics,3,1dc4ed00-8269-72af-677f-928e9549bae7
+BAJM3 (Media Studies & French-3),BAJM3,Media Studies & French,3,f091fd32-5d34-40d1-f8e4-5808f88bc070
+BAJM3 (Media Studies & German-3),BAJM3,Media Studies & German,3,069a1b49-b2f3-1327-aaa9-a369f56360e6
+BAJM3 (Media Studies & Spanish-3),BAJM3,Media Studies & Spanish,3,7d19f19c-e222-3ba6-f9bb-b36dcd906eff
+BAJMI4 (Media Studies & English-4),BAJMI4,Media Studies & English,4,135002a6-a210-34d3-5adb-e05616cc6d47
+BAJMI4 (Media Studies & Pols-4),BAJMI4,Media Studies & Pols,4,65c71c2e-a2a8-5e3f-3295-1a0c33fd6c1e
+BAJMI4 (MediaStudies&FR[Interm]-4),BAJMI4,MediaStudies&FR[Interm],4,898d4948-d0e7-627c-c63e-de595e7b8d54
+BAJMI4 (MediaStudies&GE[Interm]-4),BAJMI4,MediaStudies&GE[Interm],4,f0c29d8d-b624-8107-4e17-fe4558d03f75
+BAJMI4 (MediaStudies&SP[Interm]-4),BAJMI4,MediaStudies&SP[Interm],4,1e46f630-d292-ae3d-cb59-355237fd133b
+BAJMN4 (Media Studies & English-4),BAJMN4,Media Studies & English,4,84810185-4d76-098b-7dfe-9abdd2802b1b
+BAJMN4 (Media Studies & Pols-4),BAJMN4,Media Studies & Pols,4,bd473d41-435a-fdf3-4330-b1c4c2853234
+BAJMN4 (MediaStudies&FR[Interm]-4),BAJMN4,MediaStudies&FR[Interm],4,cfe41516-2320-fe0a-6b8c-509247552262
+BAJMN4 (MediaStudies&GE[Interm]-4),BAJMN4,MediaStudies&GE[Interm],4,2c1da409-827e-115c-321d-b91ae45f6bc0
+BAJMN4 (MediaStudies&SP[Interm]-4),BAJMN4,MediaStudies&SP[Interm],4,caf534d0-8349-7428-a7a2-826167d39905
+BAJP1 (Politics & Geography-1),BAJP1,Politics & Geography,1,aeb145eb-350e-391b-9913-1fbdf52c98ae
+BAJP1 (Politics & History-1),BAJP1,Politics & History,1,e54f1ffd-661a-2a06-0881-ad9e51ecad32
+BAJP1 (Politics & Law-1),BAJP1,Politics & Law,1,3c0a2aba-7c1b-fbb5-7798-7a4abe01d4ef
+BAJP1 (Pols&Relig Wrld&Thlg-1),BAJP1,Pols&Relig Wrld&Thlg,1,fe76bc69-7bcf-e3bc-0d10-71a89fc43ce5
+BAJP2 (Politics & Geography-2),BAJP2,Politics & Geography,2,270fd71f-98a7-c47a-8489-29a286ec0a8d
+BAJP2 (Politics & History-2),BAJP2,Politics & History,2,9f97b111-35b2-0825-7de9-e894e63cb804
+BAJP2 (Politics & Law-2),BAJP2,Politics & Law,2,ea90b2f4-7ee5-71d4-17dd-1aab05a3c6f9
+BAJP2 (Pols&Relig Wrld&Thlg-2),BAJP2,Pols&Relig Wrld&Thlg,2,d7ec5518-ec54-5da8-fe31-fb894dcfbc6b
+BAJP3 (Politics & Geography-3),BAJP3,Politics & Geography,3,1a9fb7fb-02e2-bc01-bc12-cdb94d130b4a
+BAJP3 (Politics & History-3),BAJP3,Politics & History,3,c7f778a9-aa70-6c12-a4ab-d0dee77e3839
+BAJP3 (Politics & Law-3),BAJP3,Politics & Law,3,883149d9-4502-a9a6-43bd-65161fef46b7
+BAJP3 (Pols&Relig Wrld&Thlg-3),BAJP3,Pols&Relig Wrld&Thlg,3,665bfe3e-777b-784c-b87a-7f3fa6ae4237
+BAJPI4 (Pol & Rel/Wrld and Thlg-4),BAJPI4,Pol & Rel/Wrld and Thlg,4,bb888a30-702c-0fb7-988d-db600fb63286
+BAJPI4 (Politics & Geography-4),BAJPI4,Politics & Geography,4,2c9a32fa-439f-4b26-a15c-2bbd74e4bf2d
+BAJPI4 (Politics & History-4),BAJPI4,Politics & History,4,b1bd8ee5-8245-044e-664b-ba89b0ff52dc
+BAJPI4 (Politics & Law-4),BAJPI4,Politics & Law,4,1d9c4362-e121-4e1d-2983-eb593f55bf7f
+BAJPN4 (Pol & Rel/Wrld and Thlg-4),BAJPN4,Pol & Rel/Wrld and Thlg,4,a9ee55f1-2c85-3dc8-722f-675cc0b1f2aa
+BAJPN4 (Politics & Geography-4),BAJPN4,Politics & Geography,4,d7e254c0-78c6-9fdd-83e2-8f35efaecbc5
+BAJPN4 (Politics & History-4),BAJPN4,Politics & History,4,f3c3595b-338b-6b2a-6500-a14806be20c6
+BAJPN4 (Politics & Law-4),BAJPN4,Politics & Law,4,d88ccdde-7334-92d6-087b-993a8aa510da
+BAPSY1 (Psychology-FL-1),BAPSY1,Psychology-FL,1,c8406626-e6f5-90a3-0536-efb334d52bea
+BAPY1 (Psychology & Philosophy-1),BAPY1,Psychology & Philosophy,1,59907f86-951e-7aea-3910-b868f12dec6e
+BAPY1 (Psychology & Sociology-1),BAPY1,Psychology & Sociology,1,641046a5-77f3-d9b1-332d-d5ea052c58aa
+BARH1 (BARH-Religious Ed & History-1 ),BARH1,BARH-Religious Ed & History,1,eee7f8e4-f36d-06dc-6423-f22d5ed7a8a3
+BASM1 (Humanities Single Module-1),BASM1,Humanities Single Module,1,9e968b1a-22a2-c5ba-eeee-0b1f6ecdc3dd
+BATRS1 (Religious Studies-1),BATRS1,Religious Studies,1,6cd5c841-7466-8dd2-8431-289cdbfc82c4
+BCES1 (Climate & Environ Stp-1),BCES1,Climate & Environ Stp,1,cd8210f6-3eac-63a3-1976-3fc4ab7bf49f
+BCES2 (Climate & Environ Stp-2),BCES2,Climate & Environ Stp,2,b576b50a-dfb2-5cf0-552f-652fc572884f
+BCES3 (Climate & Environ Stp-3),BCES3,Climate & Environ Stp,3,7aac767f-f446-fa99-4994-9bde0d6ab621
+BCESN4 (Climate/Environ Sustain-4),BCESN4,Climate/Environ Sustain,4,ed87952d-33c5-172b-06c9-69dfbd896522
+BCESYA4 (Climate/Environ Sustain-4),BCESYA4,Climate/Environ Sustain,4,64b6a70d-356e-263b-7fbf-c962a11cb49b
+BCL2 (Law-2),BCL2,Law,2,27c31686-8d10-296c-9c63-c7d8cefa5f13
+BCL3 (Law-3),BCL3,Law,3,e69c64af-9357-2e52-74df-3746abaf4b4c
+BCLN4 (Law-4),BCLN4,Law,4,e6ef3e36-d7eb-c402-d3e4-0176dd122d28
+BCLYA4 (Law-4),BCLYA4,Law,4,d8fcc3d2-13ab-ddc5-988b-5a45432f26fc
+BECE2 (Early Childhood Edu-2),BECE2,Early Childhood Edu,2,e84b46ec-f34a-5fe6-fb1f-1f8e16f3b897
+BECE3 (Early Childhood Edu-3),BECE3,Early Childhood Edu,3,60d3817d-333e-8c00-103c-87e1e4dae33a
+BECE3 (Early Childhood Edu-SA-3),BECE3,Early Childhood Edu-SA,3,aec13717-342c-0a1a-bd67-8d7ae019aa40
+BECE4 (Early Childhood Edu-4),BECE4,Early Childhood Edu,4,21bf268f-89b7-9a1f-b185-90ce8d143e23
+BED (Primary Edu Route 2-GlobCit-3),BED,Primary Edu Route 2-GlobCit,3,987cdcb1-9574-4a54-9a35-a28d38de1c38
+BED (Primary Edu Route 2-TnaG-3),BED,Primary Edu Route 2-TnaG,3,536dbfec-f5ac-da3d-770f-f9bb8c271038
+BED1 (Primary Ed-Church of Ireland-1),BED1,Primary Ed-Church of Ireland,1,71926942-c043-cabd-fcba-4b806607b25a
+BED1 (Primary Edu Route 1-1),BED1,Primary Edu Route 1,1,cce96d49-4825-1824-c9ac-fd101c4bc123
+BED2 (Primary Ed Route 1-ISL-2),BED2,Primary Ed Route 1-ISL,2,463280b6-8453-55d8-4799-186678ab766c
+BED2 (Primary Ed-Church of Ireland-2),BED2,Primary Ed-Church of Ireland,2,26d7039d-2e22-1134-3054-006dd295cd4d
+BED2 (Primary Edu Route 1-DL-2),BED2,Primary Edu Route 1-DL,2,461c5ac8-2ce7-e9a7-9ca2-1b87654e0943
+BED2 (Primary Edu Route 1-Drama-2),BED2,Primary Edu Route 1-Drama,2,679b8477-4adb-64c8-122e-8114bab313c9
+BED2 (Primary Edu Route 1-ECE-2),BED2,Primary Edu Route 1-ECE,2,d35b152b-54a3-f8be-84b2-04c9ac7490de
+BED2 (Primary Edu Route 1-French-2),BED2,Primary Edu Route 1-French,2,41677188-4d9d-d2bd-b6b3-60759f322a7b
+BED2 (Primary Edu Route 1-Gaeilge-2),BED2,Primary Edu Route 1-Gaeilge,2,f3cb1c10-22c2-7158-fe62-c955cdf55753
+BED2 (Primary Edu Route 1-GEO-2),BED2,Primary Edu Route 1-GEO,2,27d3afa2-597f-f9b3-4a78-0b9559b33388
+BED2 (Primary Edu Route 1-GloblCit-2),BED2,Primary Edu Route 1-GloblCit,2,b408bb3a-dd6e-b484-aec7-6660271dbb7f
+BED2 (Primary Edu Route 1-HD-2),BED2,Primary Edu Route 1-HD,2,29223c44-4073-8334-e877-12067978bfb1
+BED2 (Primary Edu Route 1-HIST-2),BED2,Primary Edu Route 1-HIST,2,aa3aa5c1-5abc-e574-2f63-5b75672d4c30
+BED2 (Primary Edu Route 1-Lit-2),BED2,Primary Edu Route 1-Lit,2,3b0ece38-897d-00f6-c5da-6dba744b0295
+BED2 (Primary Edu Route 1-MTH Ed-2),BED2,Primary Edu Route 1-MTH Ed,2,b2ebd729-0ce2-0fcc-8644-63abd0c7f535
+BED2 (Primary Edu Route 1-MU Ed-2),BED2,Primary Edu Route 1-MU Ed,2,7344f8de-85da-0bb4-d943-5cdc516a059d
+BED2 (Primary Edu Route 1-PE-2),BED2,Primary Edu Route 1-PE,2,009771c5-e020-db8f-0779-85ff82c4d8bf
+BED2 (Primary Edu Route 1-SE-2),BED2,Primary Edu Route 1-SE,2,931c0f99-b4c3-2de1-2284-d94e8236dd24
+BED2 (Primary Edu Route 1-SIE-2),BED2,Primary Edu Route 1-SIE,2,15246f57-150e-9873-1611-f812bc90cf13
+BED2 (Primary Edu Route 1-SmallSch-2),BED2,Primary Edu Route 1-SmallSch,2,9f492268-de9f-706d-990c-638b7fd9647a
+BED2 (Primary Edu Route 1-Spanish-2),BED2,Primary Edu Route 1-Spanish,2,5587deaa-e607-636f-c174-47de634e7dc4
+BED2 (Primary Edu Route 1-TNG-2),BED2,Primary Edu Route 1-TNG,2,b0345a4a-4152-c118-d0dd-a1f1c6fe016b
+BED2 (Primary Edu Route 1-VA-2),BED2,Primary Edu Route 1-VA,2,bc289475-3af4-5b48-b568-890f8aac0770
+BED2 (Primary Edu Route 2-DL-2),BED2,Primary Edu Route 2-DL,2,38876d23-556a-8b38-4df4-4fd80a6596b6
+BED2 (Primary Edu Route 2-Drama-2),BED2,Primary Edu Route 2-Drama,2,1bac8516-6227-95a1-12ee-6288ef40e774
+BED2 (Primary Edu Route 2-ECE-2),BED2,Primary Edu Route 2-ECE,2,0295e093-abea-cb39-5361-295c66bbe8e9
+BED2 (Primary Edu Route 2-Fr-2),BED2,Primary Edu Route 2-Fr,2,85ed97ed-4f3c-e915-4846-8adb441d7034
+BED2 (Primary Edu Route 2-Geo Ed-2),BED2,Primary Edu Route 2-Geo Ed,2,3dd22aee-b782-1357-8eb7-610f1322193a
+BED2 (Primary Edu Route 2-Lit-2),BED2,Primary Edu Route 2-Lit,2,4407b9f5-d07d-171b-56da-989f45cda16e
+BED2 (Primary Edu Route 2-MTH Ed-2),BED2,Primary Edu Route 2-MTH Ed,2,5ac919ca-161e-e815-bf2a-50903ae49d3b
+BED2 (Primary Edu Route 2-MU Ed-2),BED2,Primary Edu Route 2-MU Ed,2,aa17766a-310f-dfbb-9541-93f4cdd1939c
+BED2 (Primary Edu Route 2-PE-2),BED2,Primary Edu Route 2-PE,2,7539071b-790d-0478-f42f-3d64ea819143
+BED2 (Primary Edu Route 2-SE-2),BED2,Primary Edu Route 2-SE,2,375e56b7-2c49-035b-810a-d0e2482c6854
+BED2 (Primary Edu Route 2-SIE-2),BED2,Primary Edu Route 2-SIE,2,d280f602-7cb8-217b-3710-3c15a9ff98c7
+BED2 (Primary Edu Route 2-Sml Sch-2),BED2,Primary Edu Route 2-Sml Sch,2,21f0008f-5b83-b4be-416a-cc8914f35414
+BED2 (Primary Edu Route 2-Sp-2),BED2,Primary Edu Route 2-Sp,2,a1dca24c-c6e7-6bc1-991b-6e8f7a9f1b2f
+BED2 (Primary Edu Route 2-TNG-2),BED2,Primary Edu Route 2-TNG,2,44e5d4ff-2559-103f-ebc5-d7a95bd19872
+BED2 (Primary Edu Route 2-VA-2),BED2,Primary Edu Route 2-VA,2,90b5c32c-d4ad-1626-345a-3ccb9c5dc17a
+BED3 (Primary Ed-Church of Ireland-3),BED3,Primary Ed-Church of Ireland,3,6c9fd3de-1257-1858-0ba0-bd97bd351986
+BED3 (Primary Edu Route 1-DL-3),BED3,Primary Edu Route 1-DL,3,b4392859-54fa-00bb-0adf-e7f8231d73e6
+BED3 (Primary Edu Route 1-Drama-3),BED3,Primary Edu Route 1-Drama,3,1aaf9c10-3b6b-21b2-b1cb-3bd9a7bc2e30
+BED3 (Primary Edu Route 1-ECE-3),BED3,Primary Edu Route 1-ECE,3,95085c1e-ac51-35ab-346d-96a8cb7efaa9
+BED3 (Primary Edu Route 1-French-3),BED3,Primary Edu Route 1-French,3,47bbfa76-e021-e6e9-ea80-a6ca021186db
+BED3 (Primary Edu Route 1-Gaeilge-3),BED3,Primary Edu Route 1-Gaeilge,3,955a1452-9b10-4ff9-a752-9043ac8286d7
+BED3 (Primary Edu Route 1-GEO-3),BED3,Primary Edu Route 1-GEO,3,6d7d6a21-4aa3-642c-a68e-6830a558613b
+BED3 (Primary Edu Route 1-GlobCit-3),BED3,Primary Edu Route 1-GlobCit,3,ff31d59d-0bc8-80cb-3261-c33bc8447b9f
+BED3 (Primary Edu Route 1-HD-3),BED3,Primary Edu Route 1-HD,3,a62f822f-499c-d405-d2d6-60097cf6ea7e
+BED3 (Primary Edu Route 1-HIST-3),BED3,Primary Edu Route 1-HIST,3,e3bff7f8-9e34-7df2-46e1-be91a100b70b
+BED3 (Primary Edu Route 1-Lit-3),BED3,Primary Edu Route 1-Lit,3,fe3a8c48-8d01-71b4-b178-c53bb29dae38
+BED3 (Primary Edu Route 1-MTH Ed-3),BED3,Primary Edu Route 1-MTH Ed,3,4992398a-9ad7-32b5-d8ca-1dc30242345e
+BED3 (Primary Edu Route 1-MU Ed-3),BED3,Primary Edu Route 1-MU Ed,3,70056a62-5f7b-5ad8-9518-3e37a0660bdc
+BED3 (Primary Edu Route 1-PE-3),BED3,Primary Edu Route 1-PE,3,71b4a589-9890-12c8-7cc1-4ad63c00abbe
+BED3 (Primary Edu Route 1-SE-3),BED3,Primary Edu Route 1-SE,3,41caedda-252d-8715-2d6d-1ffb5a7c0753
+BED3 (Primary Edu Route 1-SIE-3),BED3,Primary Edu Route 1-SIE,3,d51da848-7c86-8257-895a-3f8cfdd4d0eb
+BED3 (Primary Edu Route 1-SmallSch-3),BED3,Primary Edu Route 1-SmallSch,3,edd0bc8c-380d-c59f-9c66-efc1bbad4bf7
+BED3 (Primary Edu Route 1-Spanish-3),BED3,Primary Edu Route 1-Spanish,3,3e082f48-1389-07e0-42c8-958b0c77bb73
+BED3 (Primary Edu Route 1-TNG-3),BED3,Primary Edu Route 1-TNG,3,bb46c912-b07d-6288-85f3-04d9ea34d29f
+BED3 (Primary Edu Route 1-VA-3),BED3,Primary Edu Route 1-VA,3,22018dde-f70d-b46f-0f74-ae460a76618c
+BED3 (Primary Edu Route 2-DL-3),BED3,Primary Edu Route 2-DL,3,bb29ba6c-16fc-e364-4c20-5bfc864cf354
+BED3 (Primary Edu Route 2-ECE-3),BED3,Primary Edu Route 2-ECE,3,a4d11d01-3080-f8ff-9b82-8fcc19c50e55
+BED3 (Primary Edu Route 2-GEO Ed-3),BED3,Primary Edu Route 2-GEO Ed,3,3e04dae8-348d-1784-f898-bfd75bbfa1ae
+BED3 (Primary Edu Route 2-HD-3),BED3,Primary Edu Route 2-HD,3,ac33a843-c3c3-6979-e9e5-bd45cf71a394
+BED3 (Primary Edu Route 2-Lit-3),BED3,Primary Edu Route 2-Lit,3,1b574154-e135-683e-8dd2-8127cdfd3de8
+BED3 (Primary Edu Route 2-MTH Ed-3),BED3,Primary Edu Route 2-MTH Ed,3,29ecd646-1650-7b59-9a74-6a973794ade0
+BED3 (Primary Edu Route 2-MU Ed-3),BED3,Primary Edu Route 2-MU Ed,3,ca8bd2da-d60e-9a8d-9449-8e8c992494d8
+BED3 (Primary Edu Route 2-PE-3),BED3,Primary Edu Route 2-PE,3,d210e919-69cf-731f-3078-b683d0d3ada7
+BED3 (Primary Edu Route 2-SE-3),BED3,Primary Edu Route 2-SE,3,4c5a3134-98c8-9a95-3da0-c893f45feef3
+BED3 (Primary Edu Route 2-SIE-3),BED3,Primary Edu Route 2-SIE,3,d074b0b4-8ef8-bff1-f96c-8be4b443f187
+BED3 (Primary Edu Route 2-SmallSch-3),BED3,Primary Edu Route 2-SmallSch,3,eaa2b49d-7499-03eb-79b5-10d9bac583d5
+BED3 (Primary Edu Route 2-Spanish-3),BED3,Primary Edu Route 2-Spanish,3,8f9ac095-d38a-69d6-1ca6-31378b5d3b0c
+BED3 (Primary Edu Route 2-VA-3),BED3,Primary Edu Route 2-VA,3,467e209d-a859-b81e-2983-e00d695261f5
+BED3 (Primary Edu Routes-SA-3),BED3,Primary Edu Routes-SA,3,dba3684f-da5f-f850-a7ac-8d0f61cf209d
+BED4 (Primary Edu Routes -DL-4),BED4,Primary Edu Routes -DL,4,5acbe80c-e332-714d-e5f3-386f86777bab
+BED4 (Primary Edu Routes -Drama-4),BED4,Primary Edu Routes -Drama,4,e1fca15b-9a80-369d-b5bd-f6ecd07bcae6
+BED4 (Primary Edu Routes -ECE-4),BED4,Primary Edu Routes -ECE,4,945bc556-91e2-be58-64e5-e032122c6f0d
+BED4 (Primary Edu Routes -Gaeilge-4),BED4,Primary Edu Routes -Gaeilge,4,04d1b02d-3baf-618c-8078-60f8d3181b93
+BED4 (Primary Edu Routes -GEO Ed-4),BED4,Primary Edu Routes -GEO Ed,4,2df1e1f3-fdce-bb24-33ac-2c5b69d6eefc
+BED4 (Primary Edu Routes -GloblCit-4),BED4,Primary Edu Routes -GloblCit,4,4e7c25ed-e20f-d2f4-3c2e-9a464235b412
+BED4 (Primary Edu Routes -HD-4),BED4,Primary Edu Routes -HD,4,804e6a74-4823-9e7f-71e4-30a09891aaf6
+BED4 (Primary Edu Routes -HIST-4),BED4,Primary Edu Routes -HIST,4,e217e2b5-0757-5f24-1181-9ab6d8888efe
+BED4 (Primary Edu Routes -Lit-4),BED4,Primary Edu Routes -Lit,4,784031ac-158b-a2c4-75ed-23d8b86c86fe
+BED4 (Primary Edu Routes -MTH Ed-4),BED4,Primary Edu Routes -MTH Ed,4,936e179b-745b-8dab-ec15-492e878ac95a
+BED4 (Primary Edu Routes -MU Ed-4),BED4,Primary Edu Routes -MU Ed,4,2322062d-1f49-d2dc-03f9-6dd70f6e1edd
+BED4 (Primary Edu Routes -PE-4),BED4,Primary Edu Routes -PE,4,f7a5b017-793a-cb84-37b6-efd2d679ad9d
+BED4 (Primary Edu Routes -SE-4),BED4,Primary Edu Routes -SE,4,02dbca0f-807e-57c5-c7da-61c98a30ee96
+BED4 (Primary Edu Routes -SIE-4),BED4,Primary Edu Routes -SIE,4,05ab6c46-6af2-bfe4-9fc2-167cc7b8e32b
+BED4 (Primary Edu Routes -SmallSch-4),BED4,Primary Edu Routes -SmallSch,4,00fc259c-6797-5cef-27fb-7241c043ef1f
+BED4 (Primary Edu Routes -TNG-4),BED4,Primary Edu Routes -TNG,4,c5105598-8ad6-a887-181a-4b3fa961fdf9
+BED4 (Primary Edu Routes -VA-4),BED4,Primary Edu Routes -VA,4,7f6df742-b558-86de-00af-444e52ea566d
+BEDGF4 (Education-Gaeilge & French-4),BEDGF4,Education-Gaeilge & French,4,ccbf1a1a-d375-233f-0df5-f8a353041ecb
+BEDGG4 (Education-Gaeilge & German-4),BEDGG4,Education-Gaeilge & German,4,f8e2a175-cd20-8a4c-7e5c-8de569ddcc3d
+BEDGS4 (Education-Gaeilge & Spanish-4),BEDGS4,Education-Gaeilge & Spanish,4,e2626077-7d06-937a-f51e-dcc4c121ec8c
+BEDLAN1 (Education-Gaeilge & French-1),BEDLAN1,Education-Gaeilge & French,1,90089689-084a-eb5b-b634-51311ddbcb35
+BEDLAN1 (Education-Gaeilge & German-1),BEDLAN1,Education-Gaeilge & German,1,01060c2e-da4e-3c23-76ab-99a246b643d2
+BEDLAN1 (Education-Gaeilge & Spanish-1),BEDLAN1,Education-Gaeilge & Spanish,1,6580d0d5-382c-b83a-caca-e9d3d131e560
+BEDLAN2 (Education-Gaeilge & French-2),BEDLAN2,Education-Gaeilge & French,2,e05d1d9a-6f0c-7889-4097-028afcb96b6d
+BEDLAN2 (Education-Gaeilge & German-2),BEDLAN2,Education-Gaeilge & German,2,bc98a542-a809-6ec9-efee-c67ce39776af
+BEDLAN2 (Education-Gaeilge & Spanish-2),BEDLAN2,Education-Gaeilge & Spanish,2,76e486e7-a5f3-a805-903f-8edb05110138
+BEDLAN3 (Education-Gaeilge & French-3),BEDLAN3,Education-Gaeilge & French,3,89271c38-a4a8-a7f4-f8b9-02527a3c9c90
+BEDLAN3 (Education-Gaeilge & German-3),BEDLAN3,Education-Gaeilge & German,3,115b3b47-81aa-70c0-794b-88f4fe1d91eb
+BEDLAN3 (Education-Gaeilge & Spanish-3),BEDLAN3,Education-Gaeilge & Spanish,3,00241173-f996-ba87-5cb3-7eebf6e33f0f
+BEDTEG3 (Technology Education-3),BEDTEG3,Technology Education,3,f957921c-b721-174b-3d0c-a16dd1733737
+BEDTEG4 (Technology Education-4),BEDTEG4,Technology Education,4,edb6d32e-68e2-64f5-5d92-c9b595da9dbb
+BEEC1 (Early Childhood Edu-1),BEEC1,Early Childhood Edu,1,744c7146-e80c-044d-2d5b-60ff0c9dff1b
+BGE1 (Biological Sciences Year One-1),BGE1,Biological Sciences Year One,1,998ba427-fda1-3d16-45da-c191633bb8ee
+BHS1 (Health & Society-1),BHS1,Health & Society,1,4d06b7eb-549f-0215-dbdb-97dc4ac7e9f4
+BHS2 (Health & Society-2),BHS2,Health & Society,2,99982266-7ee9-70fb-6bd7-af77f0e31505
+BHS3 (Health & Society-3),BHS3,Health & Society,3,44824498-d47a-282a-119a-cd408f9d3d0b
+BMED1 (Engineering-1),BMED1,Engineering,1,78040361-d1bb-919c-3496-d2365cbceba5
+BMED2 (Biomedical Engineering-2),BMED2,Biomedical Engineering,2,9a65692d-f704-1d68-5075-84ba7660b0b6
+BMED3 (Biomedical Engineering-3),BMED3,Biomedical Engineering,3,ca9c5a4b-6067-76cd-172f-394bad96bb31
+BMED4 (Biomedical Engineering-4),BMED4,Biomedical Engineering,4,a41eff44-fd43-fdd0-b6e3-77fb2b50a0c2
+BMEDI3 (Biomedical Engineering-IG-3),BMEDI3,Biomedical Engineering-IG,3,03d245ef-a442-c467-b37c-258d9fc8ccad
+BMEDI4 (Biomedical Engineering-IG-4),BMEDI4,Biomedical Engineering-IG,4,5c6442d3-ce63-cd46-8936-436997d923ec
+BMEDIM5 (Biomedical Engineering-5),BMEDIM5,Biomedical Engineering,5,b67c34f9-ba44-ffee-e605-292112face16
+BNCG1 (Chldn & Gen Nursing-1),BNCG1,Chldn & Gen Nursing,1,f24e81f2-b3fa-f26d-700b-511c1cd19ad9
+BNCG2 (Chldn & Gen Nursing-2),BNCG2,Chldn & Gen Nursing,2,c3a8e152-4440-6028-3c15-043d0e018d0f
+BNCG3 (Chldn & Gen Nursing-3),BNCG3,Chldn & Gen Nursing,3,2adf9cde-c7eb-2c0e-e1cb-158891d33a74
+BNCG4 (Chldn & Gen Nursing-4),BNCG4,Chldn & Gen Nursing,4,2846f4f0-031b-cf20-3f5b-e306c366039e
+BNGN1 (General Nursing-1),BNGN1,General Nursing,1,cef41645-dfef-3094-08c3-747ee4f29dce
+BNGN2 (General Nursing-2),BNGN2,General Nursing,2,d92d0fec-04f6-b215-b841-921823025d9f
+BNGN3 (General Nursing-3),BNGN3,General Nursing,3,cf38303c-3df3-a970-b919-2f82aa27d38e
+BNGN4 (General Nursing-4),BNGN4,General Nursing,4,4af7b2b4-6cda-42db-8563-2122393c0c09
+BNID1 (Intellectual Dsbls Nsg-1),BNID1,Intellectual Dsbls Nsg,1,0d123059-2318-2395-a6d6-b08157cdfc11
+BNID2 (Intellectual Dsbls Nsg-2),BNID2,Intellectual Dsbls Nsg,2,d11f091f-22c9-fb62-12c1-4597192f9afe
+BNID3 (Intellectual Dsbls Nsg-3),BNID3,Intellectual Dsbls Nsg,3,ae891ecd-0749-e1d1-9e1c-c87d30896d6e
+BNID4 (Intellectual Dsbls Nsg-4),BNID4,Intellectual Dsbls Nsg,4,266a12e3-434b-3fa9-e94e-287913ab9743
+BNPY1 (Mental Health Nursing-1),BNPY1,Mental Health Nursing,1,5604ead1-5587-46b5-66d5-7616b2b49d8c
+BNPY2 (Mental Health Nursing-2),BNPY2,Mental Health Nursing,2,c53906ba-fc7a-3fe7-390a-e01ee29b5237
+BNPY3 (Mental Health Nursing-3),BNPY3,Mental Health Nursing,3,04a33aef-cac5-5272-8d92-fbea245fc2a8
+BNPY4 (Mental Health Nursing-4),BNPY4,Mental Health Nursing,4,a93b7210-c247-277e-732e-d0b5a67c5d22
+BOCL1 (Civil Law-1),BOCL1,Civil Law,1,f3ece78a-df2d-47b7-d088-e731020803c4
+BOCL2 (Civil Law-2),BOCL2,Civil Law,2,3e963cff-03ed-b7db-e465-7f91cf7f1bf5
+BP2 (Bioprocessing-2),BP2,Bioprocessing,2,2c9b2b60-94f9-d2b7-fe35-89bcfc8ee004
+BP3 (Bioprocessing-3),BP3,Bioprocessing,3,05d05424-c1f3-72db-eebd-d63aaca77d99
+BP4 (Bioprocessing-4),BP4,Bioprocessing,4,cfe352a1-bc5f-8ca8-62ac-2f869c32d652
+BPDT1 (Psych&Disruptive Tech-1),BPDT1,Psych&Disruptive Tech,1,14d8cede-6233-8999-ff06-cd7c709ba35e
+BPDT2 (Psych&Disruptive Tech-2),BPDT2,Psych&Disruptive Tech,2,60b1a535-0236-8be8-66e9-9a2d63f29310
+BPDT3 (Psych&Disruptive Tech-3),BPDT3,Psych&Disruptive Tech,3,534bb02d-76b9-2abc-d5a9-55f923a801a6
+BPDT4 (Psych&Disruptive Tech-4),BPDT4,Psych&Disruptive Tech,4,fa2e8aee-1ce1-28e3-19ed-a9cbd9976978
+BPM1 (Psych with Mathematics-1),BPM1,Psych with Mathematics,1,eaf55fef-77d2-75f3-521c-3aca5689869f
+BPM2 (Psych with Mathematics-2),BPM2,Psych with Mathematics,2,dd202a04-2a8a-9a9c-9533-c553da4f208c
+BPM3 (Psych with Mathematics-3),BPM3,Psych with Mathematics,3,43400598-5bc9-fdec-2a33-024bb126b5ab
+BPM4 (Psych with Mathematics-4),BPM4,Psych with Mathematics,4,ffa6e5df-a826-9b23-cad4-9493d469da67
+BPY1 (Psychology-1),BPY1,Psychology,1,762f78be-6470-eaf4-9e5c-762bf64d8e90
+BPY2 (Psychology-2),BPY2,Psychology,2,bea2467f-04b6-4106-42d3-13c20da2b0ef
+BPY3 (Psychology-3),BPY3,Psychology,3,423cecb7-2908-5d32-f161-b8d5520f0300
+BPY4 (Psychology-4),BPY4,Psychology,4,67e7ea21-a7e2-91ba-35c2-30fddd1f2eb4
+BRE1 (Religious Edu & Eng-1),BRE1,Religious Edu & Eng,1,32246f97-c628-ce75-5e5d-3bc0872f64c4
+BRE2 (Religious Edu & Eng-2),BRE2,Religious Edu & Eng,2,c28226ce-8ccf-2fb0-a446-04fcdaee69e6
+BRE3 (Religious Edu & Eng-3),BRE3,Religious Edu & Eng,3,3885d81e-65ed-0274-31b5-1c5e991b197f
+BRE4 (Religious Edu & Eng-4),BRE4,Religious Edu & Eng,4,65f1ed72-5663-03eb-d78b-f7622411c069
+BRH1 (Religious Edu & Hist-1),BRH1,Religious Edu & Hist,1,c40dc621-377d-2836-a46a-863ba87e366e
+BRH2 (Religious Edu & Hist-2),BRH2,Religious Edu & Hist,2,0a1cec97-b992-9a14-797b-7a718ca509dc
+BRH3 (Religious Edu & Hist-3),BRH3,Religious Edu & Hist,3,2b48418b-ee95-80b7-233b-5bbab75c9034
+BRH4 (Religious Edu & Hist-4),BRH4,Religious Edu & Hist,4,6b585471-5188-9792-9c26-495accfdbddc
+BRM1 (Religious Edu & Music-1),BRM1,Religious Edu & Music,1,44cf7d08-78c5-c404-0055-086d5a49a30d
+BRM2 (Religious Edu & Music-2),BRM2,Religious Edu & Music,2,1814a32a-1ac0-5019-29d2-15f9c195b4e5
+BRM3 (Religious Edu & Music-3),BRM3,Religious Edu & Music,3,16efeb9d-005a-9f53-7e98-f3cb8859a426
+BRM4 (Religious Edu & Music-4),BRM4,Religious Edu & Music,4,eb3cfadc-720c-61c1-af1b-213fee368f28
+BS1 (Business Studies-1),BS1,Business Studies,1,c7599448-d85e-6360-69ec-a584e177b6f1
+BS2 (Business Studies-2),BS2,Business Studies,2,003f878b-1d3c-ec80-deee-5505f8cd19b8
+BS3 (Business Studies-3),BS3,Business Studies,3,286ee314-dd82-f892-2734-680c61c375ee
+BSE4 (Business Studies-4),BSE4,Business Studies,4,4315f0ec-bf8d-1169-d54c-b04330941994
+BSGTE1 (GTE Visitor Programme-1 ),BSGTE1,GTE Visitor Programme,1,7b8f959d-4308-faff-ccba-160670b74917
+BSI4 (Business Studies-4),BSI4,Business Studies,4,82f792f0-6dbb-b071-bf4f-c44582e93895
+BSSCI1 (Soc Sci & Cult Innov-1),BSSCI1,Soc Sci & Cult Innov,1,d3e378d2-9fd2-2ea7-e385-3ec4f3989b5b
+BSSCI2 (Soc Sci & Cult Innov-2),BSSCI2,Soc Sci & Cult Innov,2,373ccfbb-3f6f-c845-d53d-ed01dd15cd61
+BSSCI3 (Cont Soc International-3),BSSCI3,Cont Soc International,3,a0497f64-5918-d792-0a1c-cfd7d001526d
+BSSCI3 (Intercult Langs-3),BSSCI3,Intercult Langs,3,be640c7c-cd46-eded-128f-3adb1e729429
+BSSCI3 (Media & Society-3),BSSCI3,Media & Society,3,1596ca72-8754-0110-0486-299044a0e631
+BSSCII4 (ContempSocIntl-4),BSSCII4,ContempSocIntl,4,7e8bdd2d-c8be-5692-f0db-91b3d8b9cdb8
+BSSCII4 (InterCultLang-4),BSSCII4,InterCultLang,4,52f0e1aa-3ad0-a5be-71fa-86e72019897a
+BSSCII4 (Media&Soc-4),BSSCII4,Media&Soc,4,7cef785d-9df5-f629-28aa-4c527ff3cc2a
+BSSCIN4 (ContempSocIntl-4),BSSCIN4,ContempSocIntl,4,7bc3769b-ddb9-7ea8-06e9-5fa0dbbb2d64
+BSSCIN4 (InterCultLang-4),BSSCIN4,InterCultLang,4,3fe3dec7-61bd-b84d-b670-32c79f1db116
+BSSCIN4 (Media&Soc-4),BSSCIN4,Media&Soc,4,cc84443a-98a8-192b-eebe-39298d62ea4f
+BT1 (Biotechnology-1),BT1,Biotechnology,1,64d17cf8-f082-5923-3ed6-5201e2c9f71b
+BT2 (Biotechnology-2),BT2,Biotechnology,2,a2269f64-d0db-b171-3222-88af14524abb
+BT3 (Biotechnology-3),BT3,Biotechnology,3,9db9318c-711f-7a0e-0c5b-5a96a6ffe968
+BT4 (Biotechnology-4),BT4,Biotechnology,4,43301473-28a2-a7c3-3e68-faa1aea4cabf
+CAFM1 (Actuarial Financial Maths-1),CAFM1,Actuarial Financial Maths,1,d950a792-0fb6-1fb3-4559-ebc6f7448ee3
+CAFM2 (Actuarial Financial Maths-2),CAFM2,Actuarial Financial Maths,2,afe26781-e652-4000-5c4d-0483c9fbab17
+CAM1 (Engineering-1),CAM1,Engineering,1,5f32faf0-05ee-3244-cdd3-34e2dd4b1ec7
+CAM2 (Mech & Mfg Engineering-2),CAM2,Mech & Mfg Engineering,2,1e554bfc-d517-ccf2-c933-7568cd3de3ee
+CAM3 (Mech & Mfg Engineering-3),CAM3,Mech & Mfg Engineering,3,35d5040f-7375-63bd-ce89-84cc0c55b73f
+CAM4 (Mech & Mfg Engineering-4),CAM4,Mech & Mfg Engineering,4,ab22f3c1-2d9a-c124-a6b5-f25b88cbb6be
+CAMI3 (Mech & Mfg Engineering-IG-3),CAMI3,Mech & Mfg Engineering-IG,3,2b487a1a-7c6e-3b32-5f94-9f76d97ef3ac
+CAMI4 (Mech & Mfg Engineering-IG-4),CAMI4,Mech & Mfg Engineering-IG,4,690e4052-e86f-d9d3-5145-0c2745fba025
+CAMIM5 (Simulation Driven Dsg-5),CAMIM5,Simulation Driven Dsg,5,edffbe57-daff-c51f-68e3-3a8486c15783
+CAMIM5 (Sustainable Syss & Nrg-5),CAMIM5,Sustainable Syss & Nrg,5,d9ce0ea8-0680-77c1-de0b-b9408d4c8214
+CASE3 (Computer Applications-3),CASE3,Computer Applications,3,f03b2c6f-5c96-f0ba-6c9a-119d2c1be3da
+CASE4 (Computer Applications-4),CASE4,Computer Applications,4,0e53414b-3af0-39ff-20f9-6a3c115e437b
+CE1 (Engineering-1),CE1,Engineering,1,9dabcf9d-68dc-9f23-f05e-74c70118bc42
+CGE1 (Chemical Sciences-1),CGE1,Chemical Sciences,1,e8886546-458b-ee94-5074-4828c6587b5e
+COMBUS1 (Computing for Business-1),COMBUS1,Computing for Business,1,dd8e91b3-3f17-8f47-d3aa-c8d62738a1e0
+COMBUS2 (Computing for Business-2),COMBUS2,Computing for Business,2,af375a3e-003d-fab5-0a87-88a4b0bde60a
+COMBUS3 (Computing for Business-3),COMBUS3,Computing for Business,3,7d1f5e51-c56b-a055-33f8-2c978d472f17
+COMBUS4 (Computing for Business-4),COMBUS4,Computing for Business,4,e5932a47-fbf8-e200-6a34-6bc40f7e6488
+COMSCI1 (Computer Science-1),COMSCI1,Computer Science,1,d810d60d-8f84-834c-3fce-78cbec883f6e
+COMSCI2 (Computer Science-2),COMSCI2,Computer Science,2,e631cb22-e616-9d64-58ba-abd77acfa225
+COMSCI3 (Computer Science-3),COMSCI3,Computer Science,3,0b5f2026-989f-0035-5e70-b86354e625a8
+COMSCI4 (Computer Science-4),COMSCI4,Computer Science,4,dddbcbe4-95d1-d531-8cb4-707c763d8adb
+CPSMH1 (Peer Support Ment Hlth-1),CPSMH1,Peer Support Ment Hlth,1,87820b40-49b2-a552-3737-dcded1fa25a9
+CS1 (Comm Studies-1),CS1,Comm Studies,1,268cf14b-5ad0-992c-b123-11f1e4ffc80b
+CS2 (Comm Studies-2),CS2,Comm Studies,2,1e23cdd4-25d2-d5ad-8880-82c206377084
+CS3 (Comm Studies-3),CS3,Comm Studies,3,14560035-f865-4c3d-9550-499cd7356514
+DBI1 (Dig Business & Innov-1),DBI1,Dig Business & Innov,1,a49c5455-e919-2709-4438-e51a84da5472
+DBI2 (Dig Business & Innov-2),DBI2,Dig Business & Innov,2,c3c90c4c-a316-3fe6-37c9-f790cec70759
+DBI4 (Dig Business & Innov-4),DBI4,Dig Business & Innov,4,2e2f7da5-0588-b21a-4cc9-6356f1e90165
+DHS3 (DHS-Health Studies-3),DHS3,DHS-Health Studies,3,bc5b7c83-941c-a544-f6ac-d219ed192174
+DISE1 (Special & Incl Edu-1),DISE1,Special & Incl Edu,1,2947d64e-a8e3-381d-2793-69aba45a3a27
+DISE2 (Special & Incl Edu-2),DISE2,Special & Incl Edu,2,68515a89-5d01-0797-9bba-2e879046cbf2
+DPSY1 (Doctor Psychotherapy-1),DPSY1,Doctor Psychotherapy,1,ddfb81f4-37c2-231a-ab05-1851b783d320
+DRH1 (Religious Ed & History-1(Exit)),DRH1,Religious Ed & History (Exit),1,598b08b1-2b02-0401-29cd-710157c0efe6
+DS1 (Data Science-1),DS1,Data Science,1,cef6b80b-722d-b5d6-f9fa-6bae27465eca
+DS2 (Data Science-2),DS2,Data Science,2,36276e30-18fa-0d50-0826-d29714723c9b
+DS3 (Data Science-3),DS3,Data Science,3,b839544e-75ea-2951-092f-e8f466812911
+DS3 (Data Science-SA-3),DS3,Data Science-SA,3,009c2472-9444-98c0-8392-f22fb52a4d28
+DS4 (Data Science-4),DS4,Data Science,4,74196ba2-e280-21eb-8a12-d8f376bfbd82
+DSAI1 (Data Science & AI-1),DSAI1,Data Science & AI,1,7de5594f-a4c2-6e85-0d12-12ba06e899f2
+EB1 (Global Business-1),EB1,Global Business,1,2fc9e40c-da62-830b-accb-6a667a9fe902
+EBC1 (Global Business-1),EBC1,Global Business,1,36c9c512-e616-37aa-edbf-42a9b34241aa
+EBC2 (Global Business-2),EBC2,Global Business,2,cdc37362-3d3d-f9ed-8183-3f2998992248
+EBC3 (Global Business-3),EBC3,Global Business,3,a0a81627-b85a-03d7-4541-f53a8b0ac3d1
+EBC4 (Global Business-4),EBC4,Global Business,4,1bd57f2b-4d16-beb5-7737-d2db7266f29b
+EBF1 (Global Business & Fr-1),EBF1,Global Business & Fr,1,0492800d-1bd9-0670-3e3b-bead4fab58a8
+EBF2 (Global Business & Fr-2),EBF2,Global Business & Fr,2,923bfb96-c38a-2005-b9f4-20f05c314949
+EBF3 (Global Business & Fr-3),EBF3,Global Business & Fr,3,9db65be9-119a-8788-3817-23008b205531
+EBF3 (Global Business & Fr-YA-3),EBF3,Global Business & Fr-YA,3,062f0f00-5905-fcf4-05dc-f88ba8435465
+EBF4 (Global Business & Fr-4),EBF4,Global Business & Fr,4,1c5f3d91-fc09-e50d-bdf2-3d219be13ec0
+EBF4 (Global Business & Fr-ALT-4),EBF4,Global Business & Fr-ALT,4,22383a1f-eb90-4d44-8dc4-0778a1ce827a
+EBG1 (Global Business & Ger-1),EBG1,Global Business & Ger,1,8bd6887b-2943-0df7-fed6-847800705b08
+EBG2 (Global Business & Ger-2),EBG2,Global Business & Ger,2,42efeda3-5ab1-ccde-2482-b54ad86f70d4
+EBG3 (Global Business & Ger-3),EBG3,Global Business & Ger,3,e93816e3-47ed-f006-2f6f-e167d5f178ef
+EBG4 (Global Business & Ger-4),EBG4,Global Business & Ger,4,21ad86f2-1642-d900-1631-d47372b60c9f
+EBG4 (Global Business & Ger-ALT-4),EBG4,Global Business & Ger-ALT,4,b997a23c-a063-206d-42e3-21b0acdbd400
+EBS1 (Global Business & Sp-1),EBS1,Global Business & Sp,1,9a867ad1-9fa1-f079-4432-7ef2e96b34ba
+EBS2 (Global Business & Sp-2),EBS2,Global Business & Sp,2,dd05189c-5360-8695-f97a-1781974054e1
+EBS3 (Global Business & Sp-3),EBS3,Global Business & Sp,3,a5019f30-fac6-4fb1-9aed-9d23b7b0f4a3
+EBS4 (Global Business & Sp-4),EBS4,Global Business & Sp,4,bb234996-fca4-b2df-d241-7b866cd24fff
+EBS4 (Global Business & Sp-ALT-4),EBS4,Global Business & Sp-ALT,4,c58eb596-6216-7f65-7c3c-afb3e24e244f
+EBT1 (Global Business-1),EBT1,Global Business,1,ede0c697-88ec-ef20-e124-e7459f4c2a82
+EBT2 (Global Business-2),EBT2,Global Business,2,110608dc-ca0e-f414-167c-127dce53c565
+ECAM1,ECAM1,ECAM1,,0dadd9aa-7c42-2c88-4a95-4da9bc80af8a
+ECE1 (Engineering-1),ECE1,Engineering,1,3c2ba627-d06b-8fc7-2391-16764c45e158
+ECE2 (Elec & Computer Eng-2),ECE2,Elec & Computer Eng,2,df4cd10c-0724-74d7-eef1-62e6bebf4010
+ECE3 (Elec & Computer Eng-3),ECE3,Elec & Computer Eng,3,959b152c-fcbb-8b83-4fe2-58ac8e6360a6
+ECE4 (Elec Devices & Systems-4),ECE4,Elec Devices & Systems,4,86bdda4b-a4ab-3f4f-70c9-f7abc4ef07b5
+ECE4 (Internet of Things-4),ECE4,Internet of Things,4,8216a9a4-92f0-b976-508a-d8257508587c
+ECE4 (Machine Learning-4),ECE4,Machine Learning,4,29743771-cc8e-f155-b2ac-ae5d3b91b111
+ECEF1,ECEF1,ECEF1,,1eda0725-8a01-46eb-0b8a-27aa212c3121
+ECEI4 (Internet of Things-IG-4),ECEI4,Internet of Things-IG,4,9f0bdff2-4ddd-902a-7f54-030a00a328e7
+ECEI4 (Machine Learning-IG-4),ECEI4,Machine Learning-IG,4,6a3ae852-8d36-f58b-5c34-b033b7fe6bde
+ECEI4 (Nanotech & Photonics-IG-4),ECEI4,Nanotech & Photonics-IG,4,93fd0b8d-9223-45a2-b8df-8bb18e23adb2
+ECEIM5 (Internet of Things-5),ECEIM5,Internet of Things,5,e28ea991-4198-8782-7a68-853e82057bb8
+ECEIM5 (Machine Learning-5),ECEIM5,Machine Learning,5,bf530f50-79d6-ec58-45a9-56816f7dabf2
+ECEIM5 (Nanotech & Photonics-5),ECEIM5,Nanotech & Photonics,5,26a91e7c-b172-1b5f-5840-cb1908d953c2
+ECSAO1 (Study Abroad Program EC-1),ECSAO1,Study Abroad Program EC,1,35c1b0d4-4fa4-6d65-b5c5-eaad11eb56fe
+EDD1 (Education-1),EDD1,Education,1,90d180d2-85d1-ce7d-37be-4d088aebf804
+EDD2 (Education-2),EDD2,Education,2,727ca6bc-64be-2f6e-7c44-e0c117cf7956
+EMLDAI1 (Computing-1),EMLDAI1,Computing,1,d8ea67f9-9a04-fb43-0a63-122ed74df7d6
+EMLDAI1 (Law-1),EMLDAI1,Law,1,ebae1398-efb2-7391-cc6d-740e74bdaf49
+ENSMI1,ENSMI1,ENSMI1,,17a9b079-b396-043d-df7a-72c1292ad9ba
+ENSMP1,ENSMP1,ENSMP1,,759c8803-ddc8-fd23-255e-e49c4bdbdfca
+EPL1 (Econ Politics & Law-1),EPL1,Econ Politics & Law,1,214b2637-b3ee-921e-4c0a-c5540432b609
+EPL2 (Econ Politics & Law-2),EPL2,Econ Politics & Law,2,040925e8-bca6-a49a-77aa-d499141413b4
+EPL3 (Econ Politics & Law-3),EPL3,Econ Politics & Law,3,e852fd34-1126-7967-63fa-540c2715cc6b
+EPLN4 (Eco Pol & Law-4),EPLN4,Eco Pol & Law,4,88f7e701-b799-21c2-b858-0c3bf54b84ce
+EPLYA4 (Eco Pol & Law-4),EPLYA4,Eco Pol & Law,4,086e5876-57e1-d46a-8252-314ff69f0da9
+ESIG1,ESIG1,ESIG1,,26e2b1f5-4638-c535-adac-6d3de43c545a
+EST1 (Environ Science & Tech-1),EST1,Environ Science & Tech,1,20a520de-969e-0dfb-ea4f-ef4ab66a000f
+EST2 (Environ Science & Tech-2),EST2,Environ Science & Tech,2,1b5acdf7-a009-0955-668a-245020a847fe
+EST3 (Environ Science & Tech-3),EST3,Environ Science & Tech,3,8754513d-9aeb-fdf5-c04c-57ae719bfe2e
+EST3 (Environ Science & Tech-3-AT),EST3,Environ Science & Tech (AT),3,59a1fdd0-0476-7f4c-f48e-804adcf6aa05
+EST4 (Environ Science & Tech-4),EST4,Environ Science & Tech,4,75db9ec0-a9a3-4040-b50a-116d83fcb3da
+ET1 (Education & Training-1),ET1,Education & Training,1,7c4acca5-88ac-e9d2-c832-2ff78e6fda48
+ET2 (Education & Training-2),ET2,Education & Training,2,6d746f0b-543c-432c-9813-d5b58b0d3ea4
+ET3 (Education & Training-3),ET3,Education & Training,3,211968d2-391c-2be3-2f86-795d80b9416d
+ETF3 (Education & Training-3),ETF3,Education & Training,3,4d466255-7698-012e-1607-4459c0d1892b
+ETF4 (Education & Training-4),ETF4,Education & Training,4,f61fb16d-98f6-7cf1-68fc-d6bc80dc1dbd
+EX3,EX3,EX3,,356a4675-fc75-a91c-9312-eaca36cf4ad5
+FIM3 (Financial Mathematics-3),FIM3,Financial Mathematics,3,c5d42823-7578-6315-4e74-93a7f2a0b5b4
+FIM4 (Financial Mathematics-4),FIM4,Financial Mathematics,4,209ba547-66ab-1af6-b79d-9fad284c48a2
+GC4 (Global Challenges-4),GC4,Global Challenges,4,dca671f0-828c-9e35-b58d-ac26fe842e60
+GCAE1 (Special & Incl Edu-1),GCAE1,Special & Incl Edu,1,6e174d45-2b26-f550-884e-ad15f32c9138
+GCB1 (Genetics & Cell Biol-1),GCB1,Genetics & Cell Biol,1,cb0456a2-cf67-24fb-10af-e44911d2ae84
+GCB2 (Genetics & Cell Biol-2),GCB2,Genetics & Cell Biol,2,3ed5eea1-1418-51ad-d7f9-13fa4d71574a
+GCB3 (Genetics & Cell Biol-3),GCB3,Genetics & Cell Biol,3,0fec5b32-d714-b6a6-fc14-ff4cab92342b
+GCB4 (Genetics & Cell Biol-4),GCB4,Genetics & Cell Biol,4,aea2bc8b-4b07-3111-8fae-4c5261b51d34
+GCCAPP1 (CActn Energy & PublPlcy-PT-1),GCCAPP1,CActn Energy & PublPlcy-PT,1,533a2dce-ce91-4a6c-ef62-38ec81813cd9
+GCOB1 (Org Behaviour-1),GCOB1,Org Behaviour,1,4d260121-d4a9-8f06-5151-8c3898ba1741
+GCOSC1 (Opns Mgmt & Supply Ch-1),GCOSC1,Opns Mgmt & Supply Ch,1,550e8d3f-623f-0fdb-8e1a-486171bf50e1
+GCRSEI1 (ID Relationships & Sex. Ed.-1),GCRSEI1,ID Relationships & Sex. Ed.,1,90fa2203-715d-7a96-3b83-753a132099b5
+GCSL1 (Strategic Leadership-1),GCSL1,Strategic Leadership,1,09ad841a-c6ac-de47-6bdb-af49c8943dc0
+GCSL2 (Strategic Leadership-2),GCSL2,Strategic Leadership,2,5aa05272-60ca-75a4-4424-59dc39177f87
+GCSSHE1 (Sexuality Ed. & Sexual Well-1),GCSSHE1,Sexuality Ed. & Sexual Well,1,d500be5b-0a3c-288c-e168-0c67df7867ce
+GDAES1 (Education Leadership 1),GDAES1,Education Leadership,1,a33ed35d-4109-46c9-5361-0463e425feb1
+GDCHW1 (Child Fam Hlth & Well-GDip-1),GDCHW1,Child Fam Hlth & Well-GDip,1,b0b63e2d-9218-f3e8-dcd4-095a82c47db0
+GDFTI1 (Financial Tech & Innov-1),GDFTI1,Financial Tech & Innov,1,60827519-cebd-7e4e-b62b-b5f9792e213e
+GDHSI1 (Health & Social Incl-GDip-1),GDHSI1,Health & Social Incl-GDip,1,e880596b-56ad-5e07-8080-baf51d29665d
+GDHSI1 (Health & Social Incl-PT-1),GDHSI1,Health & Social Incl-PT,1,05f53479-1233-e39f-6048-95a04ae6878f
+GDILS1 (Spec & Inclusive Educ-1),GDILS1,Spec & Inclusive Educ,1,795a7ddc-fc1e-d615-d053-cc3020ac4eda
+GDISE1 (Special & Incl Edu-1),GDISE1,Special & Incl Edu,1,0f887fda-35d6-22ae-9e5c-53af75dbd7f1
+GDLANE1 (Ldrshp in Autism Edu-1),GDLANE1,Ldrshp in Autism Edu,1,50854f7d-94d2-ac76-a2cb-52ae31f1d596
+GDMBA1 (Business Analytics-1),GDMBA1,Business Analytics,1,4481f1eb-7be8-ccdc-9127-f869508b58c1
+GDPM1 ( Diagns & Precision Med-GDip-1),GDPM1,Diagns & Precision Med-GDip,1,909140d5-a948-f88d-c408-f6df01ba89dd
+GDSES1 (Sustainable Nrg Syss-1),GDSES1,Sustainable Nrg Syss,1,f96d095d-e7e0-684f-7f67-2895da6454aa
+GDSN1 (Adlt Chr Disease Mgmt-1),GDSN1,Adlt Chr Disease Mgmt,1,883bc67f-e926-e40e-a701-5de6c14da687
+GDSN1 (Womens Health-1),GDSN1,Womens Health,1,033d19b2-6b77-c14b-72b8-912017d2e6e7
+GDSPHE1 (Social Pers & Hlth Edu-Jan-1),GDSPHE1,Social Pers & Hlth Edu-Jan,1,484255df-738a-0dbc-caa7-947493dea92f
+GEME1 (GEME - Digital Learning-1),GEME1,GEME - Digital Learning,1,da8e4855-60ba-8679-f638-7332792864cd
+GEML1 (GEML - Leadership-1),GEML1,GEML - Leadership,1,b52318b8-29eb-13eb-0f11-0b85fd565544
+GG1 (Gnó agus Gaeilge-1),GG1,Gnó agus Gaeilge,1,59cffefb-5b66-0a44-8b73-33cf6392f38b
+GG2 (Gnó agus Gaeilge-2),GG2,Gnó agus Gaeilge,2,ee8cf1f1-e677-6d87-45d7-2be1ab4bf65f
+GG3 (Gnó agus Gaeilge-3),GG3,Gnó agus Gaeilge,3,f6e7f0b1-614b-1ad1-f19c-e9519d075612
+GGN3 (Gnó agus Gaeilge-3),GGN3,Gnó agus Gaeilge,3,0fb7740d-acb8-781e-99e0-cc6db055feaa
+GGN4 (Gnó agus Gaeilge-4),GGN4,Gnó agus Gaeilge,4,6d194dcd-7db0-89d3-0f5b-9ca4d947af77
+GIMD3 (Gaeilge Iris Meán Dig-3),GIMD3,Gaeilge Iris Meán Dig,3,8350c504-8352-8182-96b2-4205484c4520
+GSGC1 (GD in Guidance Counselling-1),GSGC1,GD in Guidance Counselling,1,35caef09-4a59-19a2-96a2-1f31a64d8b09
+GTEHSS1,GTEHSS1,GTEHSS1,,903003ff-4143-7d54-f17f-e9ec2a47753e
+GTEIE1,GTEIE1,GTEIE1,,d7088e96-1ebf-0236-a2af-cf1a71673945
+HDID2 (Information Systems-2),HDID2,Information Systems,2,e2f8225f-3d5a-d075-e19f-1cf6cd28571a
+HSNAW1 (NAVMM-1  ),HSNAW1,NAVMM,1,b36da199-fe9a-a719-5727-f9d5316ea30f
+HSNAW1 (Uaneen Non Contrib Mod-1  ),HSNAW1,Uaneen Non Contrib Mod,1,6698c91c-9b8a-c83b-4587-24adf3d11dfe
+HSNAW1 (Visiting ECIU-1),HSNAW1,Visiting ECIU,1,f06462bb-6580-00ba-d2d1-9e0db0d4e820
+IEGTE1 (DCU Inst of Education-1 ),IEGTE1,DCU Inst of Education,1,a4a577db-58f7-c08c-eec7-0ffff494456a
+IEGTE1 (GTE Visitor Programme-1 ),IEGTE1,GTE Visitor Programme,1,bc70c051-a649-ed9b-22a0-f6d0175d827e
+IESA1 (Study Abroad Program IE-1),IESA1,Study Abroad Program IE,1,d46cc8a8-6eb4-c73f-301f-73c21512ec23
+IESAO1 (Study Abroad Program IE-1),IESAO1,Study Abroad Program IE,1,a686df88-7e11-adab-7538-837a515531fe
+IMSISS1 (Sec Intelligence-FT-1),IMSISS1,Sec Intelligence-FT,1,8817fffc-bc32-2ef1-5d76-179b4bfbbb63
+INTB1 (Intl Bus & Lang-Chinese-1),INTB1,Intl Bus & Lang-Chinese,1,f2d7a1d8-93c1-5b63-8bdc-3c27208fe88a
+INTB1 (Intl Bus & Lang-French-1),INTB1,Intl Bus & Lang-French,1,35357ee1-ef7e-123f-bc26-cea0c0a2a13a
+INTB1 (Intl Bus & Lang-German-1),INTB1,Intl Bus & Lang-German,1,2c823b7f-f09e-aca7-55db-580a6d1b121e
+INTB1 (Intl Bus & Lang-Japanese-1),INTB1,Intl Bus & Lang-Japanese,1,12a7a8eb-fff3-ed29-db4f-556a8012fec3
+INTB1 (Intl Bus & Lang-Spanish-1),INTB1,Intl Bus & Lang-Spanish,1,3c9730a0-bad2-0d2e-aef6-8c139c33003d
+INTB2 (Intl Bus & Lang-Chinese-2),INTB2,Intl Bus & Lang-Chinese,2,e1e1d1b8-d49d-04ba-0c29-451aa2c6bb76
+INTB2 (Intl Bus & Lang-French-2),INTB2,Intl Bus & Lang-French,2,e02281aa-cd3d-d109-bdf1-fc2bfcf0eb9c
+INTB2 (Intl Bus & Lang-German-2),INTB2,Intl Bus & Lang-German,2,abd8f749-73fd-ab00-a2ce-e326c7b1a020
+INTB2 (Intl Bus & Lang-Japanese-2),INTB2,Intl Bus & Lang-Japanese,2,9dcf4f86-34b8-9fb9-5508-83cc68802a83
+INTB2 (Intl Bus & Lang-Spanish-2),INTB2,Intl Bus & Lang-Spanish,2,e755109a-0eb6-2ff5-8ed0-00294597758d
+INTB4 (Intl Bus & Lang-Chinese-4),INTB4,Intl Bus & Lang-Chinese,4,9da4024a-14f6-7711-581f-3033786cc4c5
+INTB4 (Intl Bus & Lang-French-4),INTB4,Intl Bus & Lang-French,4,3678d25d-96b7-3d55-ec3a-1be8ff5f8654
+INTB4 (Intl Bus & Lang-German-4),INTB4,Intl Bus & Lang-German,4,f7d7000a-5b11-65f8-22b7-3d438a155be3
+INTB4 (Intl Bus & Lang-Japanese-4),INTB4,Intl Bus & Lang-Japanese,4,01cf5dcf-850f-b234-f5d6-06af06c8ead2
+INTB4 (Intl Bus & Lang-Spanish-4),INTB4,Intl Bus & Lang-Spanish,4,d1f7393e-a6ea-0eae-b614-21b67c98cbca
+IR1 (Int Rel with German-1),IR1,Int Rel with German,1,f27180d2-ccf8-024e-43c1-e7852f9135f3
+IR1 (Intl Relations Gen-1),IR1,Intl Relations Gen,1,206bdb8d-bc21-5ab0-8eef-46c127b8d3d2
+IR1 (Intl Relations with Fr-1),IR1,Intl Relations with Fr,1,4c18d6bf-fc91-cadb-cbac-79e08a1e4ae1
+IR1 (Intl Relations with Sp-1),IR1,Intl Relations with Sp,1,33004f1e-6ffa-df4b-0325-179a7bee81c0
+IR2 (Int Rel with German-2),IR2,Int Rel with German,2,01c04021-acb4-da01-86c8-0d269953ba90
+IR2 (Intl Relations Gen-2),IR2,Intl Relations Gen,2,440e0f2e-1e19-95bb-f12c-76e852fec408
+IR2 (Intl Relations with Fr-2),IR2,Intl Relations with Fr,2,ffc36192-7885-0fde-3642-9d58b8e14f2e
+IR2 (Intl Relations with Sp-2),IR2,Intl Relations with Sp,2,20b79bce-11bf-8b98-4a2f-737495971f68
+IR3 (Int Rel with German-3),IR3,Int Rel with German,3,5cd64612-fec2-ba92-c1f5-76ed444604ed
+IR3 (Intl Relations Gen-3),IR3,Intl Relations Gen,3,7002a4d9-1408-c7c5-cb9e-b6cc413bcbee
+IR3 (Intl Relations with Fr-3),IR3,Intl Relations with Fr,3,15755696-0e87-e6c3-3505-8beb88561b04
+IR3 (Intl Relations with Sp-3),IR3,Intl Relations with Sp,3,5cb224a2-9634-574e-2af9-60eecd270607
+IRN4 (Intl Rel-Fre-4),IRN4,Intl Rel-Fre,4,82c5fd01-4efe-274e-9d6b-d1dda0cc6032
+IRN4 (Intl Rel-General-4),IRN4,Intl Rel-General,4,f9ce67ea-bbed-d61c-1152-448f8f7d87de
+IRN4 (Intl Rel-Ger-4),IRN4,Intl Rel-Ger,4,b32c7763-19fc-578d-7df7-d2059f136548
+IRN4 (Intl Rel-Spn-4),IRN4,Intl Rel-Spn,4,bdb391d6-5c7d-3278-1da0-1ceef5527f4b
+IRYA4 (Intl Rel-Fre-4),IRYA4,Intl Rel-Fre,4,460f604e-8091-2984-0dac-21cf37727231
+IRYA4 (Intl Rel-General-4),IRYA4,Intl Rel-General,4,d883b0a5-9874-e999-c9dc-6c9ebc428ae6
+IRYA4 (Intl Rel-Ger-4),IRYA4,Intl Rel-Ger,4,2730cc2b-8be1-49d4-c20d-3cdac36df568
+IRYA4 (Intl Rel-Spn-4),IRYA4,Intl Rel-Spn,4,0daf6b9e-4b50-6c0d-ed78-5adf406040a4
+IS1 (Information Technology-1),IS1,Information Technology,1,d2075e1f-ecfd-48b6-193d-26a5e64b99ad
+IT1 (Information Technology-1),IT1,Information Technology,1,bfeb5a76-bade-fffa-9ed1-5d6dc3b360ea
+JR1 (Journalism-1),JR1,Journalism,1,21e20a2a-5233-b684-2abc-bb6b44c8b705
+JR2 (Journalism-2),JR2,Journalism,2,2acd9288-c5ff-1dec-3518-e84e4b6daa92
+JR3 (Journalism-3),JR3,Journalism,3,7e871dec-85f9-8412-d276-078984c512a2
+JZCM1 (Jazz & Cont Music Perf-1),JZCM1,Jazz & Cont Music Perf,1,c098f3ae-dd02-0c48-9bf3-5ece1d11cdad
+JZCM2 (Jazz & Cont Music Perf-2),JZCM2,Jazz & Cont Music Perf,2,3ba322df-9339-ffc7-6b0f-d2407b6d9cdf
+JZCM3 (Jazz & Cont Music Perf-3),JZCM3,Jazz & Cont Music Perf,3,08078884-350b-2885-9a57-9bf91e86f029
+JZCM4 (Jazz & Cont Music Perf-4),JZCM4,Jazz & Cont Music Perf,4,fe23730e-3b9e-eaf9-c5ca-74d0cdd8bd58
+LLM1 (Biz&Trade Law & Mkts Regs FT-1),LLM1,Biz&Trade Law & Mkts Regs FT,1,06bb1e55-d07c-ed7f-45a7-ceb982e69c97
+LLM1 (Biz&Trade Law & Mkts Regs PT-1),LLM1,Biz&Trade Law & Mkts Regs PT,1,56c594dc-1ba0-7cf9-b59d-58fadea35951
+LLM1 (Intl Human Rights-FT-1),LLM1,Intl Human Rights-FT,1,f65a4844-2731-ab7b-4aae-73e10cc51eef
+LLM1 (Intl Human Rights-PT-1),LLM1,Intl Human Rights-PT,1,f5b6bcbb-c84d-bbbc-3155-ec88f7a8ba50
+LLM1 (LLM-Eur Law-FT-1),LLM1,LLM-Eur Law-FT,1,60e3e72e-cab2-52df-e81b-c83a2f4e10e8
+LLM1 (LLM-Eur Law-PT-1),LLM1,LLM-Eur Law-PT,1,aa8a9121-b10a-21ca-1df6-0aa8ce1273e5
+LLM1 (LLM-General-FT-1),LLM1,LLM-General-FT,1,0e623b2d-509e-9195-f2f9-b7a0c45a07f1
+LLM1 (LLM-General-PT-1),LLM1,LLM-General-PT,1,06fb2e7f-3c17-ad99-6ffc-61ae84d431b5
+LLM1 (LLM-Pub Law-FT-1),LLM1,LLM-Pub Law-FT,1,878ec354-cd79-0f26-c681-8b76d1620af0
+LLM1 (LLM-Pub Law-PT-1),LLM1,LLM-Pub Law-PT,1,a2487299-bcd8-e80b-d198-3f9214be310d
+LLM1 (Policing Crime & Scty-FT-1),LLM1,Policing Crime & Scty-FT,1,8f447567-4af1-c87b-0059-77be5d75a28e
+LLM1 (Policing Crime & Scty-PT-1),LLM1,Policing Crime & Scty-PT,1,671fd8fd-5a06-b9af-d966-458ff5db1da6
+LLM2 (Intl Human Rights-PT-2),LLM2,Intl Human Rights-PT,2,b459dba8-3f04-5222-a7b7-037dd3138c51
+LLM2 (LLM-Eur Law-PT-2),LLM2,LLM-Eur Law-PT,2,bda29431-1d14-c89b-d2e8-60287c41de56
+LLM2 (LLM-General-PT-2),LLM2,LLM-General-PT,2,40201a77-13f8-611f-748a-eaf0ab715f3f
+LLM2 (LLM-Pub Law-PT-2),LLM2,LLM-Pub Law-PT,2,c1ffba51-2422-3508-56c8-0b83539640aa
+LLM2 (Policing Crime & Scty-PT-2),LLM2,Policing Crime & Scty-PT,2,4aeddebc-0d8b-a181-0b9e-9e2ecf750f48
+MACMP1 (Creative Music Performance),MACMP1,Creative Music Performance,,09491789-2bc1-2043-5234-3ab5e5df7e6e
+MACS2 (Choral Studies-PT-2),MACS2,Choral Studies-PT,2,ba6802f8-1247-8450-f158-f65d8f0b0219
+MACSPW1 (Chaplaincy Studies-1),MACSPW1,Chaplaincy Studies,1,3f69a06c-cbfa-dbea-38f3-acad781f877c
+MACSPW1 (Chaplaincy Studies-PT-1),MACSPW1,Chaplaincy Studies-PT,1,0bd151c4-5a73-6d64-a99c-7557c18d4637
+MACSPW2 (Chaplaincy Studies-PT-2),MACSPW2,Chaplaincy Studies-PT,2,0b02e911-0808-0641-82a6-dfc48fa3df67
+MACW1 (Creative Writing-FT-1),MACW1,Creative Writing-FT,1,630966c2-d6ba-f248-7083-05d0fec30655
+MACW1 (Creative Writing-PT-1),MACW1,Creative Writing-PT,1,fbe5a8c2-f646-9e16-f1d2-01cd50992022
+MACW2 (Creative Writing-PT-2),MACW2,Creative Writing-PT,2,bafe3793-a7e1-8de6-1440-4f9b007feb1c
+MADP1 (Documentary Practice-FT-1),MADP1,Documentary Practice-FT,1,e646952a-6fe4-465c-f5b0-ef70d0a010c8
+MAETH1 (Ethics-1),MAETH1,Ethics,1,65070e7a-e487-3487-7b17-539a4446cdf8
+MAETH2 (Ethics-2),MAETH2,Ethics,2,34f9568b-56e3-98b5-944a-15c7a657b25c
+MAGS1 (Gender & Sexuality Stud-FT-1),MAGS1,Gender & Sexuality Stud-FT,1,59cc3225-deab-2b46-7319-4f3fe07716fd
+MAHCL1 (Chldns & Yng Adult Lit-FT-1),MAHCL1,Chldns & Yng Adult Lit-FT,1,5ed6c22e-0607-2d96-d75f-692a389c8590
+MAHCL1 (Chldns & Yng Adult Lit-PT-1),MAHCL1,Chldns & Yng Adult Lit-PT,1,30ac6e67-a3f5-aaeb-d960-71fe7dd858cc
+MAHCL2 (Chldns & Yng Adult Lit-PT-2),MAHCL2,Chldns & Yng Adult Lit-PT,2,c4aef49e-fdec-7bea-cbb5-07e3fb83a583
+MAHG1 (Léann na Gaeilge-FT-1),MAHG1,Léann na Gaeilge-FT,1,02bfa9a7-e5ea-d596-e7f3-64410d0e440f
+MAHG1 (Léann na Gaeilge-PT-1),MAHG1,Léann na Gaeilge-PT,1,97856fdb-90f0-bb9d-faf4-add7fa11b436
+MAHG2 (Léann na Gaeilge-PT-2),MAHG2,Léann na Gaeilge-PT,2,06244ab3-0038-dd39-34a2-c9d53104a962
+MAHH1 (History-FT-1),MAHH1,History-FT,1,791eb228-ce64-ea3d-9059-2f19b92cb6be
+MAHH1 (History-PT-1),MAHH1,History-PT,1,6f40d2a5-6442-f5f2-12a2-8177f3994ec6
+MAJ1 (Journalism-1),MAJ1,Journalism,1,6990196e-c4c1-7201-958e-7c8c083dfd0c
+MAMUSC1 (MusicSoundCultureMedia-FT-1),MAMUSC1,MusicSoundCultureMedia-FT,1,33b59e9c-25b7-0098-519f-50bb7c1d93c9
+MAMUSC1 (MusicSoundCultureMedia-PT-1),MAMUSC1,MusicSoundCultureMedia-PT,1,4716ce19-5c26-8a2d-cf1b-4409ed81e22c
+MAMUSC2 (MusicSoundCultureMedia-PT-2),MAMUSC2,MusicSoundCultureMedia-PT,2,68728361-6a15-88ce-174f-5a4d8e39ccda
+MAP1 (Political Comms-FT-1),MAP1,Political Comms-FT,1,80fa8664-39df-1384-3c47-9469c1851562
+MAP1 (Political Comms-PT-1),MAP1,Political Comms-PT,1,a162e9ba-6403-935b-60be-8248545fc0d7
+MAP2 (Political Comms-PT-2),MAP2,Political Comms-PT,2,129c6b79-a38e-4ca6-b444-bb2f3aa7ac38
+MARI1 (Refugee Integ-FT-1),MARI1,Refugee Integ-FT,1,53a43668-c7c2-4291-c446-83e0ba86ac42
+MARI1 (Refugee Integ-PT-1),MARI1,Refugee Integ-PT,1,f1b9beb3-1ac1-4cc1-5fb3-b218c719349f
+MARI2 (Refugee Integ-PT-2),MARI2,Refugee Integ-PT,2,5f39428a-0672-ba5d-d9d0-1c329cbfc900
+MATHWR1 (Theology & Wrld Religs-FT-1),MATHWR1,Theology & Wrld Religs-FT,1,7ffe8238-0dd0-1eae-a091-10229daa65f3
+MATHWR1 (Theology & Wrld Religs-PT-1),MATHWR1,Theology & Wrld Religs-PT,1,b436ddcf-3ffa-67e3-1778-aa61c393d640
+MATHWR2 (Theology & Wrld Religs-PT-2),MATHWR2,Theology & Wrld Religs-PT,2,1815b5d0-b541-ecf8-0e69-4c6e2d30326d
+MBA1 (Business Management-1),MBA1,Business Management,1,a3f2322b-f4e6-116f-80cd-d733c2004f1b
+MBA2 (Business Management-2),MBA2,Business Management,2,83f15f45-89a0-d80d-f776-8cae0bf9588b
+MBGD1 (Bainist & Gnó Digit-1),MBGD1,Bainist & Gnó Digit,1,61b79d99-fe68-c1c9-9a45-9ae89ec64574
+MBGD2 (Bainist & Gnó Digit-2),MBGD2,Bainist & Gnó Digit,2,7ebde762-fa8e-3589-d8e4-00d570c8a079
+MBPT1 (Biotherapeutics-FL-1),MBPT1,Biotherapeutics-FL,1,3bc79f4d-5ad3-c3fb-505a-b83b9d74ce05
+MBPT1 (Biotherapeutics-FT-1),MBPT1,Biotherapeutics-FT,1,23b8febe-4d47-bf81-c179-f76f28532567
+MBS1 (Accounting-1),MBS1,Accounting,1,0853eb56-9bf4-b674-eccf-285ebe3790d4
+MCC1 (Climate Chg-FT-1),MCC1,Climate Chg-FT,1,733535e9-79d6-52c7-0512-8bab3a2f49eb
+MCC1 (Climate Chg-PT-1),MCC1,Climate Chg-PT,1,94324ee6-e29f-34e9-c6b4-e0971d48e252
+MCC2 (Climate Chg-PT-2),MCC2,Climate Chg-PT,2,6bc60d13-5258-214a-6e4f-ab55c702a7fc
+MCHW1 (Chld Fam Hlth & Well-1),MCHW1,Chld Fam Hlth & Well,1,0c63590f-47dc-dabd-694e-b38f20f762ad
+MCHW2 (Chld Fam Hlth & Well-2),MCHW2,Chld Fam Hlth & Well,2,c5f1f04e-09ec-20e8-fd3b-d40cf1587000
+MCM1 (AI with Nat Lang Prscg-1),MCM1,AI with Nat Lang Prscg,1,2e2fec1c-e857-c93e-fad6-1f07e0312c64
+MCM1 (AI with Nat Lang Prscg-1) B Version,MCM1,AI with Nat Lang Prscg (B Version),1,69842a76-ebde-490d-4ea4-437d1dd1be8c
+MCM1 (Artificial Intel-1),MCM1,Artificial Intel,1,4b27b076-14c5-98b2-4c2a-3ceaf40ff1ba
+MCM1 (Artificial Intel-1) B version,MCM1,Artificial Intel (B version),1,c63dcd69-5786-a44d-630a-0418546d79f9
+MCM1 (Artificial Intel-PT-1),MCM1,Artificial Intel-PT,1,8fcecede-7f14-2210-d4ab-97c4f64d10d5
+MCM1 (Artificial Intelligence-JAN-1),MCM1,Artificial Intelligence-JAN,1,fb84fcde-4318-5967-a92c-730512185f4f
+MCM1 (Cybersecurity-1),MCM1,Cybersecurity,1,08edfa32-1ba9-4dd9-7311-c9eed93edfef
+MCM1 (Cybersecurity-1) B version,MCM1,Cybersecurity (B version),1,abdef104-e3ea-7f7a-df39-7a669f29c50b
+MCM1 (Cybersecurity-PT-1),MCM1,Cybersecurity-PT,1,a52b6411-611c-b5aa-4638-da0d2a6e5c31
+MCM1 (Data Analytics-1),MCM1,Data Analytics,1,8624d1aa-bcbe-cfbc-9d9b-c29f14a6bf7d
+MCM1 (Data Analytics-1) B version,MCM1,Data Analytics (B version),1,47bb87e7-e2e0-63c6-a568-8acf2cfaaf2a
+MCM1 (Data Analytics-JAN-1),MCM1,Data Analytics-JAN,1,a85dffd3-8088-83b1-97db-441a33ff88cd
+MCM1 (Data Analytics-PT-1),MCM1,Data Analytics-PT,1,090dfcd5-61a6-39ca-3af6-aaf14795c8a3
+MCM2 (Artificial Intel-PT-2),MCM2,Artificial Intel-PT,2,2168c68a-c6e9-e699-f160-ab1dd05c8b72
+MCM2 (BC Distrib Ledger Tech-PT-2),MCM2,BC Distrib Ledger Tech-PT,2,c28345eb-d054-cc0d-05a7-b7c078e8d499
+MCM2 (Data Analytics-PT-2),MCM2,Data Analytics-PT,2,01459659-3ca7-948e-8e36-447a3172a626
+MCM2 (Security Software Eng-PT-2),MCM2,Security Software Eng-PT,2,30bf6e8f-c779-e099-7cff-63fd6d21f8b3
+MCMHSS1 (Micro-credential HSS-1),MCMHSS1,Micro-credential HSS,1,38331abe-fd80-2a66-d109-99aedae3d0e1
+MCMSH1 (Micro-credential SH-1),MCMSH1,Micro-credential SH,1,d18d4d93-ae5a-c7ea-127b-b5268c0808eb
+MCOU1 (Psychotherapy-1),MCOU1,Psychotherapy,1,4f3f7e65-9027-c6ce-6d92-b8af6cd543e0
+MCOU2 (Psychotherapy-2),MCOU2,Psychotherapy,2,a3328469-892a-a2d3-1656-01a8b9af0fdb
+MCOU3 (Psychotherapy-3),MCOU3,Psychotherapy,3,1e9df568-fdf8-7b90-5b41-d18e5a804e08
+MCOU4 (Psychotherapy-4),MCOU4,Psychotherapy,4,57e5d39f-99b7-7d32-b28a-43a574ec8628
+MCTY1 (Electronic & Comp Eng-Jan-FL-1),MCTY1,Electronic & Comp Eng-Jan-FL,1,41046d88-93d4-8b83-0f7f-7abb437c51af
+MCTY1 (Electronic & Comp Eng-Jan-FT-1),MCTY1,Electronic & Comp Eng-Jan-FT,1,5bb6f1b3-949e-c5a6-f85c-16a4b0810b99
+MCTY1 (Electronic & Computer Eng-FL-1),MCTY1,Electronic & Computer Eng-FL,1,4142da66-ae4b-c9ed-8c35-6db484503020
+MCTY1 (Electronic & Computer Eng-FT-1),MCTY1,Electronic & Computer Eng-FT,1,1151dbee-f71f-c6bf-3100-94851d409876
+MDPM1 (Diagns & Precision Med-FL-1),MDPM1,Diagns & Precision Med-FL,1,c50565ce-b202-eb16-3ba8-d157802c11cd
+MDPM1 (Diagns & Precision Med-FT-1),MDPM1,Diagns & Precision Med-FT,1,6cf60f00-08b8-fe91-543c-87aa0f545574
+MDPPLC1 (Computing-FT-1),MDPPLC1,Computing-FT,1,ccb77e56-6a17-730e-d1e4-c0a93f451ee8
+MDPPLC1 (Computing-PT-1),MDPPLC1,Computing-PT,1,46234d59-dd17-7420-7e1d-00343e75aa72
+MDPPLC1 (Law-FT-1),MDPPLC1,Law-FT,1,2fc10eaa-103c-3793-1307-1d3c96a8b034
+MDPPLC2 (Computing-PT-2),MDPPLC2,Computing-PT,2,7271f1f3-8b72-a048-3f89-462c52c55843
+MDPPLC2 (Law-PT-2),MDPPLC2,Law-PT,2,19e400e8-48cd-9683-1b99-4339de514c64
+ME1 (Engineering-1),ME1,Engineering,1,6b24d992-cb14-1994-6460-d23cca27341f
+ME2 (Mechatronic Eng-2),ME2,Mechatronic Eng,2,2773cb50-debb-7470-9adf-2a6de24884ba
+ME3 (Mechatronic Eng-3),ME3,Mechatronic Eng,3,a32cb06f-12ae-d81a-af49-9726e5f91764
+ME4 (Mechatronic Eng-4),ME4,Mechatronic Eng,4,795bd3f1-597a-f11b-f982-9ec540600774
+MECE1,MECE1,MECE1,,8cd43b0a-8dbf-753b-de2e-a450edfdb644
+MED1 (EDU Global Citizenship-1),MED1,EDU Global Citizenship,1,b5f80b38-3b83-e153-43ef-dfbe130f3ca0
+MED1 (Edu Poverty&Soc Incl-1),MED1,Edu Poverty&Soc Incl,1,ab79ceca-7211-836a-9619-80396020e509
+MED1 (Edu Teaching&Learning-1),MED1,Edu Teaching&Learning,1,860c2812-614d-9ccf-7db1-a0989b697a67
+MED1 (Educational Leadership-1),MED1,Educational Leadership,1,0738df00-e41b-9094-4a0d-61a7308890f4
+MEDLPP1 (Literacy Prof Pract-1),MEDLPP1,Literacy Prof Pract,1,40d00b31-83e5-84a9-676e-538232d9dd26
+MEECE1 (Early Childhood Edu-1),MEECE1,Early Childhood Edu,1,eba3f9b0-26f0-91a9-a6b5-9fa0958051bf
+MEECE2 (Early Childhood Edu-2),MEECE2,Early Childhood Edu,2,4aba2ed4-8df8-3182-7285-f19a3d9a39f5
+MEEW1 (Elec Engineering Wuhan-1),MEEW1,Elec Engineering Wuhan,1,6a223fe8-dae4-d040-30c2-9f7e35cef13e
+MEI3 (Mechatronic Eng-IG-3),MEI3,Mechatronic Eng-IG,3,2495e3df-a363-ea4c-f846-be8810ff7ad5
+MEI4 (Mechatronic Eng-IG-4),MEI4,Mechatronic Eng-IG,4,a3ca6ec0-9a31-0c57-ffb5-1e4e338dfcde
+MEIM5 (Mechatronic Eng-5),MEIM5,Mechatronic Eng,5,3d514ea1-50e9-77de-4682-62ea2fe05862
+MEME1 (Digital Learning-1),MEME1,Digital Learning,1,06cba766-fe51-2c51-9d00-a76bbc4edc83
+MEME2 (Digital Learning-2),MEME2,Digital Learning,2,7f28574d-6def-52aa-db75-fff2a75db68a
+MEML1 (Leadership-1),MEML1,Leadership,1,1e1566bd-15c8-7c2f-cba1-02351cb2c861
+MEML2 (Leadership-2),MEML2,Leadership,2,d1a9926e-1a38-5031-2f0b-e10ebc2a3996
+MFCM1 (Finance-Jan-1),MFCM1,Finance-Jan,1,48581c59-0e6a-438e-a9f8-2c3f86a3a215
+MFCM1 (Finance-Sep-1),MFCM1,Finance-Sep,1,d437d23a-2fc8-e5fd-7af7-0e8b89eec721
+MFM1 ( Financial Mathematics-FT-1),MFM1,Financial Mathematics-FT,1,007bc5ac-e1a8-abe8-ea33-8e7cb9cb92f1
+MHR1 (Talent Ldshp & HR Strat-1),MHR1,Talent Ldshp & HR Strat,1,ee049dfc-dca1-40fa-d6b3-57b4c0c98920
+MHRM1 (Human Resource Mgmt-1),MHRM1,Human Resource Mgmt,1,eb0b7632-88cd-a9a3-bd0e-3c5623ac93bd
+MHSI1 (Health & Social Incl-FT-1),MHSI1,Health & Social Incl-FT,1,5eeaf4ab-e575-8eaf-1efb-02532a786364
+MHSI1 (Health & Social Incl-PT-1),MHSI1,Health & Social Incl-PT,1,64a33dee-7968-8ce6-1641-ca9aa3234070
+MIAB1 (Accounting-1),MIAB1,Accounting,1,e5ea2116-184c-cae6-4b82-189f80c71f8d
+MINT1 (Marketing Innov & Tech-1),MINT1,Marketing Innov & Tech,1,c7fdabf9-0e2e-e974-8324-757021d75c9c
+MINT2 (Marketing Innov & Tech-2),MINT2,Marketing Innov & Tech,2,1e876675-54ad-ce6e-575f-aab0e0fcc827
+MINT3 (Marketing Innov & Tech-3),MINT3,Marketing Innov & Tech,3,71ea399c-cf93-d0ac-fbe9-85e5a8d1b479
+MINTI4 (Marketing Innov & Tech-4),MINTI4,Marketing Innov & Tech,4,90e65c7e-7d48-c235-609f-6086bd627010
+MIR1 (Intl Relations-FT-1),MIR1,Intl Relations-FT,1,b82a117f-417d-cfd7-7536-fa190cf9dae0
+MIR1 (Intl Relations-PT-1),MIR1,Intl Relations-PT,1,39836067-3647-dc5f-a7b8-580b46304bf0
+MIR2 (Intl Relations-PT-2),MIR2,Intl Relations-PT,2,d9ab0a26-1b60-667e-2ff6-fd5c3e266b2d
+MISC1 (Intl Scty & Confl Sts-FT-1),MISC1,Intl Scty & Confl Sts-FT,1,eb7f62ce-c5bb-bf6e-cf36-83509923e2d6
+MISC1 (Intl Scty & Confl Sts-PT-1),MISC1,Intl Scty & Confl Sts-PT,1,97b8116c-87b9-d404-40b7-b855503e11e8
+MISC2 (Intl Scty & Confl Sts-PT-2),MISC2,Intl Scty & Confl Sts-PT,2,d755556b-a2bd-99e3-bffa-d63bf3493687
+MLING1 (Multilingualism-1  ),MLING1,Multilingualism,1,b0ba05ea-517a-af8d-e442-0b4818037516
+MMA1 (Multimedia-1),MMA1,Multimedia,1,f46312a8-f20b-35a8-dbb6-084b09a32338
+MMA2 (Multimedia-2),MMA2,Multimedia,2,5c9015e2-c87f-5bcc-5de6-a10f16f7e0b6
+MMA3 (Multimedia-3),MMA3,Multimedia,3,a053acc1-1e77-782d-af00-1a5583d6866c
+MMAC1 (Mech & Mfg Engineering-1),MMAC1,Mech & Mfg Engineering,1,248f1395-928d-e3b0-36e2-822f812ee865
+MMME1 (General-FT-1),MMME1,General-FT,1,710ced7b-6831-fba6-649e-778b4dd4678f
+MMQB1 (Mech & Mfg Engineering-1),MMQB1,Mech & Mfg Engineering,1,7a571141-f44d-93ac-0fdb-99f868164ed7
+MOPSA1 (Mgmt of Operations-PT-1),MOPSA1,Mgmt of Operations-PT,1,591b055f-8c21-e0c9-992e-e5373f202c37
+MOPSA2 (Mgmt of Operations-PT-2),MOPSA2,Mgmt of Operations-PT,2,f01a743c-f3b9-444d-c064-cda078ba7878
+MOPSFC1 (Mgmt of Operations-FL-1),MOPSFC1,Mgmt of Operations-FL,1,9541de23-46af-17fd-d56b-5943dcb15d4a
+MOPSFD1 (Mgmt of Operations-PT-1),MOPSFD1,Mgmt of Operations-PT,1,514a8cf6-a809-31fe-0d91-69318c764742
+MOSC1 (Opns Mgmt & Supply Ch-1),MOSC1,Opns Mgmt & Supply Ch,1,a6cd8b3c-89f8-e4ce-d28d-8f852ce881a8
+MPC1 (Psychology Conversion-1),MPC1,Psychology Conversion,1,e265d32f-fdca-be44-37bb-bafb8a1542e1
+MPED1 (Education -1&2 Exit),MPED1,Education -1&2 Exit,,07945b60-f2fb-7431-e01b-c62e6092472d
+MPO1 (Org Psychology-1),MPO1,Org Psychology,1,59016319-9224-50dd-6be3-1a403dd10867
+MPO2 (Org Psychology-2),MPO2,Org Psychology,2,c4d3f9a3-0346-22f1-960b-810611b94dbf
+MPP1 (Public Policy-FT-1),MPP1,Public Policy-FT,1,28054ef5-406d-6659-22e9-756c992b145f
+MPP1 (Public Policy-Gen-PT-1),MPP1,Public Policy-Gen-PT,1,2e15aa03-d9c8-5d25-0666-0b6bf4a16c50
+MPP2 (Public Policy Gen-PT-2),MPP2,Public Policy Gen-PT,2,d1b2aa5e-9143-1936-817d-9ac03d41b760
+MPSY1 (Psychotherapeutic Studies-1),MPSY1,Psychotherapeutic Studies,1,eb75bc31-ce6b-8f37-1a32-1ea20d0bf5ac
+MPT1 (Physiotherapy-1),MPT1,Physiotherapy,1,8be9cef2-5d65-f3ac-5532-8914134eb3eb
+MPT2 (Physiotherapy-2),MPT2,Physiotherapy,2,2e5b131d-6018-c3ac-acb9-2f88a409bef0
+MPW1 (Psychology & Wellbeing-FT-1),MPW1,Psychology & Wellbeing-FT,1,e78bc69f-0520-f1a4-b3f4-8663223b1aad
+MPW1 (Psychology & Wellbeing-PT-1),MPW1,Psychology & Wellbeing-PT,1,a60e79be-f83a-fa0e-368b-e5f1332d831e
+MPW2 (Psychology & Wellbeing-PT-2),MPW2,Psychology & Wellbeing-PT,2,f64730ed-5b9a-9852-4478-586f06228066
+MSBA1 (Business Analytics-1),MSBA1,Business Analytics,1,ee228d7c-e9d6-092c-2cef-9d2dd2e142bd
+MSBE1 (Bioprocess Engineering-FL-1),MSBE1,Bioprocess Engineering-FL,1,072a92a8-1051-31fe-ad69-e1e6a2cd62da
+MSBE1 (Bioprocess Engineering-FT-1),MSBE1,Bioprocess Engineering-FT,1,b117ae5c-71f2-9dd5-e268-4a0f9a3b5b90
+MSBM1 (Business Management-1),MSBM1,Business Management,1,a8a76c02-0a66-281b-150b-a3daf5b340fb
+MSCEM1 (Media Studies-1),MSCEM1,Media Studies,1,32a91e3e-4727-c76b-001e-77574c3bbacf
+MSCPR1 (Publ Rel & Strat Comms-1),MSCPR1,Publ Rel & Strat Comms,1,6be3aa76-ec53-d442-8725-a28f51032869
+MSDM1 (Digital Marketing-1),MSDM1,Digital Marketing,1,500c181f-1e99-fbbb-0b58-619711cbde84
+MSEM1 (Emergency Management-1),MSEM1,Emergency Management,1,e7644110-7973-343b-cf6b-976bf97b9955
+MSEN1 (Special Edu Needs-1),MSEN1,Special Edu Needs,1,24e0f658-97dd-4ea1-6a3a-d8944d4eaf17
+MSEN2 (Special Edu Needs-2),MSEN2,Special Edu Needs,2,a7353e0b-9374-bbdd-57bf-c06bd2401af3
+MSGC1 (Guidance Counselling-1),MSGC1,Guidance Counselling,1,6d382dfa-1e4e-c71e-aa6c-1bc132494248
+MSGC2 (Guidance Counselling-2),MSGC2,Guidance Counselling,2,b43954d6-6f89-5ac2-62c7-7c948db7d288
+MSGM1 (Dig Distr ESB BS-1),MSGM1,Dig Distr ESB BS,1,f3852f5a-603c-d756-dfd0-506c25411143
+MSGM1 (Digital Disruption-DCU-1),MSGM1,Digital Disruption-DCU,1,bb588185-0c4d-c8fe-69b8-13ec99e83f4d
+MSGM2 (Dig Distr ESB BS-2),MSGM2,Dig Distr ESB BS,2,1ff2d192-8f95-be11-255a-c9ab96d0b702
+MSHC1 (Science & Health Comms-FT-1),MSHC1,Science & Health Comms-FT,1,d7e8c5e1-7baf-e58a-f42b-a2402bd0c1c7
+MSHC1 (Science & Health Comms-PT-1),MSHC1,Science & Health Comms-PT,1,a914f9bf-db47-60fa-b5ec-70c1b8fd3376
+MSHC2 (Science & Health Comms-PT-2),MSHC2,Science & Health Comms-PT,2,0478af79-0182-e9e1-22cb-7dc422cacc5e
+MSII1 (Management-1),MSII1,Management,1,5c3572bd-4f69-c20c-0cf0-0bc52a145abf
+MSII2 (Management-2),MSII2,Management,2,726e20a3-9e94-d477-83a0-ea8f5b24a389
+MSLD1 (Strategic Lrn & Dev-1),MSLD1,Strategic Lrn & Dev,1,ac4c1982-5043-e430-4e5b-3a101eccc79e
+MSMC1 (Social Media Comms-FT-1),MSMC1,Social Media Comms-FT,1,f9019c80-0ebe-b066-a3e4-63d1c76c0e72
+MSMC1 (Social Media Comms-PT-1),MSMC1,Social Media Comms-PT,1,8543b847-8a49-cf7e-2861-e4cb1c865c6d
+MSMC2 (Social Media Comms-PT-2),MSMC2,Social Media Comms-PT,2,20e6c5bc-94d3-af65-92aa-935e0a0f0152
+MSN1 (Adlt Chr Disease Mgmt-1),MSN1,Adlt Chr Disease Mgmt,1,77907c89-0554-f38c-8244-3e69fbadd77c
+MSN1 (Womens Health-1),MSN1,Womens Health,1,86743cf7-e3e5-9be1-de99-c3857c026db9
+MSN2 (Adlt Chr Disease Mgmt-2),MSN2,Adlt Chr Disease Mgmt,2,2ba5fbb6-8225-fd09-fa65-405a93cca404
+MSN2 (Womens Health-2),MSN2,Womens Health,2,c85f856e-436b-4615-4d68-e233048715ce
+MSOB1 (Org Behaviour-1),MSOB1,Org Behaviour,1,e4049c4f-129a-00e3-7540-2c5868b1ae01
+MSOB2 (Org Behaviour-2),MSOB2,Org Behaviour,2,902f850e-bcee-9c80-a1a4-323a815d7db8
+MSPLD1 (Dyslexia-1),MSPLD1,Dyslexia,1,07b39f29-7992-626d-2ae9-5d8adad5ac1d
+MSPLD2 (Dyslexia-2),MSPLD2,Dyslexia,2,ead9feaf-db55-8e6c-352d-d72bde0d8c2b
+MSSM1 (Management-1),MSSM1,Management,1,ddb4e333-3762-19ce-bd54-27e1c4bfa12d
+MT4 (Mech Tech-4),MT4,Mech Tech,4,6d1d90e0-15c3-8d8b-9886-97a4f9ac9b62
+MTS1 (Translation Stud-FT-1),MTS1,Translation Stud-FT,1,d7a88636-9a85-54b0-79a4-2c553b77b8c1
+MTT1 (Translation Tech-FT-1),MTT1,Translation Tech-FT,1,9542c873-c70e-c1db-a650-84f72735c1b2
+NAVET1P,NAVET1P,NAVET1P,,d69fcbff-65f9-6dea-5747-cc154185e378
+PAN2 (Physics Data Analysis-2),PAN2,Physics Data Analysis,2,40cf9d78-f313-9ae3-b142-259dcd574957
+PAN3 (Physics Data Analysis-3),PAN3,Physics Data Analysis,3,f5a04d3b-a167-3605-7bdd-be5c2d4c4755
+PAN4 (Physics Data Analysis-4),PAN4,Physics Data Analysis,4,acd6ad57-94fe-eac7-223f-d4519f7a75a7
+PBM2 (Physics Biomed Science-2),PBM2,Physics Biomed Science,2,d07ffa6c-292f-5f26-e697-d7f941b2cada
+PBM3 (Physics Biomed Science-3),PBM3,Physics Biomed Science,3,2091910a-ec85-c78e-05b8-4bed8694f4bc
+PBM4 (Physics Biomed Science-4),PBM4,Physics Biomed Science,4,0ef4fd27-c450-818f-d910-91184d062cc9
+PBSSA1 (Postgraduate Exchange),PBSSA1,Postgraduate Exchange,,315b60de-2850-1d74-2415-512966e8858e
+PDCS1 (Clinical Supervision-1),PDCS1,Clinical Supervision,1,fd3611ce-d5f4-87c7-d60b-c747917848d2
+PDITP1 (Teaching Physics-1),PDITP1,Teaching Physics,1,8dceabaf-5fcd-0a86-715b-85b4848a6370
+PDITP1 (Teaching Physics-1.1),PDITP1,Teaching Physics (1.1),1,439d0620-f314-b0e2-1c5f-c5c157e7bda2
+PDITP3 (Teaching Physics-3),PDITP3,Teaching Physics,3,e80344e0-eb0a-2185-6d9a-3fb74306ca0f
+PEB1 (Physical Edu & Biology-1),PEB1,Physical Edu & Biology,1,d9357510-fded-ea54-7ce7-ae98b308fd64
+PEB2 (Physical Edu & Biology-2),PEB2,Physical Edu & Biology,2,f061931a-bf30-1974-6c48-98f926ec83b9
+PEB3 (Physical Edu & Biology-3),PEB3,Physical Edu & Biology,3,c8508551-674c-321d-e236-cae75c53142a
+PEB4 (Physical Edu & Biology-4),PEB4,Physical Edu & Biology,4,5777a895-c3df-c1ab-e833-3bfbc7c161db
+PEM1 (Physical Edu & Maths-1),PEM1,Physical Edu & Maths,1,4e5afa05-2e4c-9c3a-c289-2544ba9fa8a3
+PEM2 (Physical Edu & Maths-2),PEM2,Physical Edu & Maths,2,cb7fd147-77e4-1b2e-d712-3851ba0e7e52
+PEM3 (Physical Edu & Maths-3),PEM3,Physical Edu & Maths,3,1ab8568d-840b-0c1f-4b63-4959c1ed512e
+PEM4 (Physical Edu & Maths-4),PEM4,Physical Edu & Maths,4,887569a7-9a6d-9baa-3e69-c745dbba13b1
+PGE1 (Physics General Entry-1),PGE1,Physics General Entry,1,78c0bf2e-09fd-4e44-d717-4d3b082b7a94
+PHA2 (Physics Astronomy-2),PHA2,Physics Astronomy,2,af8d1f5a-97fb-ef14-49f9-e3983507ff58
+PHA3 (Physics Astronomy-3),PHA3,Physics Astronomy,3,7cb5cae1-ffad-bbc3-f0a8-16840f2e46da
+PHA4 (Physics Astronomy-4),PHA4,Physics Astronomy,4,5790d2c8-3775-a6cc-ab3f-ff1ec689d951
+PME1 (Education-1),PME1,Education,1,00402665-3fc2-fff3-aefd-343918e2b336
+PME2 (Education-2),PME2,Education,2,a1fe7400-8bc6-fa45-7836-b42764e29dea
+PMEP1 (Primary Education-1),PMEP1,Primary Education,1,b078ac31-84e8-636d-96f8-1240bb4a76fb
+PMEP2 (Primary Education-2),PMEP2,Primary Education,2,971b91fb-b950-654e-1874-ca3e2f24859c
+SE4 (Chemical Sciences-4),SE4,Chemical Sciences,4,672cbbb2-8b2d-011f-002a-8e6e6a4d3b4a
+SE4 (Physical Sciences-4),SE4,Physical Sciences,4,e7c2c430-08fe-3742-c827-a83fedf88929
+SME1 (Chemical Sciences-1),SME1,Chemical Sciences,1,425436c4-74be-caed-9a7b-35b0e3a5c7df
+SME1 (Physical Sciences-1),SME1,Physical Sciences,1,94d63c26-10fb-6005-2b8a-b23b8c45d9ee
+SME2 (Chemical Sciences-2),SME2,Chemical Sciences,2,6e1ee36c-ab77-8c34-438b-237b43d65adf
+SME2 (Physical Sciences-2),SME2,Physical Sciences,2,7bf388f9-83d2-7eb7-6fa6-7a5bfab727ce
+SME3 (Chemical Sciences-3),SME3,Chemical Sciences,3,8d408391-5a9e-af64-21fd-34c66ed7b30e
+SME3 (Physical Sciences-3),SME3,Physical Sciences,3,1c082522-4230-879f-b2d7-d1985938c0c2
+SME4 (Chemical Sciences-4),SME4,Chemical Sciences,4,fa7d5cd4-b7be-bdb1-1322-064e1df47434
+SME4 (Physical Sciences-4),SME4,Physical Sciences,4,1fb46c24-6ab0-c507-7bb4-58ff24982ccc
+SMPB1 (Single Module DCUBS-1),SMPB1,Single Module DCUBS,1,a89691e7-146b-9dc9-3b69-7bab4a86112c
+SMPHSS1 (Single Module HSS-1),SMPHSS1,Single Module HSS,1,6be8f13e-e4c3-d7d1-ed59-ce9b76458e18
+SMPPY1 (Single Module Psych-1),SMPPY1,Single Module Psych,1,b75fc4f3-1a90-6a71-64ec-8da79e591c94
+SSE1 (Engineering-1),SSE1,Engineering,1,8e11bb70-81e8-8421-028b-c8911c496426
+SSE2 (Mech & Mfg Engineering-2),SSE2,Mech & Mfg Engineering,2,be7d4834-a70b-c0a9-3acc-2f358324a40b
+SSE3 (Mech & Mfg Engineering-3),SSE3,Mech & Mfg Engineering,3,01b99317-0e8a-b4f5-8279-e92c9383b8ef
+SSE4 (Mech & Mfg Engineering-4),SSE4,Mech & Mfg Engineering,4,7472fef8-7933-d37a-977e-d562244c92b7
+SSEI3 (Mech & Stp Engineering-IG-3),SSEI3,Mech & Stp Engineering-IG,3,4f894b24-0513-5a12-9022-19a9e8d613f7
+SSEI4 (Mech & Stp Engineering-IG-4),SSEI4,Mech & Stp Engineering-IG,4,026d5e3c-c2b9-4e94-14ec-143df22bae04
+SSEIM5 (Mech & Sustainability Eng-5),SSEIM5,Mech & Sustainability Eng,5,d3dbf4f0-7595-666c-cbdd-601358f79f02
+SSH1 (Sport Science & Health-1),SSH1,Sport Science & Health,1,f47f40cc-1ba4-2889-d77c-9de7859d6b0b
+SSH2 (Sport Science & Health-2),SSH2,Sport Science & Health,2,b2b72796-f232-7778-24ce-b6cfb74ea2f3
+SSH3 (Sport Science & Health-3),SSH3,Sport Science & Health,3,5b493cb1-58f6-1566-7279-4fe311a6bb7a
+SSH4 (Sport Science & Health-4),SSH4,Sport Science & Health,4,50f6d410-db85-6f99-1c4a-028a5e62fc31

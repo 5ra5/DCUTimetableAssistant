@@ -2,7 +2,7 @@ import sqlite3
 from dotenv import load_dotenv
 import os
 
-"""This function belongs to endpoint GET /pogrammes
+"""This function belongs to endpoint GET /programmes
    it reads the programmes from SQLite and returns their names and UUIDS as json 
    for the frontend to populate the dropdown menu for feature A
 """

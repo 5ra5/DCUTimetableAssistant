@@ -23,5 +23,3 @@ def get_programmes():
       programmes.append({"redbrick_name": row[0], "redbrick_uuid": row[1]})
 
    return programmes
-
-

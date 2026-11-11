@@ -1,6 +1,7 @@
-# runs Ollama in a container too - run with 'docker compose -f ollama.compose.yaml up -d'
-include:
-  - path: ./compose.yaml
+# OPTIONAL add-on: run Ollama in a container too, instead of on the host.
+#   docker compose -f compose.yaml -f ollama.compose.yaml up -d
+# This is an override file merged on top of compose.yaml (do not use `include:` here, it cannot redefine `app`).
+# The first run downloads the model (needs internet); later runs find it in the volume and skip the download.
 services:
   ollama:
     container_name: ollama
@@ -12,8 +13,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-    env_file:
-      - .env
+
   model-pull:
     container_name: model-pull
     image: ollama/ollama:latest
@@ -24,12 +24,10 @@ services:
       OLLAMA_HOST: http://ollama:11434
       MODEL: ${OLLAMA_MODEL:-llama3.2:3b}
     entrypoint: ["/bin/sh", "-c"]
-    command: ["ollama list | grep '$$MODEL' || ollama pull $$MODEL"]
+    command: ['ollama list | grep -qF "$$MODEL" || ollama pull "$$MODEL"']
     restart: "no"
     volumes:
       - ollama_models:/root/.ollama
-    env_file:
-      - .env
 
   app:
     environment:
@@ -41,4 +39,4 @@ services:
         condition: service_completed_successfully
 
 volumes:
-  ollama_models: 
+  ollama_models:

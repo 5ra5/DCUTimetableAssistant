@@ -19,6 +19,11 @@ ROUTERS = [
     # weekly.router,
 ]
 
+logging.basicConfig(
+    level=settings.log_level,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 logger.info("Starting DCU Timetable Assistant backend on port 8080")
 

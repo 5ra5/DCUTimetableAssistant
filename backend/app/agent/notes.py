@@ -48,6 +48,11 @@ def _quantities(text: str) -> set:
     return pairs
 
 
+def _mentions(note: str, word: str) -> bool:
+    """Whole-token match, so the figure "20" is not found inside "200" (but "expand" still matches "expanded")."""
+    return re.search(r"(?<!\w)" + re.escape(word) + r"(?!\d)", note, re.IGNORECASE) is not None
+
+
 def check_note(note: str, summary: str, facts: dict, must_mention: tuple = ()) -> Optional[str]:
     """Return None if the note is acceptable, otherwise a short reason why it was rejected."""
     if not note or not note.strip():
@@ -76,6 +81,6 @@ def check_note(note: str, summary: str, facts: dict, must_mention: tuple = ()) -
     for number, unit in _quantities(note) - _quantities(summary):
         return f"unsupported_quantity:{number:g} {unit}"
 
-    if must_mention and not any(w.lower() in note.lower() for w in must_mention):
+    if must_mention and not any(_mentions(note, w) for w in must_mention):
         return "missing_mention"
     return None

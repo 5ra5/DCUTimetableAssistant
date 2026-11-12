@@ -109,7 +109,7 @@ def run_agent(feature: str, user_message: str, pinned: dict) -> AgentResult:
     if word:
         trace["guard"] = word
         trace["llm_ok"] = None   # never asked
-        return finish(status="unsupported", summary=UNSUPPORTED_SUMMARY, facts={}, trace=trace)
+        return finish(status="unsupported", summary=UNSUPPORTED_SUMMARY, facts={})
 
     tools = {t.__name__: t for t in cfg.tools}
 
@@ -183,7 +183,7 @@ def run_agent(feature: str, user_message: str, pinned: dict) -> AgentResult:
     failed = [f"{n}: {r['error']}" for n,
               r in facts.items() if isinstance(r, dict) and "error" in r]
     if failed:
-        return finish(AgentResult(status="none", summary="The search could not be completed (" + "; ".join(failed) + ").", facts=facts, trace=trace))
+        return finish(status="none", summary="The search could not be completed (" + "; ".join(failed) + ").", facts=facts)
 
     # The summary comes from Python, not the model.
     summary = cfg.template(facts)

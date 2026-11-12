@@ -98,3 +98,56 @@ CREATE TABLE IF NOT EXISTS programmes (
 -- Speeds up searches by degree and year.
 CREATE INDEX IF NOT EXISTS idx_programmes_degree_year
 ON programmes(degree, year);
+
+--- SEMESTER TIMETABLE EVENTS
+CREATE TABLE IF NOT EXISTS timetable_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    redbrick_uuid TEXT NOT NULL UNIQUE,
+
+    event_name TEXT,
+    module_name TEXT,
+    staff_member TEXT,
+    description TEXT,
+    event_type TEXT,
+
+    start_time TEXT NOT NULL,
+    end_time TEXT NOT NULL,
+
+    CHECK (end_time > start_time)
+);
+
+CREATE INDEX IF NOT EXISTS idx_timetable_events_time
+ON timetable_events(start_time, end_time);
+
+--- EVENT TO ROOM RELATIONSHIPS
+CREATE TABLE IF NOT EXISTS timetable_event_rooms (
+    event_id INTEGER NOT NULL,
+    room_id INTEGER NOT NULL,
+
+    PRIMARY KEY (event_id, room_id),
+
+    FOREIGN KEY (event_id)
+        REFERENCES timetable_events(id),
+
+    FOREIGN KEY (room_id)
+        REFERENCES teaching_rooms(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_event_rooms_room
+ON timetable_event_rooms(room_id);
+
+--- ROOM TIMETABLE IMPORT COVERAGE
+CREATE TABLE IF NOT EXISTS room_sync_coverage (
+    room_id INTEGER NOT NULL,
+    period_start TEXT NOT NULL,
+    period_end TEXT NOT NULL,
+    last_successful_sync TEXT NOT NULL,
+
+    PRIMARY KEY (room_id, period_start, period_end),
+
+    FOREIGN KEY (room_id)
+        REFERENCES teaching_rooms(id),
+
+    CHECK (period_end > period_start)
+);

@@ -17,7 +17,12 @@ from dataclasses import dataclass
 from typing import Callable, Optional
 
 from ..config import settings
-from ..tools.registry import *  # noqa: F401,F403  (tool functions are imported here by name)
+from ..tools.registry import (
+    get_daily_breakdown,
+    analyse_class_patterns,
+    analyse_free_gaps,
+    get_events_per_day,
+    )  # noqa: F401,F403  (tool functions are imported here by name)
 
 
 @dataclass

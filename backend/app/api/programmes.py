@@ -6,10 +6,14 @@ import os
    it reads the programmes from SQLite and returns their names and UUIDS as json 
    for the frontend to populate the dropdown menu for feature A
 """
+from fastapi import APIRouter
+
+router = APIRouter()
 
 load_dotenv()
 DB_PATH = os.getenv("DB_PATH")
 
+@router.get("/programmes")
 def get_programmes():
    con  = sqlite3.connect(DB_PATH)
    cursor = con.cursor() #allows to execute SQL statements

@@ -1,4 +1,4 @@
-import app.features.weekly_dates as weekly_dates
+import backend.app.api.weekly_dates as weekly_dates
 from datetime import date
 
 #test 1 -> correct number of teaching weeks

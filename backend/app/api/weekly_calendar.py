@@ -1,3 +1,4 @@
+from fastapi import APIRouter
 from app.sync.redbrick_client import fetch_timetable_events
 from datetime import datetime
 
@@ -7,6 +8,9 @@ from datetime import datetime
 
 base_url = "https://timetable.redbrick.dcu.ie/api/v3/timetable"
 
+
+router = APIRouter()
+@router.get("/weekly/timetable")
 def get_weekly_timetable(programme_uuid, start, end):
     url = f"{base_url}/category/course/items/{programme_uuid}/events"
    

@@ -17,9 +17,16 @@ _TIME = re.compile(r"\b(\d{1,2}):(\d{2})\b")
 # "building FTG11" or "FTG11 building": a room or module code called a building
 _BUILDING_CODE = re.compile(
     r"\bbuilding\s+[A-Z]{2,8}\d|\b[A-Z]{2,8}\d+[A-Z]*\s+(?:is\s+(?:a|an|the)\s+)?building\b", re.IGNORECASE)
+# "room GLA.FT" or "GLA.FT room": a dotted code is always a BUILDING (rooms are like FTG11)
+_ROOM_BUILDING = re.compile(
+    r"\broom\s+[A-Z]{2,4}\.[A-Z]|\b[A-Z]{2,4}\.[A-Z]{1,3}\s+room\b", re.IGNORECASE)
 _FREE = re.compile(r"for free|free of charge", re.IGNORECASE)
+_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
+          "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"]
+_NUMBER_WORDS = {w: i for i, w in enumerate(_WORDS)} | {"no": 0}
 _QUANTITY = re.compile(
-    r"(\d+(?:\.\d+)?)\s*(hours?|hrs?|minutes?|mins?|rooms?|lectures?|labs?|classes|class|days?|buildings?)\b", re.IGNORECASE
+    r"\b(\d+(?:\.\d+)?|" + "|".join(_NUMBER_WORDS) +
+    r")\s*(hours?|hrs?|minutes?|mins?|rooms?|lectures?|labs?|classes|class|days?|buildings?)\b", re.IGNORECASE
 )
 _UNIT_ALIASES = {"hr": "hour", "min": "minute", "classes": "class"}
 
@@ -29,13 +36,15 @@ def _time(m) -> str:
 
 
 def _quantities(text: str) -> set:
-    """(number, unit) pairs, normalised so '2 Hours' and '2.0 hour' match."""
+    """(number, unit) pairs, normalised so '2 Hours', '2.0 hour' and 'two hours' match."""
     pairs = set()
     for number, unit in _QUANTITY.findall(text):
         unit = unit.lower()
         unit = unit if unit in ("class", "classes") else unit.rstrip(
             "s")   # never strip the s from "class"
-        pairs.add((float(number), _UNIT_ALIASES.get(unit, unit)))
+        value = _NUMBER_WORDS.get(number.lower())
+        value = float(number) if value is None else float(value)
+        pairs.add((value, _UNIT_ALIASES.get(unit, unit)))
     return pairs
 
 
@@ -59,6 +68,8 @@ def check_note(note: str, summary: str, facts: dict, must_mention: tuple = ()) -
 
     if _BUILDING_CODE.search(note):
         return "room_called_building"
+    if _ROOM_BUILDING.search(note):
+        return "building_called_room"
     if _FREE.search(note):
         return "for_free"
 

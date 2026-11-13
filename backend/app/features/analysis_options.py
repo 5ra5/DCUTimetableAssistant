@@ -23,7 +23,7 @@ ANALYSIS_OPTIONS = {
         "feature": "feature_a_patterns",
     },
     "whole_week": {
-        "label": "Analyze my whole week.",
+        "label": "Analyse my whole week.",
         "tool": "get_daily_breakdown",
         "feature": "feature_a_daily",
     },

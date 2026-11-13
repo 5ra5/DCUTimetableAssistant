@@ -24,6 +24,8 @@ from ..tools.registry import (
     get_events_per_day,
     )  # noqa: F401,F403  (tool functions are imported here by name)
 
+from .weekly_summary import weekly_analysis_summary
+
 
 @dataclass
 class Decision:
@@ -80,7 +82,18 @@ class FeatureConfig:
                     f"branch.next_tool '{self.branch.next_tool}' not in tools list")
 
 
-FEATURES = {}
+FEATURES = {
+    "feature_a": FeatureConfig(
+        tools=[get_daily_breakdown, analyse_free_gaps, analyse_class_patterns],
+        required=["get_daily_breakdown"],
+        template=weekly_analysis_summary,
+        agent_hint=("Analyse the university weekly timetable "
+                    "Use get_daily_breakdown for daily class counts and teaching hours "
+                    "Use analyse_free_gaps for breaks between classes "
+                    "Use analyse_class_patterns for recurring timetable patterns "),
+        note_instruction="Briefly explain the student's daily timetable without inventing any information"
+    ),
+}
 """example:
 FEATURES = {
     "rooms": FeatureConfig(

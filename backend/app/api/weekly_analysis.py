@@ -5,7 +5,7 @@ from ..agent.engine import run_agent
 from ..schema import AgentResult, WeeklyAnalysisRequest
 from .weekly_calendar import get_weekly_timetable
 from .weekly_dates import get_monday_dates
-
+from ..features.analysis_options import ANALYSIS_OPTIONS
 
 router = APIRouter()
 #CONCEPTUAL LAYOUT NEED TO UPDATE
@@ -42,6 +42,17 @@ def weekly_analysis(request: WeeklyAnalysisRequest):
             detail="Invalid teaching week"
         )
 
+    #validating the selected analysis option
+    selected = ANALYSIS_OPTIONS.get(request.analysis_option)
+
+    if selected is None:
+        raise HTTPException(
+            status_code=422,
+            detail="Invalid analysis option",)
+
+    #select the agent feature to handle the selected analysis option
+    feature = selected["feature"]
+
     #fetch programme's weekly timetable.
     timetable = get_weekly_timetable(
         request.programme_uuid,
@@ -55,17 +66,12 @@ def weekly_analysis(request: WeeklyAnalysisRequest):
     #prepare the tools'arguments (perhaps need to change this)
     pinned = {"weekly_events": weekly_events}
 
-    #generate the message and add the analysis option
-    user_message = (f"Analyse the student's weekly timetable. Selected analysis: {request.analysis_option}.")
+    #using the same analysis option as displayed to the user for ollama to understand the request
+    user_message = (
+        "Analyse the student's weekly timetable. "
+        f"Selected analysis: {selected['label']}"
+    )
 
     #RUN AGENT HERE:
-    # result = run_agent("feature_a", user_message, pinned)
-
-    # Temporary response until the agent is integrated.
-    return {
-        "status": "unsupported",
-        "summary": "Weekly analysis agent integration is pending.",
-        "ai_note": None,
-        "facts": {},
-        "trace": {}
-    }
+    result = run_agent(feature, user_message, pinned)
+    return result

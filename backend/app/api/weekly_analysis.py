@@ -8,12 +8,7 @@ from .weekly_dates import get_monday_dates
 
 
 router = APIRouter()
-#CONCEPTUAL LAYOUT
-"""
-There are three things we still need to resolve:
-1. Request validation: WeeklyAnalysisRequest needs to be defined in schema.py, including your actual six allowed options and date rules.
-2. Programme validation: The README requires us to check that programme_uuid exists and return 404 if it doesn't. The example above doesn't implement that yet.
-3. Agent arguments: We need to confirm how your Feature A configuration expects pinned values and how it distinguishes the six analysis options. We shouldn't assume that putting the option in the message is sufficient."""
+#CONCEPTUAL LAYOUT NEED TO UPDATE
 @router.post("/weekly/analysis", response_model=AgentResult)
 def weekly_analysis(request: WeeklyAnalysisRequest):
     #validating that the selected programme exists in the db

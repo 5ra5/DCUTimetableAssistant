@@ -101,7 +101,7 @@ FEATURES = {
     ),
     "feature_a_patterns": FeatureConfig(
         tools=[get_daily_breakdown, analyse_free_gaps, analyse_class_patterns],
-        required=["analyse_class_pattern"],
+        required=["analyse_class_patterns"],
         template=weekly_analysis_summary,
         agent_hint=("Analyse the university weekly timetable "
                     "Use analyse_class_patterns for recurring timetable patterns"),

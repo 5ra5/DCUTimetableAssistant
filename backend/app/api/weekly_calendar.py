@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.sync.redbrick_client import fetch_timetable_events
+from ..sync.redbrick_client import fetch_timetable_events
 from datetime import datetime
 
 """This is the function for endpoint GET /weekly/timetable 

@@ -58,9 +58,7 @@ def weekly_analysis(request: WeeklyAnalysisRequest):
     weekly_events = timetable["events"]
 
     #prepare the tools'arguments (perhaps need to change this)
-    pinned = {
-        "weekly_events": weekly_events
-    }
+    pinned = {"weekly_events": weekly_events}
 
     #generate the message and add the analysis option
     user_message = (f"Analyse the student's weekly timetable. Selected analysis: {request.analysis_option}.")

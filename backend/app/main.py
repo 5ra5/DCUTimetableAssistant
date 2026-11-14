@@ -10,11 +10,21 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from .api import meta  # ex: from .api import meta, timetable, weekly
+from .api import (weekly_analysis, 
+                  weekly_calendar, 
+                  weekly_dates, 
+                  programmes,
+                  weekly_analysis_options,)
 from .agent import agent_startup
 from .config import settings
 
 ROUTERS = [
     meta.router,
+    programmes.router,
+    weekly_dates.router,
+    weekly_calendar.router,
+    weekly_analysis.router,
+    weekly_analysis_options.router
     # timetable.router,
     # weekly.router,
 ]

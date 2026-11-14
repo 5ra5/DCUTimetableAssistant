@@ -6,7 +6,7 @@
    URLs and payloads to match your API.
    ===================================================================== */
 const USE_MOCK_TIMETABLE = false;   // false = use the real /api/weekly/timetable
-const USE_MOCK_ANALYZE = true;      // analyze endpoint is still mocked
+const USE_MOCK_ANALYZE = false;     // false = use the real analyze endpoint
 const USE_MOCK_PROGRAMMES = false;  // false = load the real list from /api/programmes
 const API_BASE = "http://localhost:8080";
 
@@ -75,21 +75,25 @@ async function apiGetTimetable({ programme, weekStart, start, end }) {
   };
 }
 
-/* Analyze endpoint, expected response (the shared agent response shape):
-   { status: "ok" | "not_found" | "needs_choice" | "unsupported" (or similar),
-     summary: "main answer built by Python",
-     ai_note: null | "optional model note",
-     facts: { stats: { lectures, labs, class_hours, gaps } },
-     trace: {} }
-   The frontend ignores `trace`. Adjust readStats() below if your facts are shaped differently. */
+/* POST /api/weekly/analysis   (URL assumed from the other /api/weekly/... routes; change if different)
+   Body:     { programme_uuid, start, end, analysis_option }
+   Response: { status: "ok" | ..., summary: "...", ai_note: "..." | null,
+               facts: {...}, trace: {...}, options: ["..."] }
+   The frontend ignores `trace`. `options` is shown when the status isn't "ok"
+   (for example when the backend needs you to choose between matches).
+   Adjust readStats() below if your facts are shaped differently. */
 async function apiAnalyze({ programme, weekStart, start, end }, option) {
   if (USE_MOCK_ANALYZE) return mockAnalyze(currentEvents);
-  const res = await fetch(`${API_BASE}/api/analyze`, {
+  const res = await fetch(`${API_BASE}/api/weekly/analysis`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ programme_uuid: programme, start, end, analysis: option.value }),
+    headers: { "Content-Type": "application/json", accept: "application/json" },
+    body: JSON.stringify({ programme_uuid: programme, start, end, analysis_option: option.value }),
   });
-  if (!res.ok) throw new Error("Analysis failed (" + res.status + ")");
+  if (!res.ok) {
+    let detail = "";
+    try { const j = await res.json(); detail = typeof j.detail === "string" ? ": " + j.detail : ""; } catch (_) {}
+    throw new Error("Analysis failed (" + res.status + ")" + detail);
+  }
   return res.json();
 }
 
@@ -241,13 +245,43 @@ function renderTimetable(sel, events) {
 
 /* ===================== Feature A: analyze ===================== */
 // Pull the four mandatory stats out of the response. Adjust if your facts differ.
+// Looks for the stats in facts (top level, or one level down, e.g. facts.stats or
+// facts.weekly_stats). Any value not found is calculated from the events on screen.
+function computeStats(events) {
+  const byDay = {};
+  let mins = 0, lectures = 0, labs = 0;
+  events.forEach(e => {
+    const s = new Date(e.start), en = new Date(e.end);
+    mins += (en - s) / 60000;
+    const k = kindOf(e.type);
+    if (k === "lecture") lectures++;
+    if (k === "lab") labs++;
+    const day = dublinDate(e.start);
+    (byDay[day] = byDay[day] || []).push({ s, en });
+  });
+  let gaps = 0;
+  Object.values(byDay).forEach(list => {
+    list.sort((a, b) => a.s - b.s);
+    for (let i = 1; i < list.length; i++) if (list[i].s - list[i - 1].en >= 30 * 60000) gaps++;
+  });
+  return { lectures, labs, class_hours: +(mins / 60).toFixed(1), gaps, days: Object.keys(byDay).length };
+}
+
 function readStats(data) {
-  const s = (data.facts && data.facts.stats) || data.stats || data.facts || {};
+  const f = data.facts || {};
+  const scopes = [f, f.stats, f.weekly_stats, f.statistics, f.mandatory_stats, data.stats]
+    .concat(Object.values(f).filter(v => v && typeof v === "object" && !Array.isArray(v)))
+    .filter(v => v && typeof v === "object");
+  const pick = names => {
+    for (const sc of scopes) for (const n of names) if (typeof sc[n] === "number" || typeof sc[n] === "string") return sc[n];
+    return undefined;
+  };
+  const local = computeStats(currentEvents);
   return {
-    lectures: s.lectures ?? "–",
-    labs: s.labs ?? "–",
-    hours: s.class_hours ?? s.scheduled_hours ?? "–",
-    gaps: s.gaps ?? s.gap_count ?? "–",
+    lectures: pick(["lectures", "lecture_count", "num_lectures", "total_lectures"]) ?? local.lectures,
+    labs: pick(["labs", "lab_count", "num_labs", "total_labs"]) ?? local.labs,
+    hours: pick(["class_hours", "scheduled_hours", "total_hours", "total_class_hours", "scheduled_class_hours"]) ?? local.class_hours,
+    gaps: pick(["gaps", "gap_count", "num_gaps", "total_gaps", "gaps_between_classes"]) ?? local.gaps,
   };
 }
 
@@ -308,7 +342,11 @@ function renderAnalysis(data) {
   // Anything other than a successful result: show the backend's message, no stats.
   if (status !== "ok") {
     $("resultsCard").classList.add("hidden");
-    $("highlightsBody").innerHTML = `<div class="status-msg">${esc(data.summary || "No analysis is available for this week.")}</div>`;
+    let html = `<div class="status-msg">${esc(data.summary || "No analysis is available for this week.")}`;
+    if (Array.isArray(data.options) && data.options.length) {
+      html += `<ul>${data.options.map(o => `<li>${esc(o)}</li>`).join("")}</ul>`;
+    }
+    $("highlightsBody").innerHTML = html + `</div>`;
     return;
   }
 
@@ -353,27 +391,12 @@ function mockTimetable(weekStart) {
 // currently shown on the page, so the numbers match the real timetable.
 function mockAnalyze(events) {
   return new Promise(resolve => {
-    const byDay = {};
-    let mins = 0, lectures = 0, labs = 0;
-    events.forEach(e => {
-      const s = new Date(e.start), en = new Date(e.end);
-      mins += (en - s) / 60000;
-      const k = kindOf(e.type);
-      if (k === "lecture") lectures++;
-      if (k === "lab") labs++;
-      (byDay[dublinDate(e.start)] = byDay[dublinDate(e.start)] || []).push({ s, en });
-    });
-    let gaps = 0;
-    Object.values(byDay).forEach(list => {
-      list.sort((a, b) => a.s - b.s);
-      for (let i = 1; i < list.length; i++) if (list[i].s - list[i - 1].en >= 30 * 60000) gaps++;
-    });
-    const hours = +(mins / 60).toFixed(1);
+    const st = computeStats(events);
     setTimeout(() => resolve({
       status: "ok",
-      summary: `You have ${events.length} scheduled classes this week, totalling ${hours} hours across ${Object.keys(byDay).length} days.`,
+      summary: `You have ${events.length} scheduled classes this week, totalling ${st.class_hours} hours across ${st.days} days.`,
       ai_note: null,
-      facts: { stats: { lectures, labs, class_hours: hours, gaps } },
+      facts: { stats: { lectures: st.lectures, labs: st.labs, class_hours: st.class_hours, gaps: st.gaps } },
       trace: {},
     }), 800);
   });

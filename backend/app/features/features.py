@@ -16,8 +16,28 @@ result (the 'after' tool's dict).
 from dataclasses import dataclass
 from typing import Callable, Optional
 
+from ..SummaryC import lecture_summary_A, lecturer_summary_B
+
 from ..config import settings
 from ..tools.registry import *  # noqa: F401,F403  (tool functions are imported here by name)
+
+
+def lecturer_summary_A(facts: dict) -> str:
+    schedule = facts.get("get_lecturer_schedule", {})
+    if schedule.get("status") == "success":
+        result = schedule["data"]
+        return f"Found class: {result['module_name']} in room {result['room_name']} at {result['start_time']}."
+    return "No class found at this time slot."
+
+def lecturer_summary_B(facts: dict) -> str:
+    request = facts.get("search_lecturer", {})
+    if request.get("status") == "success":
+        hits = request.get("data", [])
+        count = len(hits)
+        if count == 1:
+            return f"Found exact matching lecturer: {hits[0]['name']}"
+        return f"Found {count} matching lecturers. Please clarify which one to view their modules."
+    return "No lecturers found matching that name."
 
 
 @dataclass
@@ -74,8 +94,34 @@ class FeatureConfig:
                 raise ValueError(
                     f"branch.next_tool '{self.branch.next_tool}' not in tools list")
 
-
 FEATURES = {}
+
+FEATURES["feature_C_A"] = FeatureConfig(
+    tools=[get_lecturer_schedule, find_next_lecturer],
+    required=["get_lecturer_schedule"],
+    template=lecturer_summary_A,
+    agent_hint="Always check the exact schedule using get_lecturer_schedule first then use find_next_lecturer as a fallback.",
+    branch=Branch(
+        after="get_lecturer_schedule",
+        next_tool="find_next_lecturer",
+        needs_next=lambda r: r.get("status") != "success",
+    ),
+
+    is_empty=lambda facts: (facts.get("get_lecturer_schedule", {}).get("status") != "success" and
+                    facts.get("find_next_lecturer", {}).get("status") != "success"
+                    ) 
+)
+
+FEATURES["feature_C_B"] = FeatureConfig(
+    tools=[search_lecturer],
+    required=["search_lecturer"],
+    template=lecturer_summary_B,
+    agent_hint="Search for the requested lecturer name using search_lecturer.",
+
+    is_empty=lambda facts: (facts.get("search_lecturer", {}).get("status") != "success")
+
+)
+
 """example:
 FEATURES = {
     "rooms": FeatureConfig(

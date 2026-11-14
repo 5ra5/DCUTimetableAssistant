@@ -37,6 +37,12 @@ def agent_startup() -> None:
     threading.Thread(target=llm.warm_up, daemon=True).start()
 
 
+def _short(value, limit: int = 80) -> str:
+    """repr() of a value, cut to `limit` characters so one bad argument can't bloat the trace."""
+    text = repr(value)
+    return text if len(text) <= limit else text[:limit] + f"... ({len(text)} chars)"
+
+
 def _same(a, b) -> bool:
     """Compare values without caring about case or extra spaces."""
     return " ".join(str(a).split()).lower() == " ".join(str(b).split()).lower()
@@ -57,7 +63,7 @@ def _build_args(tool, model_args: dict, pinned: dict, errors: list, from_model: 
                 errors.append(f"argument_missing:{name}.{key}")
             elif key in args and not _same(args[key], pinned[key]):
                 errors.append(
-                    f"argument_overridden:{name}.{key} model={args[key]!r} pinned={pinned[key]!r}")
+                    f"argument_overridden:{name}.{key} model={_short(args[key])} pinned={_short(pinned[key])}")
             args[key] = pinned[key]
     return args
 

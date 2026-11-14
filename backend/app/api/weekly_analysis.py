@@ -1,77 +1,32 @@
+"""POST /api/weekly/analysis - Feature A: the student picks a programme, a week and one of the analysis options."""
 from fastapi import APIRouter, HTTPException
-import sqlite3
-from .programmes import DB_PATH
+
 from ..agent.engine import run_agent
-from ..schema import AgentResult, WeeklyAnalysisRequest
-from .weekly_calendar import get_weekly_timetable
-from .weekly_dates import get_monday_dates
 from ..features.analysis_options import ANALYSIS_OPTIONS
+from ..schema import AgentResult, WeeklyAnalysisRequest
+from .programmes import find_programme
+from .weekly_dates import get_monday_dates
 
 router = APIRouter()
-#CONCEPTUAL LAYOUT NEED TO UPDATE
+
+
 @router.post("/weekly/analysis", response_model=AgentResult)
 def weekly_analysis(request: WeeklyAnalysisRequest):
-    #validating that the selected programme exists in the db
-    con = sqlite3.connect(DB_PATH)
-    try:
-        cursor = con.cursor()
-        cursor.execute(
-            "SELECT 1 FROM programmes WHERE redbrick_uuid = ?",
-            (request.programme_uuid,)
-        )
-        programme = cursor.fetchone()
-    finally:
-        con.close()
-
-    if programme is None:
-        raise HTTPException(status_code=404, detail="Programme not found")
-
-    #validate the start and end dates
-    valid_weeks = get_monday_dates()
-
-    week_found = False
-
-    for week in valid_weeks:
-        if week["start"] == request.start and week["end"] == request.end:
-            week_found = True
-            break
-
-    if not week_found:
-        raise HTTPException(
-            status_code=422,
-            detail="Invalid teaching week"
-        )
-
-    #validating the selected analysis option
+    # Check every input BEFORE any tool or model work: 422 for a bad option or week, 404 for an unknown programme.
     selected = ANALYSIS_OPTIONS.get(request.analysis_option)
-
     if selected is None:
         raise HTTPException(
-            status_code=422,
-            detail="Invalid analysis option",)
+            status_code=422, detail="Invalid analysis option (see GET /api/weekly/analysis/options)")
+    if not any(w["start"] == request.start and w["end"] == request.end for w in get_monday_dates()):
+        raise HTTPException(
+            status_code=422, detail="Invalid teaching week (see GET /api/weeks)")
+    if find_programme(request.programme_uuid) is None:
+        raise HTTPException(status_code=404, detail="Programme not found")
 
-    #select the agent feature to handle the selected analysis option
-    feature = selected["feature"]
-
-    #fetch programme's weekly timetable.
-    timetable = get_weekly_timetable(
-        request.programme_uuid,
-        request.start,
-        request.end
-    )
-
-    #extract the validated timetable events from the result of get_weekly_timetable()
-    weekly_events = timetable["events"]
-
-    #prepare the tools'arguments (perhaps need to change this)
-    pinned = {"weekly_events": weekly_events}
-
-    #using the same analysis option as displayed to the user for ollama to understand the request
-    user_message = (
-        "Analyse the student's weekly timetable. "
-        f"Selected analysis: {selected['label']}"
-    )
-
-    #RUN AGENT HERE:
-    result = run_agent(feature, user_message, pinned)
-    return result
+    # The form values are pinned: whatever the model writes in a tool call, the tools get these. The tools load the
+    # week's events themselves (tools/weekly.py), so the timetable is not passed through the model's arguments.
+    pinned = {"programme_uuid": request.programme_uuid,
+              "week_start": request.start[:10]}
+    message = (f"Analyse the weekly timetable of programme {request.programme_uuid} for the week starting "
+               f"{pinned['week_start']}. Selected analysis: {selected['label']}")
+    return run_agent(selected["feature"], message, pinned)

@@ -26,6 +26,8 @@ log = logging.getLogger(__name__)
 
 TOOL_TURN_TOKENS = 60
 SHORT_TOKENS = 80  # decision and note calls
+# most model calls in the tool phase (a feature never needs more than len(required) + 1)
+MAX_TOOL_TURNS = 4
 
 
 def agent_health() -> dict:
@@ -35,6 +37,25 @@ def agent_health() -> dict:
 def agent_startup() -> None:
     """Warm the model without delaying app startup."""
     threading.Thread(target=llm.warm_up, daemon=True).start()
+
+
+def _tool_feedback(name: str, result: dict, remaining: list) -> str:
+    """What the model is told after one of its tool calls ran. It never needs the data (Python writes the summary),
+    only to know the call worked and what is left. scripts/try_chaining.py swaps this to compare wordings."""
+    if not remaining:
+        return "OK. Nothing left to do."
+    return "OK. Still to do: " + ", ".join(remaining) + "."
+
+
+def _nudge(remaining: list):
+    """Optional user message added after a tool turn while tools are still needed. None = nothing extra."""
+    return None
+
+
+def _short(value, limit: int = 80) -> str:
+    """repr() of a value, cut to `limit` characters so one bad argument can't bloat the trace."""
+    text = repr(value)
+    return text if len(text) <= limit else text[:limit] + f"... ({len(text)} chars)"
 
 
 def _same(a, b) -> bool:
@@ -57,7 +78,7 @@ def _build_args(tool, model_args: dict, pinned: dict, errors: list, from_model: 
                 errors.append(f"argument_missing:{name}.{key}")
             elif key in args and not _same(args[key], pinned[key]):
                 errors.append(
-                    f"argument_overridden:{name}.{key} model={args[key]!r} pinned={pinned[key]!r}")
+                    f"argument_overridden:{name}.{key} model={_short(args[key])} pinned={_short(pinned[key])}")
             args[key] = pinned[key]
     return args
 
@@ -113,41 +134,67 @@ def run_agent(feature: str, user_message: str, pinned: dict) -> AgentResult:
 
     tools = {t.__name__: t for t in cfg.tools}
 
-    # Offer only the tools for this feature.
-    calls = []
-    system = SYSTEM_AGENT + (" " + cfg.agent_hint if cfg.agent_hint else "")
-    t0 = time.perf_counter()
-    try:
-        resp = llm.chat(
-            [{"role": "system", "content": system}, {
-                "role": "user", "content": user_message}],
-            tools=cfg.tools, num_predict=TOOL_TURN_TOKENS,
-        )
-        calls = resp.message.tool_calls or []
-    except Exception as e:
-        llm_failed("tool_turn", e)
-    trace["timings"]["tool_turn"] = round(time.perf_counter() - t0, 2)
-
-    # Run every required tool; ignore optional or duplicate model calls.
-    model_calls = {}
-    for call in calls:
-        name = call.function.name
-        if name not in cfg.required:
-            errors.append(f"ignored_tool_call:{name}")
-        elif name in model_calls:
-            errors.append(f"duplicate_tool_call:{name}")
-        else:
-            model_calls[name] = dict(call.function.arguments or {})
-
+    # Tool phase. The model calls tools; each call runs straight away (with the form values pinned over its arguments)
+    # and the model is told what is left, until every required tool has run, it stops calling tools, or
+    # MAX_TOOL_TURNS is reached. Python runs whatever the model did not call. The model only sees the feature's tools.
     results: dict = {}
+    trace["tool_turns"] = 0
+    # the tool names the model asked for, one list per turn
+    trace["tool_calls"] = []
+    system = SYSTEM_AGENT + (" " + cfg.agent_hint if cfg.agent_hint else "")
+    messages = [{"role": "system", "content": system},
+                {"role": "user", "content": user_message}]
+    model_seconds = 0.0
+    while trace["llm_ok"] and trace["tool_turns"] < MAX_TOOL_TURNS and len(results) < len(cfg.required):
+        t0 = time.perf_counter()
+        try:
+            resp = llm.chat(messages, tools=cfg.tools,
+                            num_predict=TOOL_TURN_TOKENS)
+        except Exception as e:
+            llm_failed("tool_turn", e)
+            break
+        finally:
+            model_seconds += time.perf_counter() - t0
+        trace["tool_turns"] += 1
+        calls = resp.message.tool_calls or []
+        trace["tool_calls"].append([call.function.name for call in calls])
+        if not calls:
+            break   # the model stopped; Python runs what is left
+        messages.append({"role": "assistant", "content": resp.message.content or "",
+                         "tool_calls": [{"function": {"name": c.function.name, "arguments": dict(c.function.arguments or {})}}
+                                        for c in calls]})
+        for call in calls:
+            name = call.function.name
+            if name not in cfg.required:
+                errors.append(f"ignored_tool_call:{name}")
+                feedback = "That tool is not needed."
+            elif name in results:
+                errors.append(f"duplicate_tool_call:{name}")
+                feedback = "Already done."
+            else:
+                args = _build_args(tools[name], dict(
+                    call.function.arguments or {}), pinned, errors, True)
+                results[name] = tools[name](**args)
+                trace["tool_sources"][name] = "model"
+                feedback = _tool_feedback(name, results[name], [
+                                          n for n in cfg.required if n not in results])
+            messages.append(
+                {"role": "tool", "tool_name": name, "content": feedback})
+        left = [n for n in cfg.required if n not in results]
+        nudge = _nudge(left) if left else None
+        if nudge:
+            messages.append({"role": "user", "content": nudge})
+    # model time only, not the tools' own time
+    trace["timings"]["tool_turn"] = round(model_seconds, 2)
+
     for name in cfg.required:
-        from_model = name in model_calls
-        if not from_model and trace["llm_ok"]:
+        if name in results:
+            continue
+        if trace["llm_ok"]:
             errors.append(f"python_ran:{name}")
-        args = _build_args(tools[name], model_calls.get(
-            name, {}), pinned, errors, from_model)
-        results[name] = tools[name](**args)
-        trace["tool_sources"][name] = "model" if from_model else "python"
+        results[name] = tools[name](
+            **_build_args(tools[name], {}, pinned, errors, False))
+        trace["tool_sources"][name] = "python"
 
     # branch: the model decides; Python enforces the minimum (the rule) so a wrong "finish" can't break it
     branch = cfg.branch

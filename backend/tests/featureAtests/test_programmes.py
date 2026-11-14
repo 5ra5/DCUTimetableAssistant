@@ -1,6 +1,6 @@
 
 import sqlite3
-import app.features.programmes as programmes
+import app.api.programmes as programmes
 
 
 #test 1 -> programmes are returned in alphabetical order

@@ -1,5 +1,5 @@
 from app.tools.featureAtools import get_daily_breakdown, analyse_free_gaps, analyse_class_patterns
-from sample_timetables import comsci3_nov02, comsci1_sep14, combus2_oct5, mint2_nov02, bajh1_sep14, comsci4_sep14
+from .sample_timetables import comsci3_nov02, comsci1_sep14, combus2_oct5, mint2_nov02, bajh1_sep14, comsci4_sep14
 import pytest
 
 

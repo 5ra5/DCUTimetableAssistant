@@ -1,5 +1,5 @@
-from app.features.weekly_calendar import get_weekly_timetable
-import app.features.weekly_calendar as weekly_calendar
+from app.api.weekly_calendar import get_weekly_timetable
+import app.api.weekly_calendar as weekly_calendar
 
 
 #test 1 -> missing start time

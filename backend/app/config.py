@@ -34,6 +34,7 @@ class Settings:
     llm_timeout_s: float = float(_env("LLM_TIMEOUT_S", "60.0"))
     min_rooms: int = int(_env("MIN_ROOMS", "2"))
     frontend_dir: Path = ROOT / "frontend"
+    db_path: Path = ROOT / _env("DB_PATH", "data/timetable.db")
     log_level: str = _env("LOG_LEVEL", "INFO").upper()
 
 

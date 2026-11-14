@@ -11,7 +11,7 @@
 <header>
   <div class="wrap">
     <div class="hero">
-      <div class="logo">TimetableAIPAODKSPAOSKDPAOSDKP</div>
+      <div class="logo">TimetableAI</div>
       <h1>Your timetable, understood.</h1>
       <p>An AI assistant for DCU students that turns your weekly schedule into clear statistics and useful highlights.</p>
     </div>
@@ -32,18 +32,11 @@
       <h2><span class="step">1</span>Select your timetable</h2>
       <p class="sub">Choose your course, academic year and week.</p>
       <div class="form-row">
-        <div class="field">
-          <label for="course">Course</label>
-          <select id="course"></select>
-        </div>
-        <div class="field">
-          <label for="year">Academic year</label>
-          <select id="year">
-            <option value="1">Year 1</option>
-            <option value="2" selected>Year 2</option>
-            <option value="3">Year 3</option>
-            <option value="4">Year 4</option>
-          </select>
+        <div class="field field-wide">
+          <label for="courseFilter">Course and year</label>
+          <input type="search" id="courseFilter" placeholder="Type to filter, e.g. Computer, CASE2…" autocomplete="off">
+          <select id="course" size="1"></select>
+          <span class="hint" id="courseHint"></span>
         </div>
         <div class="field">
           <label for="week">Week</label>

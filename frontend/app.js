@@ -5,33 +5,40 @@
    apiAnalyze are the ONLY functions that talk to the backend. Adjust the
    URLs and payloads to match your API.
    ===================================================================== */
-const USE_MOCK = false;
-const API_BASE = "https://timetable.redbrick.dcu.ie/";   // e.g. "http://localhost:8000"
+const USE_MOCK = true;              // timetable + analyze endpoints (still mocked)
+const USE_MOCK_PROGRAMMES = false;  // false = load the real list from /api/programmes
+const API_BASE = "http://localhost:8080";
 
-// The backend maps (course + year) to the Redbrick UUID, so the frontend
-// only sends the course key and the year. Replace with your real courses.
-const COURSES = [
-  { key: "computer-science", label: "Computer Science" },
-  { key: "data-science",     label: "Data Science" },
-  { key: "electronic-eng",   label: "Electronic Engineering" },
-  { key: "business",         label: "Business Studies" },
-];
+// Loaded from GET /api/programmes. Each item looks like:
+//   { redbrick_name: "AC1 (Chem & Pharma Science-1)", redbrick_uuid: "8dc12a98-..." }
+// The name already includes the year, and the UUID is the timetable code.
+let PROGRAMMES = [];
+
+async function apiGetProgrammes() {
+  if (USE_MOCK_PROGRAMMES) {
+    return [
+      { redbrick_name: "CASE2 (Computer Applications-2)", redbrick_uuid: "mock-1" },
+      { redbrick_name: "CASE3 (Computer Applications-3)", redbrick_uuid: "mock-2" },
+    ];
+  }
+  const res = await fetch(`${API_BASE}/api/programmes`, { headers: { accept: "application/json" } });
+  if (!res.ok) throw new Error("Could not load courses (" + res.status + ")");
+  return res.json();
+}
 
 // The timetable snapshot covers 1 Sep to 20 Dec 2026, so only these weeks are offered.
 const FIRST_MONDAY = new Date(2026, 7, 31);   // Mon 31 Aug 2026 (contains 1 Sep)
 const NUM_WEEKS = 16;                          // up to the week of 14-20 Dec 2026
 
-
 /* Timetable endpoint, expected response:
    { events: [ { module, type, start, end, room, building } ] }
    start/end are ISO strings (UTC with offset is fine; they are shown in Europe/Dublin). */
-async function apiGetTimetable({ course, year, weekStart }) {
+async function apiGetTimetable({ programme, weekStart }) {
   if (USE_MOCK) return mockTimetable(weekStart);
-  const res = await fetch(`${API_BASE}/api/v3/timetable?course=${course}&year=${year}&week_start=${weekStart}`);
+  const res = await fetch(`${API_BASE}/api/timetable?programme=${encodeURIComponent(programme)}&week_start=${weekStart}`);
   if (!res.ok) throw new Error("Could not load timetable (" + res.status + ")");
   return res.json();
 }
-
 
 /* Analyze endpoint, expected response (the shared agent response shape):
    { status: "ok" | "not_found" | "needs_choice" | "unsupported" (or similar),
@@ -40,17 +47,16 @@ async function apiGetTimetable({ course, year, weekStart }) {
      facts: { stats: { lectures, labs, class_hours, gaps } },
      trace: {} }
    The frontend ignores `trace`. Adjust readStats() below if your facts are shaped differently. */
-async function apiAnalyze({ course, year, weekStart }) {
+async function apiAnalyze({ programme, weekStart }) {
   if (USE_MOCK) return mockAnalyze(weekStart);
   const res = await fetch(`${API_BASE}/api/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ course, year, week_start: weekStart }),
+    body: JSON.stringify({ programme_uuid: programme, week_start: weekStart }),
   });
   if (!res.ok) throw new Error("Analysis failed (" + res.status + ")");
   return res.json();
 }
-
 
 /* ===================== Helpers ===================== */
 const $ = id => document.getElementById(id);
@@ -68,7 +74,33 @@ document.querySelectorAll(".switcher button").forEach(btn => {
 });
 
 /* ===================== Feature A: setup ===================== */
-COURSES.forEach(c => $("course").add(new Option(c.label, c.key)));
+function fillCourseSelect() {
+  const q = $("courseFilter").value.trim().toLowerCase();
+  const prev = $("course").value;
+  const matches = PROGRAMMES.filter(p => p.redbrick_name.toLowerCase().includes(q));
+  const sel = $("course");
+  sel.innerHTML = "";
+  sel.add(new Option(matches.length ? "Select a course…" : "No matching courses", ""));
+  matches.forEach(p => sel.add(new Option(p.redbrick_name, p.redbrick_uuid)));
+  if (matches.some(p => p.redbrick_uuid === prev)) sel.value = prev;
+  $("courseHint").textContent = `${matches.length} of ${PROGRAMMES.length} courses`;
+  $("courseHint").classList.remove("error");
+}
+
+async function loadProgrammes() {
+  $("course").innerHTML = `<option value="">Loading courses…</option>`;
+  try {
+    const list = await apiGetProgrammes();
+    PROGRAMMES = list.slice().sort((a, b) => a.redbrick_name.localeCompare(b.redbrick_name));
+    fillCourseSelect();
+  } catch (e) {
+    $("course").innerHTML = `<option value="">Courses unavailable</option>`;
+    $("courseHint").textContent = e.message + ". Is the backend running on " + API_BASE + "?";
+    $("courseHint").classList.add("error");
+  }
+}
+$("courseFilter").addEventListener("input", fillCourseSelect);
+loadProgrammes();
 
 (function buildWeeks() {
   const today = iso(new Date());
@@ -82,14 +114,15 @@ COURSES.forEach(c => $("course").add(new Option(c.label, c.key)));
   }
 })();
 
-const selection = () => ({ course: $("course").value, year: $("year").value, weekStart: $("week").value });
+const selection = () => ({ programme: $("course").value, weekStart: $("week").value });
+const programmeName = uuid => (PROGRAMMES.find(p => p.redbrick_uuid === uuid) || {}).redbrick_name || "";
 let currentEvents = [];
 
 function resetResults() {
   $("resultsCard").classList.add("hidden");
   $("highlightsCard").classList.add("hidden");
 }
-["course", "year", "week"].forEach(id => $(id).addEventListener("change", () => {
+["course", "week"].forEach(id => $(id).addEventListener("change", () => {
   $("timetableCard").classList.add("hidden");
   resetResults();
 }));
@@ -98,6 +131,12 @@ function resetResults() {
 $("showBtn").addEventListener("click", async () => {
   const sel = selection();
   resetResults();
+  if (!sel.programme) {
+    $("timetableCard").classList.add("hidden");
+    $("courseHint").textContent = "Please select a course first.";
+    $("courseHint").classList.add("error");
+    return;
+  }
   $("timetableCard").classList.remove("hidden");
   $("timetableSub").textContent = "";
   $("timetableBody").innerHTML = `<div class="loading"><div class="spinner"></div>Loading timetable…</div>`;
@@ -113,10 +152,9 @@ $("showBtn").addEventListener("click", async () => {
 });
 
 function renderTimetable(sel, events) {
-  const course = COURSES.find(c => c.key === sel.course).label;
   const [y, m, d] = sel.weekStart.split("-").map(Number);
   const mon = new Date(y, m - 1, d);
-  $("timetableSub").textContent = `${course}, Year ${sel.year}`;
+  $("timetableSub").textContent = programmeName(sel.programme);
 
   if (!events.length) {
     $("timetableBody").innerHTML = `<div class="status-msg">No timetable data is available for this selection and week.</div>`;

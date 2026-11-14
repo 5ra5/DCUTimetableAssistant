@@ -18,7 +18,7 @@ from typing import Callable, Optional
 
 
 from ..config import settings
-from .SummaryC import lecturer_summary_A, lecturer_summary_B
+from .summaryC import lecturer_summary_A, lecturer_summary_B
 from ..tools.registry import *  # noqa: F401,F403  (tool functions are imported here by name)
 from ..tools.featureCtools import get_lecturer_schedule, search_lecturer, find_next_lecturer
 

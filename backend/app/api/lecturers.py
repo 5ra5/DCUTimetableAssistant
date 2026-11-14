@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 from ..agent.engine import run_agent
 from ..schema import LecturerScheduleQuery, LecturerSearchQuery
 
-router = APIRouter(prefix="/lecturers", tags=["Lecturers", "Tools"])
+router = APIRouter(prefix="/lecturers", tags=["Lecturers"])
 
 @router.post("/search")
 def lecturer_search_route(query: LecturerSearchQuery):

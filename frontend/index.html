@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TimetableAI</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hero">
+      <div class="logo">TimetableAIPAODKSPAOSKDPAOSDKP</div>
+      <h1>Your timetable, understood.</h1>
+      <p>An AI assistant for DCU students that turns your weekly schedule into clear statistics and useful highlights.</p>
+    </div>
+    <nav class="switcher" aria-label="Features">
+      <button data-feature="A" class="active">Feature A: Student Timetable</button>
+      <button data-feature="B">Feature B <span class="soon">coming soon</span></button>
+      <button data-feature="C">Feature C <span class="soon">coming soon</span></button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ FEATURE A ============ -->
+  <section id="panel-A" class="panel active">
+
+    <div class="card">
+      <h2><span class="step">1</span>Select your timetable</h2>
+      <p class="sub">Choose your course, academic year and week.</p>
+      <div class="form-row">
+        <div class="field">
+          <label for="course">Course</label>
+          <select id="course"></select>
+        </div>
+        <div class="field">
+          <label for="year">Academic year</label>
+          <select id="year">
+            <option value="1">Year 1</option>
+            <option value="2" selected>Year 2</option>
+            <option value="3">Year 3</option>
+            <option value="4">Year 4</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="week">Week</label>
+          <select id="week"></select>
+        </div>
+        <button class="btn" id="showBtn">Show Timetable</button>
+      </div>
+    </div>
+
+    <div class="card hidden" id="timetableCard">
+      <h2><span class="step">2</span>Weekly timetable</h2>
+      <p class="sub" id="timetableSub"></p>
+      <div id="timetableBody"></div>
+      <div class="legend">
+        <span><i style="background:var(--lecture)"></i>Lecture</span>
+        <span><i style="background:var(--lab)"></i>Lab</span>
+        <span><i style="background:var(--tutorial)"></i>Tutorial</span>
+        <span>Times shown in Irish local time (Europe/Dublin)</span>
+      </div>
+      <div class="analyze-bar">
+        <button class="btn" id="analyzeBtn">Analyze My Timetable</button>
+      </div>
+    </div>
+
+    <div class="card hidden" id="resultsCard">
+      <h2><span class="step">3</span>Weekly statistics</h2>
+      <p class="sub">Calculated directly from your timetable.</p>
+      <div class="stats" id="statsBody"></div>
+    </div>
+
+    <div class="card highlights hidden" id="highlightsCard">
+      <h2>AI weekly highlights</h2>
+      <p class="sub">Interesting patterns spotted in your week.</p>
+      <div id="highlightsBody"></div>
+    </div>
+
+    <p class="note">All timetable entries and statistics shown here are illustrative, not real student timetable data.</p>
+  </section>
+
+  <!-- ============ FEATURE B ============ -->
+  <section id="panel-B" class="panel">
+    <div class="card placeholder">
+      <h2>Feature B</h2>
+      <p>This feature hasn't been implemented yet. Check back soon.</p>
+    </div>
+  </section>
+
+  <!-- ============ FEATURE C ============ -->
+  <section id="panel-C" class="panel">
+    <div class="card placeholder">
+      <h2>Feature C</h2>
+      <p>This feature hasn't been implemented yet. Check back soon.</p>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

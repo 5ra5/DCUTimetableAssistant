@@ -17,7 +17,12 @@ from dataclasses import dataclass
 from typing import Callable, Optional
 
 from ..config import settings
-from ..tools.registry import *  # noqa: F401,F403  (tool functions are imported here by name)
+from ..tools.registry import (  # noqa: F401  (tool functions are imported here by name)
+    weekly_daily_breakdown,
+    weekly_class_patterns,
+    weekly_free_gaps,
+)
+from .weekly import daily_summary, gaps_summary, patterns_summary, week_summary, weekly_is_empty
 
 
 @dataclass
@@ -75,7 +80,41 @@ class FeatureConfig:
                     f"branch.next_tool '{self.branch.next_tool}' not in tools list")
 
 
-FEATURES = {}
+# Feature A: one feature per kind of analysis. features/analysis_options.py maps each menu option to one of these.
+# The model is offered all three tools; `required` says which ones must run. A tool the model picks that is not
+# required is ignored and logged, and a required tool the model skips is run by Python.
+_WEEKLY_TOOLS = [weekly_daily_breakdown,
+                 weekly_class_patterns, weekly_free_gaps]
+
+
+def _weekly_feature(required, template, hint, note):
+    return FeatureConfig(
+        tools=_WEEKLY_TOOLS, required=required, template=template, is_empty=weekly_is_empty,
+        agent_hint=hint, note_instruction=note +
+        " Do not give advice or opinions. Use only days, times and numbers from the text.",
+    )
+
+
+FEATURES = {
+    "feature_a_daily": _weekly_feature(
+        ["weekly_daily_breakdown"], daily_summary,
+        "Call weekly_daily_breakdown for the daily class counts and teaching hours.",
+        "State ONE fact in a single sentence: how many classes the week has."),
+    "feature_a_gaps": _weekly_feature(
+        ["weekly_free_gaps", "weekly_daily_breakdown"], gaps_summary,
+        "Call weekly_free_gaps for the breaks between classes, and weekly_daily_breakdown.",
+        "State ONE fact in a single sentence: the longest gap between classes, with its day and times."),
+    "feature_a_patterns": _weekly_feature(
+        ["weekly_class_patterns"], patterns_summary,
+        "Call weekly_class_patterns for the busiest and lightest days and the earliest start and latest finish.",
+        "State ONE fact in a single sentence: which day is the busiest."),
+    "feature_a_week": _weekly_feature(
+        ["weekly_daily_breakdown", "weekly_class_patterns",
+            "weekly_free_gaps"], week_summary,
+        "Call all three analysis tools: weekly_daily_breakdown, weekly_class_patterns and weekly_free_gaps.",
+        "State ONE fact in a single sentence about the week."),
+}
+
 """example:
 FEATURES = {
     "rooms": FeatureConfig(

@@ -2,9 +2,9 @@ from datetime import datetime
 
 """these are the tools that the Ollama LLM 
 and the agent can have access to provide the 
-weekly analysis for Feature A. Note that this
-tools take as input the formated weekly calendar 
-that get_daily_breakdown from weekly_calendar.py produces
+weekly analysis for Feature A. Note that these 
+tools receive the validated weekly_events list produced
+by get_weekly_timetable() in weekly_calendar.py.
 """
 
 """get_daily_breakdown() returns the number of events that happen everyday such as
@@ -16,7 +16,73 @@ that get_daily_breakdown from weekly_calendar.py produces
 - the time of the 1st class of the day 
 - the time of the last class of the day"""
 
-def get_daily_breakdown(weekly_events):
+def get_daily_breakdown(weekly_events: list) -> dict:
+    """Analyse the daily breakdown of a student's weekly timetable.
+    
+    The tool returns the number of lectures, labs, tutorials and other activities
+    for each weekday, the total number of scheduled events, total scheduled hours,
+    first class start time and last class end time
+
+    Args:
+        weekly_events: List of dictionaries containing events. 
+                       Each event contains: 
+                                        'module_name1' 
+                                        'module_name2': 
+                                        'location'
+                                        'long_description'
+                                        'short_description'
+                                        'start'
+                                        'end'
+                       Example: [{'module_name1': 'CSC1042[1] Computer Networks 2', 
+                                  'module_name2': 'CSC1042 Computer Networks 2 (Lecture)', 
+                                  'location': 'FTG11', 
+                                  'long_description': 'Lecture, On Campus', 
+                                  'short_description': 'Lecture', 
+                                  'start': '2026-11-02T09:00:00Z', 
+                                  'end': '2026-11-02T11:00:00Z'}].  
+    Returns:
+        Dictionary keyed by weekday, containing the corresponding daily timetable statistics.
+        Example:
+                {
+                    "Monday": {
+                        "lecture": 5,
+                        "total_daily_events": 5,
+                        "total_scheduled_hours": 6.0,
+                        "first_class": "09:00",
+                        "last_class": "17:00"
+                    },
+                    "Tuesday": {
+                        "lab": 1,
+                        "lecture": 2,
+                        "total_daily_events": 3,
+                        "total_scheduled_hours": 4.0,
+                        "first_class": "11:00",
+                        "last_class": "16:00"
+                    },
+                    "Wednesday": {
+                        "lecture": 3,
+                        "tutorial": 1,
+                        "lab": 1,
+                        "total_daily_events": 5,
+                        "total_scheduled_hours": 7.0,
+                        "first_class": "09:00",
+                        "last_class": "18:00"
+                    },
+                    "Thursday": {
+                        "lecture": 1,
+                        "lab": 1,
+                        "total_daily_events": 2,
+                        "total_scheduled_hours": 3.0,
+                        "first_class": "10:00",
+                        "last_class": "15:00"
+                    },
+                    "Friday": {
+                        "total_daily_events": 0,
+                        "total_scheduled_hours": 0,
+                        "first_class": None,
+                        "last_class": None
+                    }
+                }"""
     
     days_to_event = get_events_per_day(weekly_events) 
     results = dict() #final dictionary with results
@@ -81,8 +147,105 @@ def get_daily_breakdown(weekly_events):
     its purpose is for the llm to suggest good times for studying, 
     taking breaks or completing assignments.
 """
-def analyse_free_gaps(weekly_events):
+def analyse_free_gaps(weekly_events: list) -> dict:
+    """Find free gaps between scheduled classes in a weekly timetable.
 
+    Calculates each weekday's total free gap hours, number of gaps,
+    individual gap start and end times, and longest gap across the week.
+
+    Use this tool when analysing free time between classes or identifying
+    possible study breaks.
+
+    Args:
+        weekly_events: List of dictionaries containing events. 
+                       Each event contains: 
+                                        'module_name1' 
+                                        'module_name2': 
+                                        'location'
+                                        'long_description'
+                                        'short_description'
+                                        'start'
+                                        'end'
+                       Example: [{'module_name1': 'CSC1042[1] Computer Networks 2', 
+                                  'module_name2': 'CSC1042 Computer Networks 2 (Lecture)', 
+                                  'location': 'FTG11', 
+                                  'long_description': 'Lecture, On Campus', 
+                                  'short_description': 'Lecture', 
+                                  'start': '2026-11-02T09:00:00Z', 
+                                  'end': '2026-11-02T11:00:00Z'}].  
+
+    Returns:
+        Dictionary containing daily gap information and longest_weekly_gap.
+        Example: {
+                    "Monday": {
+                        "total_gaps_hours": 2.0,
+                        "number_gaps": 2,
+                        "individual_daily_gaps": {
+                            "gap0": {
+                                "gap_duration": 1.0,
+                                "gap_start": "13:00",
+                                "gap_end": "14:00"
+                            },
+                            "gap1": {
+                                "gap_duration": 1.0,
+                                "gap_start": "15:00",
+                                "gap_end": "16:00"
+                            }
+                        }
+                    },
+                    "Tuesday": {
+                        "total_gaps_hours": 1.0,
+                        "number_gaps": 1,
+                        "individual_daily_gaps": {
+                            "gap0": {
+                                "gap_duration": 1.0,
+                                "gap_start": "13:00",
+                                "gap_end": "14:00"
+                            }
+                        }
+                    },
+                    "Wednesday": {
+                        "total_gaps_hours": 2.0,
+                        "number_gaps": 2,
+                        "individual_daily_gaps": {
+                            "gap0": {
+                                "gap_duration": 1.0,
+                                "gap_start": "10:00",
+                                "gap_end": "11:00"
+                            },
+                            "gap1": {
+                                "gap_duration": 1.0,
+                                "gap_start": "14:00",
+                                "gap_end": "15:00"
+                            }
+                        }
+                    },
+                    "Thursday": {
+                        "total_gaps_hours": 2.0,
+                        "number_gaps": 1,
+                        "individual_daily_gaps": {
+                            "gap0": {
+                                "gap_duration": 2.0,
+                                "gap_start": "11:00",
+                                "gap_end": "13:00"
+                            }
+                        }
+                    },
+                    "Friday": {
+                        "total_gaps_hours": 0,
+                        "number_gaps": 0,
+                        "individual_daily_gaps": {}
+                    },
+                    "longest_weekly_gap": [
+                        {
+                            "day": "Thursday",
+                            "gap_start": "11:00",
+                            "gap_end": "13:00",
+                            "gap_duration": 2.0
+                        }
+                    ]
+                }
+    """
     days_to_event = get_events_per_day(weekly_events) #get the timetable's events with the events divided from monday to friday
     results = {} #we store results here
     longest_gap = None #to track longest gap
@@ -168,7 +331,49 @@ def analyse_free_gaps(weekly_events):
     - The days that finish the latest in the week
     - The most common events in the week (meaning labs, lectures, etc)
 """
-def analyse_class_patterns(weekly_events):
+def analyse_class_patterns(weekly_events: list) -> dict:
+    """Identify patterns across a student's weekly timetable.
+
+    Finds the most common activity/event, busiest and lightest teaching days, 
+    days without classes, earliest class starts, latest class finishes, and 
+    most common activity types such as lectures, labs and tutorials.
+
+    Use this tool for questions about weekly workload and class patterns.
+
+    Args:
+        weekly_events: List of dictionaries containing events. 
+                       Each event contains: 
+                                        'module_name1' 
+                                        'module_name2': 
+                                        'location'
+                                        'long_description'
+                                        'short_description'
+                                        'start'
+                                        'end'
+                       Example: [{'module_name1': 'CSC1042[1] Computer Networks 2', 
+                                  'module_name2': 'CSC1042 Computer Networks 2 (Lecture)', 
+                                  'location': 'FTG11', 
+                                  'long_description': 'Lecture, On Campus', 
+                                  'short_description': 'Lecture', 
+                                  'start': '2026-11-02T09:00:00Z', 
+                                  'end': '2026-11-02T11:00:00Z'}].
+    Returns:
+        Dictionary containing weekly timetable patterns and statistics in the form
+        The key values are:
+                        'most_common_activity'
+                        'busiest_day'
+                        'lightest_day'
+                        'days_without_classes'
+                        'earliest_start'
+                        'latest_finish'
+        Example:
+            {'most_common_activity': {'activities': ['lecture'], 'count': 11}, 
+            'busiest_day': {'days': ['Wednesday'], 'scheduled_hours': 7.0}, 
+            'lightest_day': {'days': ['Thursday'], 'scheduled_hours': 3.0}, 
+            'days_without_classes': ['Friday'], 
+            'earliest_start': {'days': ['Monday', 'Wednesday'], 'time': '09:00'}, 
+            'latest_finish': {'days': ['Wednesday'], 'time': '18:00'}}
+    """
     days_breakdown = get_daily_breakdown(weekly_events) #get the weekly breakdown
 
     results = {}
@@ -322,6 +527,7 @@ if __name__ == "__main__":
         {'module_name1': 'CSC1048[1] Computability & Complexity', 'module_name2': 'CSC1048 Computability & Complexity (Lecture)', 'location': 'QG13', 'long_description': 'Lecture, On Campus', 'short_description': 'Lecture', 'start': '2026-11-05T10:00:00Z', 'end': '2026-11-05T11:00:00Z'},
         {'module_name1': 'CSC1048[1] Computability & Complexity', 'module_name2': 'CSC1048 Computability & Complexity (Lab)', 'location': 'L101, L125', 'long_description': 'Lab, On Campus', 'short_description': 'Lab', 'start': '2026-11-05T13:00:00Z', 'end': '2026-11-05T15:00:00Z'}
     ]
+    #print(get_daily_breakdown(weekly_timetable))
     #print(get_daily_breakdown(weekly_timetable))
     #print(analyse_free_gaps(weekly_timetable))
     #print(analyse_class_patterns(weekly_timetable))

@@ -5,6 +5,9 @@
    apiAnalyze are the ONLY functions that talk to the backend. Adjust the
    URLs and payloads to match your API.
    ===================================================================== */
+const USE_MOCK_TIMETABLE = false;   // false = use the real /api/weekly/timetable
+const USE_MOCK_ANALYZE = true;      // analyze endpoint is still mocked
+const USE_MOCK_PROGRAMMES = false;  // false = load the real list from /api/programmes
 const API_BASE = "http://localhost:8080";
 
 // Loaded from GET /api/programmes. Each item looks like:
@@ -13,6 +16,12 @@ const API_BASE = "http://localhost:8080";
 let PROGRAMMES = [];
 
 async function apiGetProgrammes() {
+  if (USE_MOCK_PROGRAMMES) {
+    return [
+      { redbrick_name: "CASE2 (Computer Applications-2)", redbrick_uuid: "mock-1" },
+      { redbrick_name: "CASE3 (Computer Applications-3)", redbrick_uuid: "mock-2" },
+    ];
+  }
   const res = await fetch(`${API_BASE}/api/programmes`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load courses (" + res.status + ")");
   return res.json();
@@ -29,15 +38,30 @@ async function apiGetWeeks() {
   return res.json();
 }
 
-/* Timetable endpoint, expected response:
-   { events: [ { module, type, start, end, room, building } ] }
-   start/end are ISO strings (UTC with offset is fine; they are shown in Europe/Dublin).
-   The selected week's exact start/end from /api/weeks are sent as the date range. */
+/* GET /api/weekly/timetable?programme_uuid=...&start=...&end=...
+   Response: { events: [ { module_name1, module_name2, location, long_description,
+                           short_description, start, end } ] }
+   e.g. long_description = "Tutorial, On Campus", start = "2026-11-09T12:00:00Z".
+   The selected week's exact start/end from /api/weeks are sent as the date range.
+   Events are mapped to the shape the page renders:
+   { module, type, room, building, description, start, end } */
 async function apiGetTimetable({ programme, weekStart, start, end }) {
-  const qs = new URLSearchParams({ programme, start, end });
-  const res = await fetch(`${API_BASE}/api/timetable?${qs}`);
+  if (USE_MOCK_TIMETABLE) return mockTimetable(weekStart);
+  const qs = new URLSearchParams({ programme_uuid: programme, start, end });
+  const res = await fetch(`${API_BASE}/api/weekly/timetable?${qs}`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load timetable (" + res.status + ")");
-  return res.json();
+  const data = await res.json();
+  return {
+    events: (data.events || []).map(e => ({
+      module: e.module_name1 || e.module_name2 || e.short_description || "Untitled event",
+      type: (e.long_description || "").split(",")[0].trim() || "Event",
+      room: e.location || "",
+      building: "",
+      description: e.short_description || "",
+      start: e.start,
+      end: e.end,
+    })),
+  };
 }
 
 /* Analyze endpoint, expected response (the shared agent response shape):
@@ -48,6 +72,7 @@ async function apiGetTimetable({ programme, weekStart, start, end }) {
      trace: {} }
    The frontend ignores `trace`. Adjust readStats() below if your facts are shaped differently. */
 async function apiAnalyze({ programme, weekStart, start, end }) {
+  if (USE_MOCK_ANALYZE) return mockAnalyze(currentEvents);
   const res = await fetch(`${API_BASE}/api/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -62,6 +87,15 @@ const $ = id => document.getElementById(id);
 const fmtDay = d => d.toLocaleDateString("en-IE", { day: "numeric", month: "short" });
 const iso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+// Calendar date (YYYY-MM-DD) of a timestamp in Irish local time, so events land on the right day.
+const dublinDate = s => new Date(s).toLocaleDateString("en-CA", { timeZone: "Europe/Dublin" });
+// Group event types into the three colour classes used by the page.
+const kindOf = t => {
+  const x = (t || "").toLowerCase();
+  if (x.includes("lab") || x.includes("practical")) return "lab";
+  if (x.includes("tutorial")) return "tutorial";
+  return "lecture";
+};
 
 /* ===================== Feature switcher ===================== */
 document.querySelectorAll(".switcher button").forEach(btn => {
@@ -177,15 +211,15 @@ function renderTimetable(sel, events) {
   names.forEach((name, i) => {
     const day = new Date(mon); day.setDate(mon.getDate() + i);
     const todays = events
-      .filter(ev => iso(new Date(ev.start)) === iso(day))
+      .filter(ev => dublinDate(ev.start) === iso(day))
       .sort((a, b) => new Date(a.start) - new Date(b.start));
     html += `<div class="day"><h3>${name}<span>${fmtDay(day)}</span></h3>`;
     if (!todays.length) html += `<div class="empty">No classes</div>`;
     todays.forEach(ev => {
-      html += `<div class="event ${esc((ev.type || "").toLowerCase())}">
+      html += `<div class="event ${kindOf(ev.type)}"${ev.description ? ` title="${esc(ev.description)}"` : ""}>
         <div class="time">${time(ev.start)} to ${time(ev.end)}</div>
         <div class="name">${esc(ev.module)}</div>
-        <div class="meta">${esc(ev.type || "Event")} · ${esc(ev.room || "TBC")}${ev.building ? ", " + esc(ev.building) : ""}</div>
+        <div class="meta">${esc(ev.type || "Event")} · ${esc(ev.room || "Location TBC")}${ev.building ? ", " + esc(ev.building) : ""}</div>
       </div>`;
     });
     html += `</div>`;
@@ -248,4 +282,55 @@ function renderAnalysis(data) {
     : `<p>${esc(data.summary || "")}</p>`;
   if (data.ai_note) html += `<div class="ai-note"><strong>AI note:</strong> ${esc(data.ai_note)}</div>`;
   $("highlightsBody").innerHTML = html;
+}
+
+/* ===================== Mock data (illustrative only) ===================== */
+function mockTimetable(weekStart) {
+  const [y, m, d] = weekStart.split("-").map(Number);
+  const mk = (dayOffset, sh, sm, eh, em, module, type, room, building) => ({
+    module, type, room, building,
+    start: new Date(y, m - 1, d + dayOffset, sh, sm).toISOString(),
+    end: new Date(y, m - 1, d + dayOffset, eh, em).toISOString(),
+  });
+  const events = [
+    mk(0, 9, 0, 11, 0,  "Algorithms & Data Structures", "Lecture",  "L2.05", "Henry Grattan"),
+    mk(0, 14, 0, 16, 0, "Databases",                      "Lab",      "LG25",  "Computer Science"),
+    mk(1, 10, 0, 11, 0, "Operating Systems",              "Lecture",  "X104",  "Marconi"),
+    mk(1, 15, 0, 16, 0, "Operating Systems",              "Tutorial", "C166",  "Henry Grattan"),
+    mk(2, 9, 0, 10, 0,  "Algorithms & Data Structures",   "Tutorial", "L1.12", "Henry Grattan"),
+    mk(2, 13, 0, 15, 0, "Software Engineering",           "Lab",      "LG26",  "Computer Science"),
+    mk(3, 11, 0, 13, 0, "Databases",                      "Lecture",  "L2.05", "Henry Grattan"),
+    mk(3, 17, 0, 18, 0, "Software Engineering",           "Lecture",  "X204",  "Marconi"),
+  ];
+  return new Promise(r => setTimeout(() => r({ events }), 500));
+}
+
+// Placeholder for the real analyze endpoint: computes the stats from the events
+// currently shown on the page, so the numbers match the real timetable.
+function mockAnalyze(events) {
+  return new Promise(resolve => {
+    const byDay = {};
+    let mins = 0, lectures = 0, labs = 0;
+    events.forEach(e => {
+      const s = new Date(e.start), en = new Date(e.end);
+      mins += (en - s) / 60000;
+      const k = kindOf(e.type);
+      if (k === "lecture") lectures++;
+      if (k === "lab") labs++;
+      (byDay[dublinDate(e.start)] = byDay[dublinDate(e.start)] || []).push({ s, en });
+    });
+    let gaps = 0;
+    Object.values(byDay).forEach(list => {
+      list.sort((a, b) => a.s - b.s);
+      for (let i = 1; i < list.length; i++) if (list[i].s - list[i - 1].en >= 30 * 60000) gaps++;
+    });
+    const hours = +(mins / 60).toFixed(1);
+    setTimeout(() => resolve({
+      status: "ok",
+      summary: `You have ${events.length} scheduled classes this week, totalling ${hours} hours across ${Object.keys(byDay).length} days.`,
+      ai_note: null,
+      facts: { stats: { lectures, labs, class_hours: hours, gaps } },
+      trace: {},
+    }), 800);
+  });
 }

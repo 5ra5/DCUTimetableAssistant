@@ -3,10 +3,10 @@ import logging
 import json
 import unicodedata
 from pathlib import Path
+from ..config import settings
 
 CURRPATH = Path(__file__).resolve().parent
-DBPATH = CURRPATH / "db" / "schema.sql"
-
+DBPATH = settings.db_path
 class CalendarDatabaseError(Exception):
     """Base error"""
     pass

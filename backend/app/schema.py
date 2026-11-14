@@ -35,22 +35,6 @@ class AgentResult(BaseModel):
     options: Optional[list] = None
 
 
-#FEATURE A: Analyse my timetable request model
-class WeeklyAnalysisRequest(BaseModel):
-    """Request fields to analyse a selected programme's weekly timetable"""
-
-    programme_uuid: str = Field(min_length=1, description="uuid of the selected degree programme")
-    start: str = Field(description="start date of the selected timetable week")
-    end: str = Field(description="end date of the selected timetable week")
-    analysis_option: str = Field(min_length=1,description="One of the six predefined weekly analysis options")
-    #checking valid iso timestamps before sending requests to redbrick
-    @field_validator("start", "end")
-    @classmethod
-    def valid_datetime(cls, v):
-        datetime.fromisoformat(v)
-        return v
-
-
 """
 SAMPLE REQUEST MODEL
 

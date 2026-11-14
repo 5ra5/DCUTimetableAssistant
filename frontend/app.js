@@ -5,8 +5,6 @@
    apiAnalyze are the ONLY functions that talk to the backend. Adjust the
    URLs and payloads to match your API.
    ===================================================================== */
-const USE_MOCK = true;              // timetable + analyze endpoints (still mocked)
-const USE_MOCK_PROGRAMMES = false;  // false = load the real list from /api/programmes
 const API_BASE = "http://localhost:8080";
 
 // Loaded from GET /api/programmes. Each item looks like:
@@ -15,27 +13,29 @@ const API_BASE = "http://localhost:8080";
 let PROGRAMMES = [];
 
 async function apiGetProgrammes() {
-  if (USE_MOCK_PROGRAMMES) {
-    return [
-      { redbrick_name: "CASE2 (Computer Applications-2)", redbrick_uuid: "mock-1" },
-      { redbrick_name: "CASE3 (Computer Applications-3)", redbrick_uuid: "mock-2" },
-    ];
-  }
   const res = await fetch(`${API_BASE}/api/programmes`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load courses (" + res.status + ")");
   return res.json();
 }
 
-// The timetable snapshot covers 1 Sep to 20 Dec 2026, so only these weeks are offered.
-const FIRST_MONDAY = new Date(2026, 7, 31);   // Mon 31 Aug 2026 (contains 1 Sep)
-const NUM_WEEKS = 16;                          // up to the week of 14-20 Dec 2026
+// Loaded from GET /api/weeks. Each item looks like:
+//   { label: "Monday, 07 September 2026", start: "2026-09-07T00:00:00Z", end: "2026-09-11T23:59:59Z" }
+let WEEKS = [];
+const weekKey = w => w.start.slice(0, 10);   // "2026-09-07", used as the dropdown value
+
+async function apiGetWeeks() {
+  const res = await fetch(`${API_BASE}/api/weeks`, { headers: { accept: "application/json" } });
+  if (!res.ok) throw new Error("Could not load weeks (" + res.status + ")");
+  return res.json();
+}
 
 /* Timetable endpoint, expected response:
    { events: [ { module, type, start, end, room, building } ] }
-   start/end are ISO strings (UTC with offset is fine; they are shown in Europe/Dublin). */
-async function apiGetTimetable({ programme, weekStart }) {
-  if (USE_MOCK) return mockTimetable(weekStart);
-  const res = await fetch(`${API_BASE}/api/timetable?programme=${encodeURIComponent(programme)}&week_start=${weekStart}`);
+   start/end are ISO strings (UTC with offset is fine; they are shown in Europe/Dublin).
+   The selected week's exact start/end from /api/weeks are sent as the date range. */
+async function apiGetTimetable({ programme, weekStart, start, end }) {
+  const qs = new URLSearchParams({ programme, start, end });
+  const res = await fetch(`${API_BASE}/api/timetable?${qs}`);
   if (!res.ok) throw new Error("Could not load timetable (" + res.status + ")");
   return res.json();
 }
@@ -47,12 +47,11 @@ async function apiGetTimetable({ programme, weekStart }) {
      facts: { stats: { lectures, labs, class_hours, gaps } },
      trace: {} }
    The frontend ignores `trace`. Adjust readStats() below if your facts are shaped differently. */
-async function apiAnalyze({ programme, weekStart }) {
-  if (USE_MOCK) return mockAnalyze(weekStart);
+async function apiAnalyze({ programme, weekStart, start, end }) {
   const res = await fetch(`${API_BASE}/api/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ programme_uuid: programme, week_start: weekStart }),
+    body: JSON.stringify({ programme_uuid: programme, start, end }),
   });
   if (!res.ok) throw new Error("Analysis failed (" + res.status + ")");
   return res.json();
@@ -102,19 +101,30 @@ async function loadProgrammes() {
 $("courseFilter").addEventListener("input", fillCourseSelect);
 loadProgrammes();
 
-(function buildWeeks() {
-  const today = iso(new Date());
-  let defaultSet = false;
-  for (let i = 0; i < NUM_WEEKS; i++) {
-    const mon = new Date(FIRST_MONDAY); mon.setDate(mon.getDate() + i * 7);
-    const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
-    const opt = new Option(`${fmtDay(mon)} to ${fmtDay(sun)}, ${sun.getFullYear()}`, iso(mon));
-    if (!defaultSet && today >= iso(mon) && today <= iso(sun)) { opt.selected = true; defaultSet = true; }
-    $("week").add(opt);
+async function buildWeeks() {
+  const sel = $("week");
+  sel.innerHTML = `<option value="">Loading weeks…</option>`;
+  try {
+    const list = await apiGetWeeks();
+    WEEKS = list.slice().sort((a, b) => a.start.localeCompare(b.start));
+    sel.innerHTML = "";
+    WEEKS.forEach(w => sel.add(new Option(w.label, weekKey(w))));
+    // Default to the latest week that has already started (or the first week if none has).
+    const today = iso(new Date());
+    const current = WEEKS.filter(w => weekKey(w) <= today).pop() || WEEKS[0];
+    if (current) sel.value = weekKey(current);
+  } catch (e) {
+    sel.innerHTML = `<option value="">Weeks unavailable</option>`;
+    $("courseHint").textContent = e.message + ". Is the backend running on " + API_BASE + "?";
+    $("courseHint").classList.add("error");
   }
-})();
+}
+buildWeeks();
 
-const selection = () => ({ programme: $("course").value, weekStart: $("week").value });
+const selection = () => {
+  const week = WEEKS.find(w => weekKey(w) === $("week").value) || {};
+  return { programme: $("course").value, weekStart: $("week").value, start: week.start, end: week.end };
+};
 const programmeName = uuid => (PROGRAMMES.find(p => p.redbrick_uuid === uuid) || {}).redbrick_name || "";
 let currentEvents = [];
 
@@ -131,9 +141,9 @@ function resetResults() {
 $("showBtn").addEventListener("click", async () => {
   const sel = selection();
   resetResults();
-  if (!sel.programme) {
+  if (!sel.programme || !sel.start) {
     $("timetableCard").classList.add("hidden");
-    $("courseHint").textContent = "Please select a course first.";
+    $("courseHint").textContent = sel.programme ? "Please select a week first." : "Please select a course first.";
     $("courseHint").classList.add("error");
     return;
   }
@@ -238,51 +248,4 @@ function renderAnalysis(data) {
     : `<p>${esc(data.summary || "")}</p>`;
   if (data.ai_note) html += `<div class="ai-note"><strong>AI note:</strong> ${esc(data.ai_note)}</div>`;
   $("highlightsBody").innerHTML = html;
-}
-
-/* ===================== Mock data (illustrative only) ===================== */
-function mockTimetable(weekStart) {
-  const [y, m, d] = weekStart.split("-").map(Number);
-  const mk = (dayOffset, sh, sm, eh, em, module, type, room, building) => ({
-    module, type, room, building,
-    start: new Date(y, m - 1, d + dayOffset, sh, sm).toISOString(),
-    end: new Date(y, m - 1, d + dayOffset, eh, em).toISOString(),
-  });
-  const events = [
-    mk(0, 9, 0, 11, 0,  "Algorithms & Data Structures", "Lecture",  "L2.05", "Henry Grattan"),
-    mk(0, 14, 0, 16, 0, "Databases",                      "Lab",      "LG25",  "Computer Science"),
-    mk(1, 10, 0, 11, 0, "Operating Systems",              "Lecture",  "X104",  "Marconi"),
-    mk(1, 15, 0, 16, 0, "Operating Systems",              "Tutorial", "C166",  "Henry Grattan"),
-    mk(2, 9, 0, 10, 0,  "Algorithms & Data Structures",   "Tutorial", "L1.12", "Henry Grattan"),
-    mk(2, 13, 0, 15, 0, "Software Engineering",           "Lab",      "LG26",  "Computer Science"),
-    mk(3, 11, 0, 13, 0, "Databases",                      "Lecture",  "L2.05", "Henry Grattan"),
-    mk(3, 17, 0, 18, 0, "Software Engineering",           "Lecture",  "X204",  "Marconi"),
-  ];
-  return new Promise(r => setTimeout(() => r({ events }), 500));
-}
-
-function mockAnalyze(weekStart) {
-  return mockTimetable(weekStart).then(({ events }) => new Promise(resolve => {
-    const byDay = {};
-    let mins = 0, lectures = 0, labs = 0;
-    events.forEach(e => {
-      const s = new Date(e.start), en = new Date(e.end);
-      mins += (en - s) / 60000;
-      if (e.type === "Lecture") lectures++;
-      if (e.type === "Lab") labs++;
-      (byDay[iso(s)] = byDay[iso(s)] || []).push({ s, en });
-    });
-    let gaps = 0;
-    Object.values(byDay).forEach(list => {
-      list.sort((a, b) => a.s - b.s);
-      for (let i = 1; i < list.length; i++) if (list[i].s - list[i - 1].en >= 30 * 60000) gaps++;
-    });
-    setTimeout(() => resolve({
-      status: "ok",
-      summary: "You have 4 lectures, 2 labs and 2 tutorials this week. Friday is free, and Thursday ends late with a 17:00 lecture.",
-      ai_note: "Wednesday has a long gap between your morning tutorial and afternoon lab, which could suit a study session.",
-      facts: { stats: { lectures, labs, class_hours: +(mins / 60).toFixed(1), gaps } },
-      trace: {},
-    }), 1400);
-  }));
 }

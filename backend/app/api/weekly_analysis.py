@@ -7,7 +7,7 @@ from ..schema import AgentResult, WeeklyAnalysisRequest
 from .programmes import find_programme
 from .weekly_dates import get_monday_dates
 
-router = APIRouter()
+router = APIRouter(tags=["weekly_analysis"])
 
 
 @router.post("/weekly/analysis", response_model=AgentResult)

@@ -9,7 +9,7 @@ from ..config import settings
    for the frontend to populate the dropdown menu for feature A
 """
 
-router = APIRouter()
+router = APIRouter(tags=["timetable"])
 
 # one setting for the whole app (config.py); tests point this at a temporary database
 DB_PATH = str(settings.db_path)

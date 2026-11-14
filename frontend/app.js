@@ -27,6 +27,17 @@ async function apiGetProgrammes() {
   return res.json();
 }
 
+// Loaded from GET /api/weekly/analysis/options. Each item looks like:
+//   { value: "week_balance", label: "How is my week balanced?" }
+// One button is shown per option; `value` is sent to the analyze call.
+let ANALYSIS_OPTIONS = [];
+
+async function apiGetAnalysisOptions() {
+  const res = await fetch(`${API_BASE}/api/weekly/analysis/options`, { headers: { accept: "application/json" } });
+  if (!res.ok) throw new Error("Could not load analysis options (" + res.status + ")");
+  return res.json();
+}
+
 // Loaded from GET /api/weeks. Each item looks like:
 //   { label: "Monday, 07 September 2026", start: "2026-09-07T00:00:00Z", end: "2026-09-11T23:59:59Z" }
 let WEEKS = [];
@@ -71,12 +82,12 @@ async function apiGetTimetable({ programme, weekStart, start, end }) {
      facts: { stats: { lectures, labs, class_hours, gaps } },
      trace: {} }
    The frontend ignores `trace`. Adjust readStats() below if your facts are shaped differently. */
-async function apiAnalyze({ programme, weekStart, start, end }) {
+async function apiAnalyze({ programme, weekStart, start, end }, option) {
   if (USE_MOCK_ANALYZE) return mockAnalyze(currentEvents);
   const res = await fetch(`${API_BASE}/api/analyze`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ programme_uuid: programme, start, end }),
+    body: JSON.stringify({ programme_uuid: programme, start, end, analysis: option.value }),
   });
   if (!res.ok) throw new Error("Analysis failed (" + res.status + ")");
   return res.json();
@@ -184,12 +195,12 @@ $("showBtn").addEventListener("click", async () => {
   $("timetableCard").classList.remove("hidden");
   $("timetableSub").textContent = "";
   $("timetableBody").innerHTML = `<div class="loading"><div class="spinner"></div>Loading timetable…</div>`;
-  $("analyzeBtn").disabled = true;
+  setAnalysisEnabled(false);
   try {
     const data = await apiGetTimetable(sel);
     currentEvents = data.events || [];
     renderTimetable(sel, currentEvents);
-    $("analyzeBtn").disabled = currentEvents.length === 0;
+    setAnalysisEnabled(currentEvents.length > 0);
   } catch (e) {
     $("timetableBody").innerHTML = `<p class="error">${esc(e.message)}</p>`;
   }
@@ -240,23 +251,56 @@ function readStats(data) {
   };
 }
 
-$("analyzeBtn").addEventListener("click", async () => {
+// Analysis option buttons (one per entry from /api/weekly/analysis/options)
+function setAnalysisEnabled(enabled) {
+  document.querySelectorAll(".option-btn").forEach(b => { b.disabled = !enabled; });
+}
+
+function renderAnalysisButtons() {
+  const box = $("analysisOptions");
+  box.innerHTML = "";
+  ANALYSIS_OPTIONS.forEach(opt => {
+    const b = document.createElement("button");
+    b.className = "option-btn";
+    b.type = "button";
+    b.textContent = opt.label;
+    b.dataset.value = opt.value;
+    b.disabled = currentEvents.length === 0;
+    b.addEventListener("click", () => runAnalysis(opt, b));
+    box.appendChild(b);
+  });
+}
+
+async function loadAnalysisOptions() {
+  $("analysisOptions").innerHTML = `<div class="loading"><div class="spinner"></div>Loading options…</div>`;
+  try {
+    ANALYSIS_OPTIONS = await apiGetAnalysisOptions();
+    renderAnalysisButtons();
+  } catch (e) {
+    $("analysisOptions").innerHTML = `<p class="error">${esc(e.message)}. Is the backend running on ${esc(API_BASE)}?</p>`;
+  }
+}
+loadAnalysisOptions();
+
+async function runAnalysis(opt, btn) {
   const sel = selection();
-  $("analyzeBtn").disabled = true;
+  document.querySelectorAll(".option-btn").forEach(b => b.classList.toggle("active", b === btn));
+  setAnalysisEnabled(false);
   $("resultsCard").classList.remove("hidden");
   $("highlightsCard").classList.remove("hidden");
+  $("highlightsSub").textContent = opt.label;
   $("statsBody").innerHTML = `<div class="loading"><div class="spinner"></div>Calculating statistics…</div>`;
   $("highlightsBody").innerHTML = `<div class="loading"><div class="spinner"></div>The AI is analysing your week…</div>`;
   try {
-    const data = await apiAnalyze(sel);
+    const data = await apiAnalyze(sel, opt);
     renderAnalysis(data);
   } catch (e) {
     $("statsBody").innerHTML = `<p class="error">${esc(e.message)}</p>`;
     $("highlightsBody").innerHTML = "";
   } finally {
-    $("analyzeBtn").disabled = false;
+    setAnalysisEnabled(currentEvents.length > 0);
   }
-});
+}
 
 function renderAnalysis(data) {
   const status = data.status || "ok";

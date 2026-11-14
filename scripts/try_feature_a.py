@@ -1,118 +1,72 @@
+"""Run every Feature A menu option through the REAL engine with the REAL Ollama and the real tools.
+
+    docker compose exec app python scripts/try_feature_a.py              # sample week, no internet needed
+    docker compose exec app python scripts/try_feature_a.py --redbrick   # the live Redbrick timetable instead
+    docker compose exec app python scripts/try_feature_a.py busiest_days # just one option
+
+Per option it prints the summary, the note, which tools the model called itself and every mistake it made
+(`errors`), and checks that `facts` equals what the tools return when called directly.
+"""
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from backend.app.agent.engine import run_agent
-from backend.app.features import FEATURES, FeatureConfig
-from backend.app.features.weekly_summary import weekly_analysis_summary
-from backend.app.tools.registry import (get_daily_breakdown, analyse_free_gaps, analyse_class_patterns)
+from backend.app.agent import client as llm                          # noqa: E402
+from backend.app.agent.engine import run_agent                       # noqa: E402
+from backend.app.features import FEATURES                            # noqa: E402
+from backend.app.features.analysis_options import ANALYSIS_OPTIONS   # noqa: E402
+from backend.app.tools import weekly as wk                           # noqa: E402
+
+UUID = "0b5f2026-989f-0035-5e70-b86354e625a8"      # COMSCI3
+WEEK = "2026-11-02"
 
 
-# Sample validated events in the same format as weekly_calendar.py
-weekly_events = [
-    {
-        "module_name1": "Computer Networks",
-        "module_name2": "Computer Networks (Lecture)",
-        "location": "FTG11",
-        "long_description": "Lecture, On Campus",
-        "short_description": "Lecture",
-        "start": "2026-11-02T09:00:00Z",
-        "end": "2026-11-02T11:00:00Z",
-    },
-    {
-        "module_name1": "Advanced Algorithms",
-        "module_name2": "Advanced Algorithms (Lecture)",
-        "location": "FTG13",
-        "long_description": "Lecture, On Campus",
-        "short_description": "Lecture",
-        "start": "2026-11-02T12:00:00Z",
-        "end": "2026-11-02T13:00:00Z",
-    },
-    {
-        "module_name1": "Advanced Algorithms",
-        "module_name2": "Advanced Algorithms (Lab)",
-        "location": "LG27",
-        "long_description": "Lab, On Campus",
-        "short_description": "Lab",
-        "start": "2026-11-03T11:00:00Z",
-        "end": "2026-11-03T13:00:00Z",
-    },
-]
+def use_sample_week() -> None:
+    from backend.tests.featureAtests.sample_timetables import comsci3_nov02 as events
+    raw = [{"module_name": e["module_name1"], "description": e["short_description"], "start": e["start"], "end": e["end"],
+            "extras": {"summary_long": e["module_name2"], "location": e["location"], "description": e["long_description"]}}
+           for e in events]
+    wk.fetch_timetable_events = lambda url, start, end: raw
 
 
-def main():
-    tests = [
-        (
-            "feature_a_test_gaps",
-            analyse_free_gaps,
-            "Find my free gaps between classes this week.",
-        ),
-        (
-            "feature_a_test_patterns",
-            analyse_class_patterns,
-            "Analyse my weekly class patterns and busiest days.",
-        ),
-    ]
+def main(argv: list) -> int:
+    live = "--redbrick" in argv
+    wanted = [a for a in argv if not a.startswith(
+        "--")] or list(ANALYSIS_OPTIONS)
+    health = llm.health()
+    print("health:", health)
+    if health["ollama"] != "ok" or not health.get("model_installed"):
+        print("-> Ollama is unreachable or the model is not pulled: the runs below only show the fallback.\n")
+    if not live:
+        use_sample_week()
+    print("events from:", "live Redbrick" if live else "the built-in sample week", "\n")
 
-    for feature_name, tool, message in tests:
-        # Register a temporary feature for this test only.
-        FEATURES[feature_name] = FeatureConfig(
-            tools=[
-                get_daily_breakdown,
-                analyse_free_gaps,
-                analyse_class_patterns,
-            ],
-            required=[tool.__name__],
-            template=weekly_analysis_summary,
-            agent_hint=(
-                f"Analyse the student's timetable. "
-                f"For this test, select {tool.__name__}."
-            ),
-            note_instruction=(
-                "Briefly explain the timetable analysis "
-                "without inventing information."
-            ),
-        )
-
-        print(f"\n=== TESTING {tool.__name__} ===")
-
-        result = run_agent(
-            feature_name,
-            message,
-            {"weekly_events": weekly_events},
-        )
-
-        expected = tool(weekly_events)
-        actual = result.facts.get(tool.__name__)
-
-        print("Status       :", result.status)
-        print("Summary      :", result.summary)
-        print("AI note      :", result.ai_note)
-        print("LLM successful:", result.trace.get("llm_ok"))
-        print("Tool sources :", result.trace.get("tool_sources"))
-        print("Errors       :", result.trace.get("errors"))
-        print("Timings      :", result.trace.get("timings"))
-
-        assert result.status == "ok", (
-            f"{tool.__name__}: agent status was not ok"
-        )
-        assert actual == expected, (
-            f"{tool.__name__}: agent facts differ from Python result"
-        )
-
-        print(f"PASS: {tool.__name__} returned correct facts.")
-
-        source = result.trace.get("tool_sources", {}).get(tool.__name__)
-
-        if source == "model":
-            print("PASS: Ollama selected the expected tool.")
-        else:
-            print(
-                "NOTE: Python executed the expected tool, "
-                "but Ollama did not select it."
-            )
+    bad = 0
+    for option in wanted:
+        feature = ANALYSIS_OPTIONS[option]["feature"]
+        pinned = {"programme_uuid": UUID, "week_start": WEEK}
+        message = f"Analyse the weekly timetable of programme {UUID} for the week starting {WEEK}. Selected analysis: {ANALYSIS_OPTIONS[option]['label']}"
+        wk._cache.clear()
+        r = run_agent(feature, message, pinned)
+        wk._cache.clear()
+        expected = {name: getattr(wk, name)(**pinned)
+                    for name in FEATURES[feature].required}
+        t = r.trace
+        print(f"=== {option}  ({feature})")
+        print("status      :", r.status)
+        print("summary     :", r.summary)
+        print("ai_note     :", r.ai_note)
+        print("llm_ok      :", t["llm_ok"],
+              "| tool_sources:", t["tool_sources"])
+        print("errors      :", t["errors"] or "none")
+        print("note_rejected:", t["note_rejected"])
+        print("timings     :", t["timings"], "| total", t["seconds"], "s")
+        same = r.facts == expected
+        bad += not same
+        print("CHECK facts equal the tools' own output:", same, "\n")
+    return 1 if bad else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main(sys.argv[1:]))

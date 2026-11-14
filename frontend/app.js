@@ -6,7 +6,7 @@
    URLs and payloads to match your API.
    ===================================================================== */
 const USE_MOCK = false;
-const API_BASE = "";   // e.g. "http://localhost:8000"
+const API_BASE = "https://timetable.redbrick.dcu.ie/";   // e.g. "http://localhost:8000"
 
 // The backend maps (course + year) to the Redbrick UUID, so the frontend
 // only sends the course key and the year. Replace with your real courses.
@@ -21,15 +21,17 @@ const COURSES = [
 const FIRST_MONDAY = new Date(2026, 7, 31);   // Mon 31 Aug 2026 (contains 1 Sep)
 const NUM_WEEKS = 16;                          // up to the week of 14-20 Dec 2026
 
+
 /* Timetable endpoint, expected response:
    { events: [ { module, type, start, end, room, building } ] }
    start/end are ISO strings (UTC with offset is fine; they are shown in Europe/Dublin). */
 async function apiGetTimetable({ course, year, weekStart }) {
   if (USE_MOCK) return mockTimetable(weekStart);
-  const res = await fetch(`${API_BASE}/api/timetable?course=${course}&year=${year}&week_start=${weekStart}`);
+  const res = await fetch(`${API_BASE}/api/v3/timetable?course=${course}&year=${year}&week_start=${weekStart}`);
   if (!res.ok) throw new Error("Could not load timetable (" + res.status + ")");
   return res.json();
 }
+
 
 /* Analyze endpoint, expected response (the shared agent response shape):
    { status: "ok" | "not_found" | "needs_choice" | "unsupported" (or similar),
@@ -48,6 +50,7 @@ async function apiAnalyze({ course, year, weekStart }) {
   if (!res.ok) throw new Error("Analysis failed (" + res.status + ")");
   return res.json();
 }
+
 
 /* ===================== Helpers ===================== */
 const $ = id => document.getElementById(id);

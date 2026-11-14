@@ -17,7 +17,14 @@ from dataclasses import dataclass
 from typing import Callable, Optional
 
 from ..config import settings
-from ..tools.registry import *  # noqa: F401,F403  (tool functions are imported here by name)
+from ..tools.registry import (
+    get_daily_breakdown,
+    analyse_class_patterns,
+    analyse_free_gaps,
+    get_events_per_day,
+    )  # noqa: F401,F403  (tool functions are imported here by name)
+
+from .weekly_summary import weekly_analysis_summary
 
 
 @dataclass
@@ -75,7 +82,33 @@ class FeatureConfig:
                     f"branch.next_tool '{self.branch.next_tool}' not in tools list")
 
 
-FEATURES = {}
+FEATURES = {
+    "feature_a_daily": FeatureConfig(
+        tools=[get_daily_breakdown, analyse_free_gaps, analyse_class_patterns],
+        required=["get_daily_breakdown"],
+        template=weekly_analysis_summary,
+        agent_hint=("Analyse the university weekly timetable "
+                    "Use get_daily_breakdown for daily class counts and teaching hours "),
+        note_instruction="Briefly explain the student's daily timetable without inventing any information"
+    ),
+    "feature_a_gaps": FeatureConfig(
+        tools=[get_daily_breakdown, analyse_free_gaps, analyse_class_patterns],
+        required=["analyse_free_gaps"],
+        template=weekly_analysis_summary,
+        agent_hint=("Analyse the university weekly timetable "
+                    "Use analyse_free_gaps for breaks between classes"),
+        note_instruction="Briefly explain the student's daily timetable without inventing any information"
+    ),
+    "feature_a_patterns": FeatureConfig(
+        tools=[get_daily_breakdown, analyse_free_gaps, analyse_class_patterns],
+        required=["analyse_class_patterns"],
+        template=weekly_analysis_summary,
+        agent_hint=("Analyse the university weekly timetable "
+                    "Use analyse_class_patterns for recurring timetable patterns"),
+        note_instruction="Briefly explain the student's daily timetable without inventing any information"
+    ),
+}
+
 """example:
 FEATURES = {
     "rooms": FeatureConfig(

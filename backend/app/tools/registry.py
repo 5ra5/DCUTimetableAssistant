@@ -12,3 +12,4 @@ from ..config import settings
 """ AGENT TOOLS: functions the LLM may call. Docstrings are part of the model's prompt.
 from .weekly import analyze_class_patterns, analyze_free_gaps                       # noqa: F401
 """
+from .featureAtools import (get_daily_breakdown, analyse_class_patterns, analyse_free_gaps, get_events_per_day)

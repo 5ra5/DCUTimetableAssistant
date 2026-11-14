@@ -9,12 +9,13 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from .api import meta  # ex: from .api import meta, timetable, weekly
+from .api import meta, lecturers # ex: from .api import meta, timetable, weekly
 from .agent import agent_startup
 from .config import settings
 
 ROUTERS = [
     meta.router,
+    lecturers.router
     # timetable.router,
     # weekly.router,
 ]

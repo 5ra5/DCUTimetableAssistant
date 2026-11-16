@@ -10,12 +10,13 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from .api import meta  # ex: from .api import meta, timetable, weekly
+from .api import rooms # Feature B
 from .agent import agent_startup
 from .config import settings
 
 ROUTERS = [
     meta.router,
-    # timetable.router,
+    rooms.router, # Feature B
     # weekly.router,
 ]
 

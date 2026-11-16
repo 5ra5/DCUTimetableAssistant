@@ -95,3 +95,38 @@ FEATURES = {
         ),
     ),
 }"""
+
+# ======================================================================================================
+# FEATURE B (AI Room Locator). Kept as a separate block at the bottom (imports included) so it merges cleanly
+# with other features' edits near the top of this file. Summary/decision helpers live in features/rooms.py;
+# the tools live in tools/rooms.py and are re-exported by tools/registry.py.
+# ======================================================================================================
+from ..tools.registry import find_rooms_in_building, find_rooms_nearby  # noqa: E402,F401
+from .rooms import (  # noqa: E402
+    DECISION_SYSTEM, NOTE_INSTRUCTION, rooms_decision_question, rooms_is_empty, rooms_needs_next,
+    rooms_note_must_mention, rooms_note_when, rooms_summary)
+
+FEATURES["feature_b_rooms"] = FeatureConfig(
+    # The model is offered both tools...
+    tools=[find_rooms_in_building, find_rooms_nearby],
+    # ...but only the first is REQUIRED: Python always runs it, even if the model forgets to.
+    required=["find_rooms_in_building"],
+    template=rooms_summary,                   # the real answer, written by Python
+    is_empty=rooms_is_empty,                  # no rooms anywhere -> status "none"
+    agent_hint="Always start with find_rooms_in_building for the requested building. Expand only if the number of rooms returned is lower than the minimum.",
+    # The adaptive step (brief steps 3-5): after tool 1, decide whether to widen the search.
+    branch=Branch(
+        after="find_rooms_in_building",
+        next_tool="find_rooms_nearby",
+        needs_next=rooms_needs_next,          # Python's rule: fewer than settings.min_rooms AND preference allows it
+        decision=Decision(                    # the model is asked too; its answer is logged, the rule still wins
+            continue_action="broaden_search",
+            question=rooms_decision_question,
+            system=DECISION_SYSTEM,
+        ),
+    ),
+    # Optional one-sentence note from the model; dropped automatically if it fails agent/notes.py checks.
+    note_instruction=NOTE_INSTRUCTION,
+    note_when=rooms_note_when,
+    note_must_mention=rooms_note_must_mention,
+)

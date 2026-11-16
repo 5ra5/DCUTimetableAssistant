@@ -64,20 +64,26 @@ def search_lecturer(lecturer: str) -> dict:
     lecturer = " ".join(lecturer.strip().split())
 
     logging.info(f"Attempting to search for {lecturer} in the database")
-    query = ("""SELECT id, last_name, first_name, modules
-            FROM lecturers WHERE last_name
-            LIKE ? OR first_name LIKE ?
-            LIMIT 26""")
-    results = fetch_all_events(query, (f"%{lecturer}%", f"%{lecturer}%"))
+    query = ("""SELECT
+                l.redbrick_identifier,
+                GROUP_CONCAT(m.module_name, ", ") AS modules
+                FROM lecturers as l
+                JOIN lecturer_modules as lm ON lm.lecturer_id = l.id
+                JOIN modules AS m ON lm.module_id = m.id
+                WHERE l.redbrick_identifier LIKE ?
+                GROUP BY l.id, l.redbrick_identifier""")
+    
+    results = fetch_all_events(query, (f"%{lecturer}%",))
+    logging.info(f"DEBUG:Recieved lecturer search term -> {results}")
     if not results:
-        return {"status": "not_found", 
+        return {"status": "success", 
                 "message": f"No lecturer found for {lecturer}"}
     if len(results) > 25:
-        return {"status": "too_many_matches", 
+        return {"status": "success", 
                 "message": (f"Too many lecturers matched '{lecturer}'."
                 "Please refine your search.")}
     if len(results) == 1:
-        return {"status": "exact_match", "data": results[0]}
+        return {"status": "success", "data": results[0]}
     return {"status": "ambiguous", "candidates": results}
 
 def find_next_lecturer(lecturer_id, date, time):
@@ -96,29 +102,26 @@ def find_next_lecturer(lecturer_id, date, time):
     logging.info(f"Checking ahead for next avaliable teaching slot for {lecturer_id} on {date} at {time}")
 
     query = """
-            SELECT 
+            SELECT
             r.room_name,
-            e.event_name,
             e.staff_member,
             e.start_time,
             e.end_time,
             e.module_name
-
             FROM timetable_events as e
             JOIN timetable_event_rooms AS er ON er.event_id = e.id
             JOIN teaching_rooms as r ON r.id = er.room_id
             WHERE e.staff_member = ?
-                AND e.start_time >= ?
-            ORDER BY e.start_time ASC
             LIMIT 1
             """
-    results = fetch_all_events(query,  (lecturer_id, date_time))
+    
+    results = fetch_all_events(query,  (lecturer_id,))
     if not results:
         logging.info(f"Search completed: No future classes found for {lecturer_id}")
-        return {"status": "not found", "message": f"No upcoming classes found for lecturer {lecturer_id}"}
+        return {"status": "error", "message": f"No upcoming classes found for lecturer {lecturer_id}"}
     result = results[0]
     logging.info(f"SUCCESS: Found next class for {lecturer_id}"
-                 f"Module: {result["module_name"]}, Room: {result["room_name"]}")
+                 f"Module: {result['module_name']}, Room: {result['room_name']}")
     
     return {"status": "success", "data": result}
 
@@ -139,29 +142,26 @@ def get_lecturer_schedule(lecturer_id, date, time):
     query = """
             SELECT
             r.room_name,
-            e.event_name,
             e.staff_member,
             e.start_time,
             e.end_time,
             e.module_name
-            
             FROM timetable_events as e
             JOIN timetable_event_rooms AS er ON er.event_id = e.id
             JOIN teaching_rooms as r ON r.id = er.room_id
             WHERE e.staff_member = ?
-            AND date(e.start_time) = ?
-            AND ? BETWEEN time(e.start_time) AND time(e.end_time)
-
-            LIMIT 1
+                AND time( ? ) BETWEEN time(e.start_time) AND time(e.end_time)
+                LIMIT 1
             """
+    
     results = fetch_all_events(query, (lecturer_id, date, time))
     if not results:
         logging.info(f"Search completed: Did not find class for {lecturer_id} at {time} on {date}")
-        return {"status": "not found", 
+        return {"status": "error", 
                 "message": f"No class found for lecturer {lecturer_id} at {time} on {date}"}
     
     result = results[0]
     logging.info(f"SUCCESS: Found class for {lecturer_id}: "
-    f"Module: {result["module_name"]}, Room: {result["room_name"]}")
+    f"Module: {result['module_name']}, Room: {result['room_name']}")
     return {"status": "success", "data": result}
 

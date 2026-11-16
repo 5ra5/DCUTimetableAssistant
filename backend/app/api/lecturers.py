@@ -7,14 +7,14 @@ router = APIRouter(prefix="/lecturers", tags=["Lecturers"])
 
 @router.post("/search")
 def lecturer_search_route(query: LecturerSearchQuery):
-    staged = {"lecturer_name": query.lecturer_name}
+    staged = {"lecturer": query.lecturer_name}
     user_message = f"Search for lecturer {query.lecturer_name}"
     return run_agent("feature_C_B", user_message, staged)
 
 @router.post("/schedule")
 def lecturer_schedule_route(query: LecturerScheduleQuery):
     staged = {
-        "lecturer_name": query.lecturer_name,
+        "lecturer_id": query.lecturer_name,
         "date": query.date,
         "time": query.time,
     }

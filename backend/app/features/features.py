@@ -92,7 +92,7 @@ FEATURES["feature_C_A"] = FeatureConfig(
 
     is_empty=lambda facts: (facts.get("get_lecturer_schedule", {}).get("status") != "success" and
                     facts.get("find_next_lecturer", {}).get("status") != "success"
-                    ) 
+                    ),
 )
 
 FEATURES["feature_C_B"] = FeatureConfig(
@@ -100,8 +100,7 @@ FEATURES["feature_C_B"] = FeatureConfig(
     required=["search_lecturer"],
     template=lecturer_summary_B,
     agent_hint="Search for the requested lecturer name using search_lecturer.",
-
-    is_empty=lambda facts: (facts.get("search_lecturer", {}).get("status") != "success")
+    is_empty=lambda facts: (facts.get("search_lecturer", {}).get("status") != "success"),
 
 )
 

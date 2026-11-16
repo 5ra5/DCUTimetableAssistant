@@ -7,10 +7,11 @@ def lecturer_summary_A(facts: dict) -> str:
 
 def lecturer_summary_B(facts: dict) -> str:
     request = facts.get("search_lecturer", {})
-    if request.get("status") == "success":
-        hits = request.get("data", [])
-        count = len(hits)
-        if count == 1:
-            return f"Found exact matching lecturer: {hits[0]['name']}"
-        return f"Found {count} matching lecturers. Please clarify which one to view their modules."
-    return "No lecturers found matching that name."
+    status = request.get("status")
+    if status =="success" and "data" in request:
+        lecturer = request["data"]
+        return f"Found exact matching lecturer: {lecturer['redbrick_identifier']}"
+    if status == "ambiguous":
+        candidates = request.get("candidates", [])
+        return f"Found {len(candidates)} matching lecturers. Please clarify which one"
+    return request.get("message", "No lecturers found matching that name")

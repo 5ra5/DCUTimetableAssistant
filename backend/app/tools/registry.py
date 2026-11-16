@@ -12,3 +12,5 @@ from ..config import settings
 """ AGENT TOOLS: functions the LLM may call. Docstrings are part of the model's prompt.
 from .weekly import analyze_class_patterns, analyze_free_gaps                       # noqa: F401
 """
+# ---- FEATURE B (room locator) ----
+from .rooms import find_rooms_in_building, find_rooms_nearby  # noqa: F401

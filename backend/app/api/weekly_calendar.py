@@ -9,8 +9,8 @@ from datetime import datetime
 base_url = "https://timetable.redbrick.dcu.ie/api/v3/timetable"
 
 
-router = APIRouter(tags=["timetable"])
-@router.get("/weekly/timetable")
+router = APIRouter(prefix="/weekly",tags=["timetable"])
+@router.get("/timetable")
 def get_weekly_timetable(programme_uuid, start, end):
     url = f"{base_url}/category/course/items/{programme_uuid}/events"
    

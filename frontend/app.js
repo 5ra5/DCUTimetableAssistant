@@ -7,10 +7,10 @@
    ===================================================================== */
 const USE_MOCK_TIMETABLE = false;   // false = use the real /api/weekly/timetable
 const USE_MOCK_ANALYZE = false;     // false = use the real analyze endpoint
-const USE_MOCK_PROGRAMMES = false;  // false = load the real list from /api/programmes
+const USE_MOCK_PROGRAMMES = false;  // false = load the real list from /api/weekly/programmes
 const API_BASE = "http://localhost:8080";
 
-// Loaded from GET /api/programmes. Each item looks like:
+// Loaded from GET /api/weekly/programmes. Each item looks like:
 //   { redbrick_name: "AC1 (Chem & Pharma Science-1)", redbrick_uuid: "8dc12a98-..." }
 // The name already includes the year, and the UUID is the timetable code.
 let PROGRAMMES = [];
@@ -22,7 +22,7 @@ async function apiGetProgrammes() {
       { redbrick_name: "CASE3 (Computer Applications-3)", redbrick_uuid: "mock-2" },
     ];
   }
-  const res = await fetch(`${API_BASE}/api/programmes`, { headers: { accept: "application/json" } });
+  const res = await fetch(`${API_BASE}/api/weekly/programmes`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load courses (" + res.status + ")");
   return res.json();
 }

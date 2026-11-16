@@ -70,10 +70,13 @@ def search_lecturer(lecturer: str) -> dict:
                 FROM lecturers as l
                 JOIN lecturer_modules as lm ON lm.lecturer_id = l.id
                 JOIN modules AS m ON lm.module_id = m.id
+                LEFT JOIN lecturer_identity_mappings AS lim ON lim.lecturer_id = l.id
+                LEFT JOIN directory_staff AS ds ON ds.id = lim.staff_id
                 WHERE l.redbrick_identifier LIKE ?
+                    OR ds.full_name LIKE ?
                 GROUP BY l.id, l.redbrick_identifier""")
     
-    results = fetch_all_events(query, (f"%{lecturer}%",))
+    results = fetch_all_events(query, (f"%{lecturer}%", f"%{lecturer}%",))
     logging.info(f"DEBUG:Recieved lecturer search term -> {results}")
     if not results:
         return {"status": "success", 
@@ -97,7 +100,8 @@ def find_next_lecturer(lecturer_id, date, time):
         return {"status": "error",
                 "message": "Both time and date are required"}
 
-    date_time = f"{date} {time}"
+    formatted_time = f"{time}:00" if len(time.strip()) == 5 else time.strip()
+    target_time = f"{date.strip()}T{formatted_time}Z"
     
     logging.info(f"Checking ahead for next avaliable teaching slot for {lecturer_id} on {date} at {time}")
 
@@ -110,12 +114,15 @@ def find_next_lecturer(lecturer_id, date, time):
             e.module_name
             FROM timetable_events as e
             JOIN timetable_event_rooms AS er ON er.event_id = e.id
+            LEFT JOIN lecturers AS l on e.staff_member LIKE '%' || l.redbrick_identifier || '%'
+            LEFT JOIN lecturer_identity_mappings AS lim ON lim.lecturer_id = l.id
+            LEFT JOIN directory_staff AS ds ON ds.id = lim.staff_id
             JOIN teaching_rooms as r ON r.id = er.room_id
-            WHERE e.staff_member = ?
+            WHERE (e.staff_member LIKE ? OR ds.full_name  LIKE ? OR ds.last_name  LIKE ?)
             LIMIT 1
             """
     
-    results = fetch_all_events(query,  (lecturer_id,))
+    results = fetch_all_events(query,  (f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%"))
     if not results:
         logging.info(f"Search completed: No future classes found for {lecturer_id}")
         return {"status": "error", "message": f"No upcoming classes found for lecturer {lecturer_id}"}
@@ -138,9 +145,10 @@ def get_lecturer_schedule(lecturer_id, date, time):
                 "message": "Both time and date are required"}
     
     logging.info(f"Checking schedule for lecturer {lecturer_id} on {date} at {time}")
-
+    formatted_time = f"{time}:00" if len(time.strip()) == 5 else time.strip()
+    target_time = f"{date.strip()}T{formatted_time}Z"
     query = """
-            SELECT
+          SELECT
             r.room_name,
             e.staff_member,
             e.start_time,
@@ -148,13 +156,17 @@ def get_lecturer_schedule(lecturer_id, date, time):
             e.module_name
             FROM timetable_events as e
             JOIN timetable_event_rooms AS er ON er.event_id = e.id
+            LEFT JOIN lecturers AS l on e.staff_member LIKE '%' || l.redbrick_identifier || '%'
+            LEFT JOIN lecturer_identity_mappings AS lim ON lim.lecturer_id = l.id
+            LEFT JOIN directory_staff AS ds ON ds.id = lim.staff_id
             JOIN teaching_rooms as r ON r.id = er.room_id
-            WHERE e.staff_member = ?
-                AND time( ? ) BETWEEN time(e.start_time) AND time(e.end_time)
-                LIMIT 1
+            WHERE (e.staff_member LIKE ? OR ds.full_name  LIKE ? OR ds.last_name  LIKE ?)
+               AND ? >= e.start_time 
+               AND ? < e.end_time 
+            LIMIT 1
             """
-    
-    results = fetch_all_events(query, (lecturer_id, date, time))
+    results = fetch_all_events(query, (f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%",  target_time, target_time))
+
     if not results:
         logging.info(f"Search completed: Did not find class for {lecturer_id} at {time} on {date}")
         return {"status": "error", 

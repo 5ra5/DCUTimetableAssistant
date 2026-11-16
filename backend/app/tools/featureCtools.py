@@ -4,6 +4,7 @@ import json
 import unicodedata
 from pathlib import Path
 from ..config import settings
+from datetime import datetime, timezone
 
 CURRPATH = Path(__file__).resolve().parent
 DBPATH = settings.db_path
@@ -13,7 +14,7 @@ class CalendarDatabaseError(Exception):
 
 class DatabaseConfigurationError(CalendarDatabaseError):
     """Connection issues"""
-    pass 
+    pass
 
 def setup_connection():
     if not DBPATH.is_file():
@@ -89,7 +90,7 @@ def search_lecturer(lecturer: str) -> dict:
         return {"status": "success", "data": results[0]}
     return {"status": "ambiguous", "candidates": results}
 
-def find_next_lecturer(lecturer_id, date, time):
+def find_next_lecturer(lecturer_id, date=None, time=None):
     if (not lecturer_id):
         logging.warning("Missing lecturer ID recieved. Please provide a lecturer ID.")
         return {"status": "error",
@@ -99,6 +100,13 @@ def find_next_lecturer(lecturer_id, date, time):
         logging.warning(f"Missing {missingdata}")
         return {"status": "error",
                 "message": "Both time and date are required"}
+
+    
+    now_utc = datetime.now(timezone.utc)
+    if not date or not date.strip():
+        date = now_utc.strftime("%Y-%m-%d")
+    if not time or not time.strip():
+        time = now_utc.strftime("%H:%M:%S")
 
     formatted_time = f"{time}:00" if len(time.strip()) == 5 else time.strip()
     target_time = f"{date.strip()}T{formatted_time}Z"
@@ -119,10 +127,12 @@ def find_next_lecturer(lecturer_id, date, time):
             LEFT JOIN directory_staff AS ds ON ds.id = lim.staff_id
             JOIN teaching_rooms as r ON r.id = er.room_id
             WHERE (e.staff_member LIKE ? OR ds.full_name  LIKE ? OR ds.last_name  LIKE ?)
+                AND e.start_time >= ?
+            ORDER BY e.start_time ASC
             LIMIT 1
             """
     
-    results = fetch_all_events(query,  (f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%"))
+    results = fetch_all_events(query,  (f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", target_time))
     if not results:
         logging.info(f"Search completed: No future classes found for {lecturer_id}")
         return {"status": "error", "message": f"No upcoming classes found for lecturer {lecturer_id}"}

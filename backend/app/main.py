@@ -26,7 +26,7 @@ logging.basicConfig(
 )
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
-logger.info("Starting DCU Timetable Assistant backend on port 8080")
+logger.info(f"Starting DCU Timetable Assistant backend on port {settings.port}")
 
 
 @asynccontextmanager

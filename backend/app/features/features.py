@@ -113,7 +113,7 @@ FEATURES["feature_b_rooms"] = FeatureConfig(
     required=["find_rooms_in_building"],
     template=rooms_summary,                   # the real answer, written by Python
     is_empty=rooms_is_empty,                  # no rooms anywhere -> status "none"
-    agent_hint="Always start with find_rooms_in_building for the requested building. Expand only if the number of rooms returned is lower than the minimum.",
+    agent_hint="Always start with find_rooms_in_building for the requested building. If the number of rooms found is below the minimum, you may widen the search to nearby buildings.",
     # The adaptive step (brief steps 3-5): after tool 1, decide whether to widen the search.
     branch=Branch(
         after="find_rooms_in_building",

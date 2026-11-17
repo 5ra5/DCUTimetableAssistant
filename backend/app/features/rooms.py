@@ -28,9 +28,8 @@ def _caveat(total: int) -> str:
 
 # Shown to the model when it is asked whether to widen the search (Decision.system in features.py).
 DECISION_SYSTEM = (
-    f"You decide the next step of a room search. The student needs at least {settings.min_rooms} rooms. "
-    f"If the number of rooms found is below {settings.min_rooms} and a wider search is allowed, the action is "
-    "broaden_search. In every other case the action is finish. State the number, then the action.")
+    f"You decide the next step of a room search. The student needs at least {settings.min_rooms} rooms. If the student has above that numder, the action is immediately 'finish'"
+    f"a wider search is allowed ONLY if the number of rooms found is below {settings.min_rooms} AND the search preference says yes. If both conditions are met, the action is 'broaden_search'. Otherwise, the action is 'finish'. State the number of rooms found, then the action.")
 
 NOTE_INSTRUCTION = ("State ONE fact in a single sentence: how many rooms were found. Do not mention room names, "
                     "codes or times. Do not say a room is guaranteed to be free.")
@@ -92,7 +91,7 @@ def rooms_decision_question(first: dict) -> str:
     """The plain-language question the model answers when asked whether to widen the search."""
     allowed = "yes" if first["can_expand"] else "no"
     return (f"Rooms found: {first['count']}. Minimum needed: {settings.min_rooms}. "
-            f"Wider search allowed: {allowed}.")
+            f"Search preference: {allowed}.")
 
 
 def rooms_needs_next(first: dict) -> bool:

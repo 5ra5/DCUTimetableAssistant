@@ -45,23 +45,23 @@ log = logging.getLogger(__name__)
 # --------------------------------------------------------------------------------------------------------------
 DUBLIN = ZoneInfo("Europe/Dublin")
 UTC = dt.timezone.utc
-DB_TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"          # how timetable_events stores start_time / end_time
+DB_TIME_FORMAT = settings.db_time_format         # how timetable_events stores start_time / end_time
 
 # ASSUMPTION: we only search within these local hours. The database has no building opening hours, and a room
 # with "no events" at 03:00 is not a useful recommendation. Change them here if the team prefers other hours.
 SEARCH_DAY_START = dt.time(8, 0)
 SEARCH_DAY_END = dt.time(22, 0)
-MIN_DURATION_MINUTES = 15
-MAX_DURATION_MINUTES = 240
+MIN_DURATION_MINUTES = settings.min_room_duration_minutes  # 30
+MAX_DURATION_MINUTES = settings.max_room_duration_minutes  # 240
 
 # ASSUMPTION: "nearby" means within this many metres (building_proximity.distance_metres, which are map
 # estimates). 300 m is roughly a 4 minute walk. "Closest buildings" never goes further than this;
 # "More options" may.
-NEARBY_MAX_METRES = 300
+NEARBY_MAX_METRES = settings.max_search_metres  # 200
 
 # We list at most this many rooms per building so the answer stays readable. The TRUE number of free rooms is
 # still reported (`count`) and used for the "at least two rooms" rule.
-MAX_ROOMS_PER_BUILDING = 6
+MAX_ROOMS_PER_BUILDING = settings.max_rooms_per_building  # 6
 
 # Event types that do NOT occupy a room. Everything else (lectures, tutorials, exams, active/provisional
 # bookings, even "Synchronous (Online, live)" events that are linked to a room) blocks it, because the brief says

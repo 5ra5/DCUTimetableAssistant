@@ -3,7 +3,7 @@ from fastapi import APIRouter
 
 from ..agent import agent_health
 
-router = APIRouter()
+router = APIRouter(tags=["metrics"])
 
 
 @router.get("/health")

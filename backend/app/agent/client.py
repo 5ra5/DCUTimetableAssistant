@@ -13,22 +13,35 @@ log = logging.getLogger(__name__)
 
 MODEL = settings.ollama_model
 OPTS = {"temperature": 0, "num_ctx": 2048}
-KEEP_ALIVE = "30m"
-
-client = ollama.Client(host=settings.ollama_host,
-                       timeout=settings.llm_timeout_s)
+KEEP_ALIVE = settings.keep_alive
 
 
-def chat(messages: list, tools: list | None = None, fmt: dict | None = None, num_predict: int = 80):
+def make_client() -> ollama.Client:
+    headers = None
+    if settings.use_api_key:
+        if not settings.api_key:
+            raise RuntimeError(
+                "OLLAMA_USE_API_KEY is true but OLLAMA_API_KEY is empty")
+        headers = {"Authorization": f"Bearer {settings.api_key}"}
+    return ollama.Client(host=settings.ollama_host, headers=headers, timeout=settings.llm_timeout_s)
+
+
+client = make_client()
+
+def chat(messages: list, tools: list | None = None, fmt: dict | None = None, num_predict: int = 256, think: bool = False):
     """The only place that calls the model. 'fmt' is a JSON schema that forces a JSON answer."""
-    return client.chat(
+    log.debug("\n===================================\nCalling Ollama model %s with %d messages, %d tools(%s), num_predict=%d, think=%s\n==============================\n", MODEL, len(messages), len(tools) if tools else 0, ", ".join([f"{tool}" for tool in tools]) if tools else "", num_predict, think)
+    resp = client.chat(
         model=MODEL,
         messages=messages,
         tools=tools,
         format=fmt,
         options={**OPTS, "num_predict": num_predict},
         keep_alive=KEEP_ALIVE,
+        think=think,
     )
+    log.debug("\n============================\nModel Response Message: %s:\nFull Response: %s\n===============================\n", resp.message.content, resp)
+    return resp
 
 
 def health() -> dict:

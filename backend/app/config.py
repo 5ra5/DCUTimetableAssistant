@@ -34,7 +34,15 @@ class Settings:
     llm_timeout_s: float = float(_env("LLM_TIMEOUT_S", "60.0"))
     min_rooms: int = int(_env("MIN_ROOMS", "2"))
     frontend_dir: Path = ROOT / "frontend"
+    db_path: Path = ROOT / _env("DB_PATH", "data/timetable.db")
     log_level: str = _env("LOG_LEVEL", "INFO").upper()
 
+    api_key: str = _env("OLLAMA_API_KEY", "")
+    use_api_key: bool = _env("OLLAMA_USE_API_KEY", "false").lower() == "true"
+
+    tool_turn_tokens: int = int(_env("TOOL_TURN_TOKENS", "512"))
+    max_tool_turns: int = int(_env("MAX_TOOL_TURNS", 4))
+    short_tokens: int = int(_env("SHORT_TOKENS", 80))
+    keep_alive: str = _env("KEEP_MODEL_ALIVE_FOR", "30m")
 
 settings = Settings()

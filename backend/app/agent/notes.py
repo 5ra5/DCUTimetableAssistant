@@ -20,13 +20,15 @@ _BUILDING_CODE = re.compile(
 # "room GLA.FT" or "GLA.FT room": a dotted code is always a BUILDING (rooms are like FTG11)
 _ROOM_BUILDING = re.compile(
     r"\broom\s+[A-Z]{2,4}\.[A-Z]|\b[A-Z]{2,4}\.[A-Z]{1,3}\s+room\b", re.IGNORECASE)
+_WEEKDAY = re.compile(
+    r"\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b", re.IGNORECASE)
 _FREE = re.compile(r"for free|free of charge", re.IGNORECASE)
 _WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
           "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"]
 _NUMBER_WORDS = {w: i for i, w in enumerate(_WORDS)} | {"no": 0}
 _QUANTITY = re.compile(
     r"\b(\d+(?:\.\d+)?|" + "|".join(_NUMBER_WORDS) +
-    r")\s*(hours?|hrs?|minutes?|mins?|rooms?|lectures?|labs?|classes|class|days?|buildings?)\b", re.IGNORECASE
+    r")\s*(hours?|hrs?|minutes?|mins?|rooms?|lectures?|labs?|tutorials?|classes|class|days?|buildings?|gaps?|events?)\b", re.IGNORECASE
 )
 _UNIT_ALIASES = {"hr": "hour", "min": "minute", "classes": "class"}
 
@@ -70,6 +72,12 @@ def check_note(note: str, summary: str, facts: dict, must_mention: tuple = ()) -
     for m in _TIME.finditer(note):
         if _time(m) not in known_times:
             return f"unknown_time:{m.group(0)}"
+
+    # summary only: the facts are keyed by every weekday
+    known_days = {d.lower() for d in _WEEKDAY.findall(summary)}
+    for day in _WEEKDAY.findall(note):
+        if day.lower() not in known_days:
+            return f"unknown_day:{day}"
 
     if _BUILDING_CODE.search(note):
         return "room_called_building"

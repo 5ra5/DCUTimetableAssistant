@@ -38,5 +38,6 @@ class Settings:
     db_path: Path = ROOT / _env("DB_PATH", "data/timetable.db")
     log_level: str = _env("LOG_LEVEL", "INFO").upper()
 
-
+    api_key: str = _env("OLLAMA_API_KEY", "")
+    use_api_key: bool = _env("OLLAMA_USE_API_KEY", "false").lower() == "true"
 settings = Settings()

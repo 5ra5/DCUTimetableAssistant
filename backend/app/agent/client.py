@@ -15,9 +15,18 @@ MODEL = settings.ollama_model
 OPTS = {"temperature": 0, "num_ctx": 2048}
 KEEP_ALIVE = "30m"
 
-client = ollama.Client(host=settings.ollama_host,
-                       timeout=settings.llm_timeout_s)
 
+def make_client() -> ollama.Client:
+    headers = None
+    if settings.use_api_key:
+        if not settings.api_key:
+            raise RuntimeError(
+                "OLLAMA_USE_API_KEY is true but OLLAMA_API_KEY is empty")
+        headers = {"Authorization": f"Bearer {settings.api_key}"}
+    return ollama.Client(host=settings.ollama_host, headers=headers, timeout=settings.llm_timeout_s)
+
+
+client = make_client()
 
 def chat(messages: list, tools: list | None = None, fmt: dict | None = None, num_predict: int = 80):
     """The only place that calls the model. 'fmt' is a JSON schema that forces a JSON answer."""

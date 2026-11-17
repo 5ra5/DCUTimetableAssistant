@@ -15,6 +15,7 @@ from .api import (weekly_analysis,
                   weekly_dates, 
                   programmes,
                   weekly_analysis_options,)
+from .api import rooms # Feature B
 from .agent import agent_startup
 from .config import settings
 
@@ -24,8 +25,9 @@ ROUTERS = [
     weekly_dates.router,
     weekly_calendar.router,
     weekly_analysis.router,
-    weekly_analysis_options.router
+    weekly_analysis_options.router,
     # timetable.router,
+    rooms.router, # Feature B
     # weekly.router,
 ]
 
@@ -35,7 +37,7 @@ logging.basicConfig(
 )
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
-logger.info("Starting DCU Timetable Assistant backend on port 8080")
+logger.info(f"Starting DCU Timetable Assistant backend on port {settings.port}")
 
 
 @asynccontextmanager

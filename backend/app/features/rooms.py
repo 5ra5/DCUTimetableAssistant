@@ -27,9 +27,9 @@ SHOW_ROOMS = 2
 def _caveat(total: int) -> str:
     """Never promise that a room is free, empty or accessible."""
     return (
-        "This room is not guaranteed empty, unlocked or open to students."
+        "This room is not guaranteed to be empty, unlocked or open to students."
         if total == 1
-        else "These rooms are not guaranteed empty, unlocked or open to students."
+        else "These rooms are not guaranteed to be empty, unlocked or open to students."
     )
 
 # Shown to the model when it is asked whether to widen the search (Decision.system in features.py).
@@ -171,13 +171,21 @@ def rooms_summary(facts: dict) -> str:
     # --- sentence 1: the result. "N rooms" stays adjacent so the optional AI note can quote the number safely.
     if total:
         groups = []
+
+        # Rooms found in the student's original building
         if first["count"]:
-            groups.append(_group(first["rooms"], first["count"]))
-        if second:
-            for hit in (h for h in second["searched"] if h["rooms_found"]):
-                rooms = [r for r in second["rooms"] if r["building_code"] == hit["building_code"]]
-                groups.append(_group(rooms, hit["rooms_found"]))
-        lines = [f"{_plural(total, 'room')} potentially available on {when}: " + "; ".join(groups) + "."]
+            original_rooms = _group(first["rooms"], first["count"])
+            groups.append(f"{original_rooms} from {first['building_code']}")
+
+        # Combine rooms found in all other buildings
+        if second and second["count"]:
+            other_rooms = _group(second["rooms"], second["count"])
+            groups.append(f"{other_rooms} from other buildings")
+
+        lines = [
+            f"{_plural(total, 'room')} potentially available on {when}: "
+            + ", ".join(groups) + "."
+        ]
     else:
         lines = [f"No potentially available rooms on {when}."]
 

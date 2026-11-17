@@ -17,11 +17,13 @@ from fastapi import APIRouter, HTTPException
 from ..agent.engine import run_agent
 from ..schema import AgentResult, RoomSearchRequest
 from ..tools import rooms as room_tools
+from ..config import settings
 
 router = APIRouter(tags=["rooms"])
 
 # Durations offered on the form. The API itself accepts any 15-240 minutes (see RoomSearchRequest).
-DURATION_CHOICES = [30, 60, 90, 120, 180, 240]
+MAX_DURATION = settings.max_room_duration_minutes
+DURATION_CHOICES = list(range(30, MAX_DURATION + 1, 30))
 
 
 def _db_error(e: sqlite3.Error):

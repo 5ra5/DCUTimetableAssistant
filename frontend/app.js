@@ -22,7 +22,7 @@ async function apiGetProgrammes() {
       { redbrick_name: "CASE3 (Computer Applications-3)", redbrick_uuid: "mock-2" },
     ];
   }
-  const res = await fetch(`${API_BASE}/api/weekly/programmes`, { headers: { accept: "application/json" } });
+  const res = await fetch(`/api/weekly/programmes`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load courses (" + res.status + ")");
   return res.json();
 }
@@ -33,7 +33,7 @@ async function apiGetProgrammes() {
 let ANALYSIS_OPTIONS = [];
 
 async function apiGetAnalysisOptions() {
-  const res = await fetch(`${API_BASE}/api/weekly/analysis/options`, { headers: { accept: "application/json" } });
+  const res = await fetch(`/api/weekly/analysis/options`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load analysis options (" + res.status + ")");
   return res.json();
 }
@@ -44,7 +44,7 @@ let WEEKS = [];
 const weekKey = w => w.start.slice(0, 10);   // "2026-09-07", used as the dropdown value
 
 async function apiGetWeeks() {
-  const res = await fetch(`${API_BASE}/api/weeks`, { headers: { accept: "application/json" } });
+  const res = await fetch(`/api/weeks`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load weeks (" + res.status + ")");
   return res.json();
 }
@@ -59,7 +59,7 @@ async function apiGetWeeks() {
 async function apiGetTimetable({ programme, weekStart, start, end }) {
   if (USE_MOCK_TIMETABLE) return mockTimetable(weekStart);
   const qs = new URLSearchParams({ programme_uuid: programme, start, end });
-  const res = await fetch(`${API_BASE}/api/weekly/timetable?${qs}`, { headers: { accept: "application/json" } });
+  const res = await fetch(`/api/weekly/timetable?${qs}`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load timetable (" + res.status + ")");
   const data = await res.json();
   return {
@@ -84,7 +84,7 @@ async function apiGetTimetable({ programme, weekStart, start, end }) {
    Adjust readStats() below if your facts are shaped differently. */
 async function apiAnalyze({ programme, weekStart, start, end }, option) {
   if (USE_MOCK_ANALYZE) return mockAnalyze(currentEvents);
-  const res = await fetch(`${API_BASE}/api/weekly/analysis`, {
+  const res = await fetch(`/api/weekly/analysis`, {
     method: "POST",
     headers: { "Content-Type": "application/json", accept: "application/json" },
     body: JSON.stringify({ programme_uuid: programme, start, end, analysis_option: option.value }),

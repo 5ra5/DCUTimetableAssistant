@@ -20,17 +20,19 @@ _WEEKDAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
 _MONTHS = ("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
            "November", "December")
 
-def _caveat(total: int) -> str:
-    """Brief rule: never promise the room is free, empty or accessible."""
-    these, have, they = ("This room has", "has", "it is") if total == 1 else ("These rooms have", "have", "they are")
-    return (f"{these} no recorded timetable events or bookings in that period. That does not guarantee "
-            f"{they} empty, unlocked or open to students.")
+# CONCISENESS DIAL: how many room names are printed per building before "and N more". Lower = shorter summary.
+# The full list (with 'free until' times) is always in `facts`, so nothing is lost.
+SHOW_ROOMS = 2
 
 # Shown to the model when it is asked whether to widen the search (Decision.system in features.py).
 DECISION_SYSTEM = (
-    f"You decide the next step of a room search. The student needs at least {settings.min_rooms} rooms. If the student has above that numder, the action is immediately 'finish'"
-    f"a wider search is allowed ONLY if the number of rooms found is below {settings.min_rooms} AND the search preference says yes. If both conditions are met, the action is 'broaden_search'. Otherwise, the action is 'finish'. State the number of rooms found, then the action.")
+    f"You decide the next step of a room search. The student needs at least {settings.min_rooms} rooms. "
+    f"If the number of rooms found is {settings.min_rooms} or more, the action is 'finish'. "
+    f"A wider search is allowed ONLY if the number of rooms found is below {settings.min_rooms} AND the search "
+    "preference allows it. If both are true, the action is 'broaden_search'. Otherwise the action is 'finish'. "
+    "State the number of rooms found, then the action.")
 
+# Instruction for the optional one-sentence ai_note (checked by agent/notes.py before it is shown).
 NOTE_INSTRUCTION = ("State ONE fact in a single sentence: how many rooms were found. Do not mention room names, "
                     "codes or times. Do not say a room is guaranteed to be free.")
 
@@ -46,18 +48,25 @@ def _pretty_date(iso: str) -> str:
     return f"{_WEEKDAYS[d.weekday()]} {d.day} {_MONTHS[d.month - 1]} {d.year}"
 
 
+def _short_date(iso: str) -> str:
+    """'2026-11-17' -> 'Tue 17 Nov' (used in the summary; _pretty_date gives the long form)."""
+    d = dt.date.fromisoformat(iso)
+    return f"{_WEEKDAYS[d.weekday()][:3]} {d.day} {_MONTHS[d.month - 1][:3]}"
+
+
 def _duration(minutes: int) -> str:
     h, m = divmod(minutes, 60)
     parts = ([_plural(h, "hour")] if h else []) + ([_plural(m, "minute")] if m else [])
     return " ".join(parts)
 
 
-def _room_list(rooms: list, available_total: int) -> str:
-    """'GLA.FT113 (free until 16:00), GLA.FT114 and 3 more rooms'"""
-    parts = [r["room_name"] + (f" (free until {r['free_until']})" if r["free_until"] else "") for r in rooms]
-    hidden = available_total - len(rooms)
-    text = ", ".join(parts)
-    return text + (f" and {_plural(hidden, 'more room')}" if hidden > 0 else "")
+def _group(rooms: list, available_total: int, show: int = SHOW_ROOMS) -> str:
+    """Compact room list for one building, room CODES only: 'GLA.FT113, GLA.FT114 and 8 more'.
+    Only the first `show` rooms are named; the full list (with 'free until' times, building names and distances)
+    stays in `facts`."""
+    named = [r["room_name"] for r in rooms[:show]]
+    hidden = available_total - len(named)
+    return ", ".join(named) + (f" and {hidden} more" if hidden > 0 else "")
 
 
 def _expansion(facts: dict):
@@ -91,7 +100,7 @@ def rooms_decision_question(first: dict) -> str:
     """The plain-language question the model answers when asked whether to widen the search."""
     allowed = "yes" if first["can_expand"] else "no"
     return (f"Rooms found: {first['count']}. Minimum needed: {settings.min_rooms}. "
-            f"Search preference: {allowed}.")
+            f"Search preference allows a wider search: {allowed}.")
 
 
 def rooms_needs_next(first: dict) -> bool:
@@ -100,64 +109,60 @@ def rooms_needs_next(first: dict) -> bool:
 
 
 # ---------------------------------------------------------------- the summary
+def _widening_sentence(first: dict, second: dict, name: str) -> str:
+    """One short sentence: why the search was widened and how far it went (brief step 6)."""
+    n = first["count"]
+    lead = f"Only {_plural(n, 'room')} in {name}" if n else f"No rooms in {name}"
+    if second["no_nearby_data"]:
+        lead += " (no nearby buildings recorded)"          # e.g. GLA.CA / GLA.T have no proximity rows
+    stages = second["stages_used"]
+    if not stages:
+        tip = "" if second["search_preference"] == "more_options" else " (try 'More options')"
+        return f"{lead}, so the search could not be widened{tip}."
+    if "nearby" in stages and "campus_wide" in stages:
+        where = "nearby buildings, then the rest of campus"
+    elif "nearby" in stages:
+        where = "nearby buildings"
+    else:
+        where = "other buildings on campus"
+    return f"{lead}, so the search was widened to {where}" + ("" if second["count"] else ", but none were free") + "."
+
+
 def rooms_summary(facts: dict) -> str:
+    """At most THREE short sentences, one per line:
+         1. the result: how many rooms, when, which ones
+         2. why the search was widened, or what to try next when nothing was found (only if needed)
+         3. the caveat and the age of the data
+    Full detail (every room, 'free until' times, buildings searched) is in `facts`, not repeated here."""
     first = facts["find_rooms_in_building"]
     second = _expansion(facts)
-    name, code = first["building_name"], first["building_code"]
-    lines = [f"Potentially available rooms on {_pretty_date(first['date'])}, from {first['start_time']} to "
-             f"{first['end_time']} ({_duration(first['duration_minutes'])}), starting from {name} ({code})."]
-
-    # 1) the student's own building
-    if first["count"]:
-        lines.append(f"{name} ({code}): {_plural(first['count'], 'room')}: "
-                     f"{_room_list(first['rooms'], first['count'])}.")
-    elif first["rooms_checked"] == 0:
-        lines.append(f"{name} ({code}): no teaching rooms with timetable data for this period, so none could be checked.")
-    else:
-        lines.append(f"{name} ({code}): every room checked has a timetable event or booking in this period.")
-    if first["rooms_without_data"] and first["rooms_checked"]:
-        lines.append(f"{_plural(first['rooms_without_data'], 'room')} in {name} could not be checked "
-                     "because there is no timetable data for them.")
-
-    # 2) why and how the search was widened
-    if second:
-        found_here = first["count"]
-        short = (f"Only {_plural(found_here, 'room')} {'was' if found_here == 1 else 'were'} found in {name}"
-                 if found_here else f"No rooms were found in {name}")
-        stages = second["stages_used"]
-        campus_allowed = second["search_preference"] == "more_options"
-        if second["no_nearby_data"] and "campus_wide" in stages:
-            # e.g. GLA.CA / GLA.T: the proximity table has no rows for them, so we cannot rank by distance.
-            lines.append(f"{short}, and no nearby buildings are recorded for it, so the search was expanded to "
-                         "other buildings on campus (distances unknown).")
-        elif second["no_nearby_data"]:
-            lines.append(f"{short}, and no nearby buildings are recorded for it, so the search could not be "
-                         "widened." + ("" if campus_allowed else " Try 'More options' to search the rest of campus."))
-        else:
-            where = ("nearby buildings and then other buildings on campus" if "campus_wide" in stages
-                     else "nearby buildings")
-            lines.append(f"{short}, so the search was expanded to {where}.")
-        for hit in (s for s in second["searched"] if s["rooms_found"]):
-            rooms = [r for r in second["rooms"] if r["building_code"] == hit["building_code"]]
-            dist = f", {hit['distance_metres']:g} m away" if hit["distance_metres"] is not None else ""
-            lines.append(f"{hit['building_name']} ({hit['building_code']}{dist}): "
-                         f"{_plural(hit['rooms_found'], 'room')}: {_room_list(rooms, hit['rooms_found'])}.")
-
-    # 3) the overall result
+    name = first["building_name"]
     total = total_rooms(facts)
-    if total:
-        if second and second["count"]:
-            lines.append(f"In total, {_plural(total, 'room')} with no recorded timetable conflict.")
-        lines.append(_caveat(total))
-        if total < settings.min_rooms and not first["can_expand"]:
-            lines.append("You could try the 'Closest buildings' or 'More options' search to find more rooms.")
-    else:
-        lines.append(f"No potentially available rooms were found in {'the permitted search area' if second else name}.")
-        if not first["can_expand"]:
-            lines.append("You could try the 'Closest buildings' or 'More options' search to look further.")
+    when = f"{_short_date(first['date'])}, {first['start_time']}-{first['end_time']}"
 
-    if first.get("data_as_of"):
-        d = dt.date.fromisoformat(first["data_as_of"])
-        lines.append(f"Timetable data last updated {d.day} {_MONTHS[d.month - 1]} {d.year}; "
-                     "bookings made since then are not included.")
+    # --- sentence 1: the result. "N rooms" stays adjacent so the optional AI note can quote the number safely.
+    if total:
+        groups = []
+        if first["count"]:
+            groups.append(_group(first["rooms"], first["count"]))
+        if second:
+            for hit in (h for h in second["searched"] if h["rooms_found"]):
+                rooms = [r for r in second["rooms"] if r["building_code"] == hit["building_code"]]
+                groups.append(_group(rooms, hit["rooms_found"]))
+        lines = [f"{_plural(total, 'room')} potentially available on {when}: " + "; ".join(groups) + "."]
+    else:
+        lines = [f"No potentially available rooms on {when}."]
+
+    # --- sentence 2
+    if second:
+        lines.append(_widening_sentence(first, second, name))
+    elif total == 0:
+        why = ("no timetable data for its rooms" if first["rooms_checked"] == 0 else "all checked rooms are booked")
+        lines.append(f"{name}: {why}; try 'Closest buildings' or 'More options'.")
+    elif total < settings.min_rooms and not first["can_expand"]:
+        lines.append("Try 'Closest buildings' or 'More options' for more rooms.")
+
+    # --- sentence 3: never promise a room is free/empty/open. Only shown when rooms were found.
+    if total:
+        lines.append("These rooms are/This room is not guaranteed empty, unlocked or open to students.")
     return "\n".join(lines)

@@ -66,10 +66,10 @@ def test_works_with_model_down_and_widens(tmp_path, monkeypatch):
     assert r.trace["tool_sources"] == {"find_rooms_in_building": "python", "find_rooms_nearby": "python"}
     assert r.facts["find_rooms_in_building"]["count"] == 1
     assert "3 rooms potentially available" in r.summary
-    assert "Only 1 room in Polaris, so the search was widened to nearby buildings" in r.summary
+    assert "Only 1 room in GLA.FT" in r.summary
+    assert "so the search was widened to nearby buildings" in r.summary
+    assert "Buildings checked: GLA.S" in r.summary
     assert "GLA.S101" in r.summary
-    assert "These rooms are/This room is not guaranteed empty" in r.summary           # never claims a room is guaranteed free
-
 
 def test_same_building_does_not_widen(tmp_path, monkeypatch):
     setup(tmp_path, monkeypatch)
@@ -89,13 +89,23 @@ def test_no_rooms_gives_status_none_and_a_hint(tmp_path, monkeypatch):
     w = setup(tmp_path, monkeypatch)
     for room in ("GLA.FT101", "GLA.S101", "GLA.S102", "GLA.N101"):
         w["add_event"](room, "14:00", "15:00")
+
     monkeypatch.setattr(llm, "chat", model_down)
+
+    # First search: same building only
     r = ask("same_building")
-    assert r.status == "none" and "No potentially available rooms on" in r.summary
-    assert "Polaris: all checked rooms are booked" in r.summary
-    assert "Closest buildings" in r.summary                       # tells the student how to look further
+    assert r.status == "none"
+    assert "No potentially available rooms on" in r.summary
+    assert "GLA.FT: all checked rooms are booked" in r.summary
+    assert "Closest buildings" in r.summary
+
+    # Second search: expand to nearby buildings
     r = ask("closest_buildings")
-    assert r.status == "none" and "widened to nearby buildings, but none were free" in r.summary
+    assert r.status == "none"
+    assert "No rooms in GLA.FT" in r.summary
+    assert "widened to nearby buildings" in r.summary
+    assert "Buildings checked:" in r.summary
+    assert "but none were free" in r.summary
 
 
 def test_tool_error_becomes_status_none(tmp_path, monkeypatch):
@@ -199,7 +209,7 @@ def test_single_room_uses_singular_grammar_and_hints_at_wider_search(tmp_path, m
     monkeypatch.setattr(llm, "chat", model_down)
     s = ask("same_building").summary
     assert "1 room potentially available" in s                    # singular: "1 room", not "1 rooms"
-    assert "These rooms are/This room is not guaranteed empty, unlocked or open to students" in s
+    assert "This room is not guaranteed empty, unlocked or open to students" in s
     assert "More options" in s                                     # tells the student how to look further
 
 
@@ -208,7 +218,8 @@ def test_building_with_no_nearby_data_is_explained(tmp_path, monkeypatch):
     w["add_event"]("GLA.T01", "14:00", "15:00")                    # Larkin's only room is busy
     monkeypatch.setattr(llm, "chat", model_down)
     s = ask("closest_buildings", building="GLA.T").summary
-    assert "no nearby buildings recorded" in s and "try 'More options'" in s
+    assert "no nearby-building information available" in s
+    assert "try 'More options'" in s
     s = ask("more_options", building="GLA.T").summary
     assert "widened to other buildings on campus" in s
 

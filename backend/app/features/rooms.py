@@ -24,6 +24,14 @@ _MONTHS = ("January", "February", "March", "April", "May", "June", "July", "Augu
 # The full list (with 'free until' times) is always in `facts`, so nothing is lost.
 SHOW_ROOMS = 2
 
+def _caveat(total: int) -> str:
+    """Never promise that a room is free, empty or accessible."""
+    return (
+        "This room is not guaranteed empty, unlocked or open to students."
+        if total == 1
+        else "These rooms are not guaranteed empty, unlocked or open to students."
+    )
+
 # Shown to the model when it is asked whether to widen the search (Decision.system in features.py).
 DECISION_SYSTEM = (
     f"You decide the next step of a room search. The student needs at least {settings.min_rooms} rooms. "
@@ -109,34 +117,57 @@ def rooms_needs_next(first: dict) -> bool:
 
 
 # ---------------------------------------------------------------- the summary
-def _widening_sentence(first: dict, second: dict, name: str) -> str:
-    """One short sentence: why the search was widened and how far it went (brief step 6)."""
+def _widening_sentence(first: dict, second: dict, building_code: str) -> str:
     n = first["count"]
-    lead = f"Only {_plural(n, 'room')} in {name}" if n else f"No rooms in {name}"
+    lead = (
+        f"Only {_plural(n, 'room')} in {building_code}"
+        if n
+        else f"No rooms in {building_code}"
+    )
+
     if second["no_nearby_data"]:
-        lead += " (no nearby buildings recorded)"          # e.g. GLA.CA / GLA.T have no proximity rows
+        lead += " (no nearby-building information available)"
+
     stages = second["stages_used"]
+
     if not stages:
         tip = "" if second["search_preference"] == "more_options" else " (try 'More options')"
         return f"{lead}, so the search could not be widened{tip}."
+
     if "nearby" in stages and "campus_wide" in stages:
         where = "nearby buildings, then the rest of campus"
     elif "nearby" in stages:
         where = "nearby buildings"
     else:
         where = "other buildings on campus"
-    return f"{lead}, so the search was widened to {where}" + ("" if second["count"] else ", but none were free") + "."
+
+    checked_codes = list(dict.fromkeys(
+        hit["building_code"] for hit in second["searched"]
+    ))
+
+    checked = (
+        f" Buildings checked: {', '.join(checked_codes)}."
+        if checked_codes
+        else ""
+    )
+
+    none_found = ", but none were free" if second["count"] == 0 else ""
+
+    return (
+        f"{lead}, so the search was widened to {where}{none_found}."
+        + checked
+    )
 
 
 def rooms_summary(facts: dict) -> str:
     """At most THREE short sentences, one per line:
          1. the result: how many rooms, when, which ones
          2. why the search was widened, or what to try next when nothing was found (only if needed)
-         3. the caveat and the age of the data
+         3. the caveat
     Full detail (every room, 'free until' times, buildings searched) is in `facts`, not repeated here."""
     first = facts["find_rooms_in_building"]
     second = _expansion(facts)
-    name = first["building_name"]
+    building_code = first["building_code"]
     total = total_rooms(facts)
     when = f"{_short_date(first['date'])}, {first['start_time']}-{first['end_time']}"
 
@@ -155,14 +186,14 @@ def rooms_summary(facts: dict) -> str:
 
     # --- sentence 2
     if second:
-        lines.append(_widening_sentence(first, second, name))
+        lines.append(_widening_sentence(first, second, building_code))
     elif total == 0:
         why = ("no timetable data for its rooms" if first["rooms_checked"] == 0 else "all checked rooms are booked")
-        lines.append(f"{name}: {why}; try 'Closest buildings' or 'More options'.")
+        lines.append(f"{building_code}: {why}; try 'Closest buildings' or 'More options'.")
     elif total < settings.min_rooms and not first["can_expand"]:
         lines.append("Try 'Closest buildings' or 'More options' for more rooms.")
 
     # --- sentence 3: never promise a room is free/empty/open. Only shown when rooms were found.
     if total:
-        lines.append("These rooms are/This room is not guaranteed empty, unlocked or open to students.")
+        lines.append(_caveat(total))
     return "\n".join(lines)

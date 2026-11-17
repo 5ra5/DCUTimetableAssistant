@@ -135,7 +135,7 @@ def find_next_lecturer(lecturer_id, date=None, time=None):
     results = fetch_all_events(query,  (f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", target_time))
     if not results:
         logging.info(f"Search completed: No future classes found for {lecturer_id}")
-        return {"status": "error", "message": f"No upcoming classes found for lecturer {lecturer_id}"}
+        return {"status": "fail", "message": f"No upcoming classes found for lecturer {lecturer_id}"}
     result = results[0]
     logging.info(f"SUCCESS: Found next class for {lecturer_id}"
                  f"Module: {result['module_name']}, Room: {result['room_name']}")

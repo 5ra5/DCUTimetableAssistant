@@ -83,16 +83,23 @@ FEATURES["feature_C_A"] = FeatureConfig(
     tools=[get_lecturer_schedule, find_next_lecturer],
     required=["get_lecturer_schedule"],
     template=lecturer_summary_A,
-    agent_hint="Always check the exact schedule using get_lecturer_schedule first then use find_next_lecturer as a fallback.",
+    agent_hint="Always check the exact schedule using get_lecturer_schedule first then use find_next_lecturer as a fallback if none is found",
     branch=Branch(
         after="get_lecturer_schedule",
         next_tool="find_next_lecturer",
         needs_next=lambda r: r.get("status") != "success",
+        decision=Decision(
+            continue_action="find_next_lecture",
+            question=lambda r: f"Lecturer schedule found: {r.get('status')}. Minimum needed: success.",
+            system=f"You decide the next step of a lecturer search. The student needs at least one successful schedule. If the student has a successful schedule, the action is immediately 'finish'."
+        )
     ),
 
     is_empty=lambda facts: (facts.get("get_lecturer_schedule", {}).get("status") != "success" and
                     facts.get("find_next_lecturer", {}).get("status") != "success"
                     ),
+
+        
 )
 
 FEATURES["feature_C_B"] = FeatureConfig(

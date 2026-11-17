@@ -125,9 +125,6 @@ def _widening_sentence(first: dict, second: dict, building_code: str) -> str:
         else f"No rooms in {building_code}"
     )
 
-    if second["no_nearby_data"]:
-        lead += " (no nearby-building information available)"
-
     stages = second["stages_used"]
 
     if not stages:

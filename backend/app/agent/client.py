@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 
 MODEL = settings.ollama_model
 OPTS = {"temperature": 0, "num_ctx": 2048}
-KEEP_ALIVE = "30m"
+KEEP_ALIVE = settings.keep_alive
 
 
 def make_client() -> ollama.Client:
@@ -28,16 +28,20 @@ def make_client() -> ollama.Client:
 
 client = make_client()
 
-def chat(messages: list, tools: list | None = None, fmt: dict | None = None, num_predict: int = 80):
+def chat(messages: list, tools: list | None = None, fmt: dict | None = None, num_predict: int = 256, think: bool = False):
     """The only place that calls the model. 'fmt' is a JSON schema that forces a JSON answer."""
-    return client.chat(
+    log.debug("\n===================================\nCalling Ollama model %s with %d messages, %d tools(%s), num_predict=%d, think=%s\n==============================\n", MODEL, len(messages), len(tools) if tools else 0, ", ".join([f"{tool}" for tool in tools]) if tools else "", num_predict, think)
+    resp = client.chat(
         model=MODEL,
         messages=messages,
         tools=tools,
         format=fmt,
         options={**OPTS, "num_predict": num_predict},
         keep_alive=KEEP_ALIVE,
+        think=think,
     )
+    log.debug("\n============================\nModel Response Message: %s:\nFull Response: %s\n===============================\n", resp.message.content, resp)
+    return resp
 
 
 def health() -> dict:

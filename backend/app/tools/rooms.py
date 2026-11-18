@@ -1,20 +1,12 @@
 """
 Feature B (AI Room Locator): the tools the agent can call, plus the database helpers they share.
 
-WHAT THIS FILE DOES
-    Given a building, a date, a start time, a duration and a search preference, it finds teaching rooms
-    that have NO recorded timetable event or booking during that time ("potentially available" rooms).
-
+WHAT THIS FILE DOES?
+    When given a building, a date, a start time, a duration and a search preference (same building, close buildings and more options), 
+    it finds teaching rooms that have NO recorded timetable event or booking during that time ("potentially available" rooms).
     Two tools are exposed to the agent (see features/features.py for how they are wired together):
         find_rooms_in_building  - step 1+2: rooms in the student's preferred building (always runs first)
         find_rooms_nearby       - step 4+5: nearby buildings, then the rest of campus (only when needed)
-
-WHY THERE ARE NO REDBRICK API CALLS HERE
-    The brief asks us to limit API calls and use the database for room event data. The database already holds
-    the whole semester snapshot (timetable_events + timetable_event_rooms, 1 Sep - 20 Dec 2026) and a record of
-    which rooms were successfully imported (room_sync_coverage). So every search is answered with a few local
-    SQLite queries: fast, repeatable, and zero load on Redbrick. The price is that results are only as fresh as
-    the last export, which is why every result carries `data_as_of` and the summary says so.
 
 HOW "AVAILABLE" IS DECIDED  (docs/Database_README.md, "Using the database in the application")
     A room is recommended only if BOTH are true:
@@ -25,8 +17,7 @@ HOW "AVAILABLE" IS DECIDED  (docs/Database_README.md, "Using the database in the
 
 TIMES
     Students think in Irish local time; the database stores UTC ("2026-11-17T14:00:00Z"). We convert the
-    student's local time to UTC once (parse_slot) and compare UTC strings. All stored timestamps have exactly the
-    same 20-character format, so plain string comparison orders them correctly (checked against the seed data).
+    student's local time to UTC once (parse_slot) and compare UTC strings.
 """
 import datetime as dt
 import logging
@@ -39,29 +30,25 @@ from ..config import settings
 
 log = logging.getLogger(__name__)
 
-# --------------------------------------------------------------------------------------------------------------
-# Tunable rules. They live here (not in config.py) so Feature B does not touch shared settings.
-# `settings.min_rooms` (default 2, from config.py) is the "at least two rooms" target from the brief.
-# --------------------------------------------------------------------------------------------------------------
+# Tunable rules. They live here (not in config.py) so Feature B does not touch shared settings
+# `settings.min_rooms`; The min_rooms can be changed in config.py
 DUBLIN = ZoneInfo("Europe/Dublin")
 UTC = dt.timezone.utc
-DB_TIME_FORMAT = settings.db_time_format         # how timetable_events stores start_time / end_time
+DB_TIME_FORMAT = settings.db_time_format  # how timetable_events stores start_time / end_time
 
-# ASSUMPTION: we only search within these local hours. The database has no building opening hours, and a room
-# with "no events" at 03:00 is not a useful recommendation. Change them here if the team prefers other hours.
+# We only search within the local hours of 8am to 10pm however this range can be changed here
 SEARCH_DAY_START = dt.time(8, 0)
 SEARCH_DAY_END = dt.time(22, 0)
-MIN_DURATION_MINUTES = settings.min_room_duration_minutes  # 30
-MAX_DURATION_MINUTES = settings.max_room_duration_minutes  # 240
+# depends on the value set in config.py, tested with min value set to 30 and max value set to 300
+MIN_DURATION_MINUTES = settings.min_room_duration_minutes
+MAX_DURATION_MINUTES = settings.max_room_duration_minutes 
 
-# ASSUMPTION: "nearby" means within this many metres (building_proximity.distance_metres, which are map
-# estimates). 300 m is roughly a 4 minute walk. "Closest buildings" never goes further than this;
-# "More options" may.
-NEARBY_MAX_METRES = settings.max_search_metres  # 200
+# variable means any buildings within a 200m distance
+NEARBY_MAX_METRES = settings.max_search_metres  # tested with value set to 200, can change this value in config.py
 
-# We list at most this many rooms per building so the answer stays readable. The TRUE number of free rooms is
-# still reported (`count`) and used for the "at least two rooms" rule.
-MAX_ROOMS_PER_BUILDING = settings.max_rooms_per_building  # 6
+MAX_ROOMS_PER_BUILDING = settings.max_rooms_per_building  
+# depending on the value set in config.py, 
+# we will check for at most this number of rooms in a building then move on
 
 # Event types that do NOT occupy a room. Everything else (lectures, tutorials, exams, active/provisional
 # bookings, even "Synchronous (Online, live)" events that are linked to a room) blocks it, because the brief says

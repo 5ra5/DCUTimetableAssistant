@@ -9,12 +9,13 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from .api import meta  # ex: from .api import meta, timetable, weekly
 from .api import (weekly_analysis, 
                   weekly_calendar, 
                   weekly_dates, 
                   programmes,
                   weekly_analysis_options,)
+from .api import rooms # Feature B
+from .api import meta, lecturers # ex: from .api import meta, timetable, weekly
 from .agent import agent_startup
 from .config import settings
 
@@ -24,8 +25,10 @@ ROUTERS = [
     weekly_dates.router,
     weekly_calendar.router,
     weekly_analysis.router,
-    weekly_analysis_options.router
+    weekly_analysis_options.router,
+    lecturers.router,
     # timetable.router,
+    rooms.router, # Feature B
     # weekly.router,
 ]
 
@@ -35,7 +38,7 @@ logging.basicConfig(
 )
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
-logger.info("Starting DCU Timetable Assistant backend on port 8080")
+logger.info(f"Starting DCU Timetable Assistant backend on port {settings.port}")
 
 
 @asynccontextmanager

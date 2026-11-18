@@ -20,6 +20,22 @@ def check_time(v: str) -> str:
     datetime.strptime(v, TIME)  # raises ValueError if invalid
     return v
 
+class LecturerSearchQuery(BaseModel):
+    lecturer_name: str
+
+class LecturerScheduleQuery(BaseModel):
+    lecturer_name: str
+    date: str
+    time: str
+    @field_validator("date")
+    @classmethod
+    def validate_date(clss, v: str) -> str:
+        return check_date(v)
+    @field_validator("time")
+    @classmethod
+    def validate_time(clss, v: str) -> str:
+        return check_time(v)
+
 
 class AgentResult(BaseModel):
     """The response of every agent endpoint. The frontend renders `facts` and `summary`,
@@ -65,3 +81,23 @@ class WeeklyRequest(BaseModel):
             raise ValueError("week_start must be a Monday")
         return v
 """
+# FEATURE B: AI Room Locator request model.
+# Only the SHAPE is checked here (422 on failure). The rules that need the database - is the building supported,
+# is the date inside the imported timetable, is the time within search hours - are checked in api/rooms.py.
+class RoomSearchRequest(BaseModel):
+    """The guided search form of the Room Locator."""
+    building_code: str = Field(min_length=2, max_length=20, description="Preferred building code, e.g. GLA.FT")
+    date: str = Field(pattern=DATE, description="Day the room is needed, YYYY-MM-DD")
+    start_time: str = Field(description="Start time HH:MM (24-hour, Dublin time)")
+    duration_minutes: int = Field(ge=15, le=240, description="How long the room is needed, in minutes")
+    search_preference: Literal["same_building", "closest_buildings", "more_options"]
+
+    @field_validator("date")
+    @classmethod
+    def _valid_date(cls, v):
+        return check_date(v)
+
+    @field_validator("start_time")
+    @classmethod
+    def _valid_time(cls, v):
+        return check_time(v)

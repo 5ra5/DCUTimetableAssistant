@@ -16,6 +16,7 @@ import time
 from typing import Optional
 
 from . import client as llm
+from ..config import settings
 from .guards import UNSUPPORTED_SUMMARY, unsupported_reason
 from .notes import check_note
 from .prompts import SYSTEM_AGENT, SYSTEM_NOTE
@@ -24,10 +25,10 @@ from ..schema import AgentResult
 
 log = logging.getLogger(__name__)
 
-TOOL_TURN_TOKENS = 60
-SHORT_TOKENS = 80  # decision and note calls
+TOOL_TURN_TOKENS = settings.tool_turn_tokens # tokens for each model call while tools are still needed
+SHORT_TOKENS = settings.short_tokens  # decision and note calls
 # most model calls in the tool phase (a feature never needs more than len(required) + 1)
-MAX_TOOL_TURNS = 4
+MAX_TOOL_TURNS = settings.max_tool_turns
 
 
 def agent_health() -> dict:

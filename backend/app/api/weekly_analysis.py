@@ -7,10 +7,10 @@ from ..schema import AgentResult, WeeklyAnalysisRequest
 from .programmes import find_programme
 from .weekly_dates import get_monday_dates
 
-router = APIRouter()
+router = APIRouter(prefix="/weekly",tags=["weekly_analysis"])
 
 
-@router.post("/weekly/analysis", response_model=AgentResult)
+@router.post("/analysis", response_model=AgentResult)
 def weekly_analysis(request: WeeklyAnalysisRequest):
     # Check every input BEFORE any tool or model work: 422 for a bad option or week, 404 for an unknown programme.
     selected = ANALYSIS_OPTIONS.get(request.analysis_option)

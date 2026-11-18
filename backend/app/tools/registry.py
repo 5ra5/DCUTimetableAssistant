@@ -13,3 +13,7 @@ from ..config import settings
 from .weekly import analyze_class_patterns, analyze_free_gaps                       # noqa: F401
 """
 from .weekly import (weekly_daily_breakdown, weekly_class_patterns, weekly_free_gaps)  # noqa: F401
+# ---- FEATURE B (room locator) ----
+from .rooms import find_rooms_in_building, find_rooms_nearby  # noqa: F401
+
+from .featureCtools import search_lecturer, find_next_lecturer, get_lecturer_schedule

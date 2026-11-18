@@ -16,6 +16,7 @@ result (the 'after' tool's dict).
 from dataclasses import dataclass
 from typing import Callable, Optional
 
+
 from ..config import settings
 from ..tools.registry import (  # noqa: F401  (tool functions are imported here by name)
     weekly_daily_breakdown,
@@ -23,6 +24,9 @@ from ..tools.registry import (  # noqa: F401  (tool functions are imported here 
     weekly_free_gaps,
 )
 from .weekly import daily_summary, gaps_summary, patterns_summary, week_summary, weekly_is_empty
+from .summaryC import lecturer_summary_A, lecturer_summary_B
+from ..tools.registry import *  # noqa: F401,F403  (tool functions are imported here by name)
+from ..tools.featureCtools import get_lecturer_schedule, search_lecturer, find_next_lecturer
 
 
 @dataclass
@@ -115,6 +119,38 @@ FEATURES = {
         "State ONE fact in a single sentence about the week."),
 }
 
+FEATURES["feature_C_A"] = FeatureConfig(
+    tools=[get_lecturer_schedule, find_next_lecturer],
+    required=["get_lecturer_schedule"],
+    template=lecturer_summary_A,
+    agent_hint="Always check the exact schedule using get_lecturer_schedule first then use find_next_lecturer as a fallback if none is found",
+    branch=Branch(
+        after="get_lecturer_schedule",
+        next_tool="find_next_lecturer",
+        needs_next=lambda r: r.get("status") != "success",
+        decision=Decision(
+            continue_action="find_next_lecture",
+            question=lambda r: f"Lecturer schedule found: {r.get('status')}. Minimum needed: success.",
+            system=f"You decide the next step of a lecturer search. The student needs at least one successful schedule. If the student has a successful schedule, the action is immediately 'finish'."
+        )
+    ),
+
+    is_empty=lambda facts: (facts.get("get_lecturer_schedule", {}).get("status") != "success" and
+                    facts.get("find_next_lecturer", {}).get("status") != "success"
+                    ),
+
+        
+)
+
+FEATURES["feature_C_B"] = FeatureConfig(
+    tools=[search_lecturer],
+    required=["search_lecturer"],
+    template=lecturer_summary_B,
+    agent_hint="Search for the requested lecturer name using search_lecturer.",
+    is_empty=lambda facts: (facts.get("search_lecturer", {}).get("status") != "success"),
+
+)
+
 """example:
 FEATURES = {
     "rooms": FeatureConfig(
@@ -134,3 +170,38 @@ FEATURES = {
         ),
     ),
 }"""
+
+# ======================================================================================================
+# FEATURE B (AI Room Locator). Kept as a separate block at the bottom (imports included) so it merges cleanly
+# with other features' edits near the top of this file. Summary/decision helpers live in features/rooms.py;
+# the tools live in tools/rooms.py and are re-exported by tools/registry.py.
+# ======================================================================================================
+from ..tools.registry import find_rooms_in_building, find_rooms_nearby  # noqa: E402,F401
+from .rooms import (  # noqa: E402
+    DECISION_SYSTEM, NOTE_INSTRUCTION, rooms_decision_question, rooms_is_empty, rooms_needs_next,
+    rooms_note_must_mention, rooms_note_when, rooms_summary)
+
+FEATURES["feature_b_rooms"] = FeatureConfig(
+    # The model is offered both tools...
+    tools=[find_rooms_in_building, find_rooms_nearby],
+    # ...but only the first is REQUIRED: Python always runs it, even if the model forgets to.
+    required=["find_rooms_in_building"],
+    template=rooms_summary,                   # the real answer, written by Python
+    is_empty=rooms_is_empty,                  # no rooms anywhere -> status "none"
+    agent_hint="Always start with find_rooms_in_building for the requested building. If the number of rooms found is below the minimum, you may widen the search to nearby buildings.",
+    # The adaptive step (brief steps 3-5): after tool 1, decide whether to widen the search.
+    branch=Branch(
+        after="find_rooms_in_building",
+        next_tool="find_rooms_nearby",
+        needs_next=rooms_needs_next,          # Python's rule: fewer than settings.min_rooms AND preference allows it
+        decision=Decision(                    # the model is asked too; its answer is logged, the rule still wins
+            continue_action="broaden_search",
+            question=rooms_decision_question,
+            system=DECISION_SYSTEM,
+        ),
+    ),
+    # Optional one-sentence note from the model; dropped automatically if it fails agent/notes.py checks.
+    note_instruction=NOTE_INSTRUCTION,
+    note_when=rooms_note_when,
+    note_must_mention=rooms_note_must_mention,
+)

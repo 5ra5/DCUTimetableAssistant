@@ -11,7 +11,7 @@ teaching_end = "2026-11-27"
    whenever a user clicks the dates for the weekly in the frontend, this returns the weekly dates
 """
 
-router = APIRouter()
+router = APIRouter(tags=["timetable"])
 @router.get("/weeks")
 def get_monday_dates():
     #get the start and end of the teaching period on date object

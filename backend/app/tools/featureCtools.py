@@ -66,6 +66,7 @@ def search_lecturer(lecturer: str) -> dict:
 
     logging.info(f"Attempting to search for {lecturer} in the database")
     query = ("""SELECT
+                l.id
                 l.redbrick_identifier,
                 GROUP_CONCAT(m.module_name, ", ") AS modules
                 FROM lecturers as l
@@ -78,6 +79,7 @@ def search_lecturer(lecturer: str) -> dict:
                 GROUP BY l.id, l.redbrick_identifier""")
     
     results = fetch_all_events(query, (f"%{lecturer}%", f"%{lecturer}%",))
+
     logging.info(f"DEBUG:Recieved lecturer search term -> {results}")
     if not results:
         return {"status": "success", 
@@ -101,7 +103,6 @@ def find_next_lecturer(lecturer_id, date=None, time=None):
         return {"status": "error",
                 "message": "Both time and date are required"}
 
-    
     now_utc = datetime.now(timezone.utc)
     if not date or not date.strip():
         date = now_utc.strftime("%Y-%m-%d")

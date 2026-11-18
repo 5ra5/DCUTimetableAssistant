@@ -98,3 +98,11 @@ document.querySelectorAll(".switcher button").forEach(btn => {
     $("panel-" + btn.dataset.feature).classList.add("active");
   });
 });
+
+// Buttons on the home page (data-goto="A" etc.) open the matching feature.
+document.querySelectorAll("[data-goto]").forEach(el => {
+  el.addEventListener("click", () => {
+    const target = document.querySelector('.switcher button[data-feature="' + el.dataset.goto + '"]');
+    if (target) target.click();
+  });
+});

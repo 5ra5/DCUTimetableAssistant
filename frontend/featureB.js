@@ -206,7 +206,6 @@
     const usable = (o.buildings || []).length > 0 && o.date_min && o.date_max;
     $("roomSearchBtn").disabled = !usable;
     if (!usable) setHint("No timetable coverage is available yet, so rooms can't be searched.", true);
-    else setHint(o.data_as_of ? "Based on timetable data as of " + fmtDate(o.data_as_of) + ". Bookings made after that may be missing." : "");
   }
 
   async function loadRoomOptions() {
@@ -253,7 +252,6 @@
     const problem = validate(f);
     $("roomResultsCard").classList.add("hidden");
     if (problem) { setHint(problem, true); return; }
-    setHint(OPTIONS.data_as_of ? "Based on timetable data as of " + fmtDate(OPTIONS.data_as_of) + ". Bookings made after that may be missing." : "");
 
     $("roomResultsCard").classList.remove("hidden");
     $("roomResultsSub").textContent = "";
@@ -314,7 +312,6 @@
 
     if (data.ai_note) html += `<div class="ai-note"><strong>AI note:</strong> ${esc(data.ai_note)}</div>`;
     const asOf = main.data_as_of || OPTIONS.data_as_of;
-    html += `<p class="room-caveat">Results are potentially available rooms only, not guaranteed to be empty, unlocked or open to students.${asOf ? " Timetable data as of " + esc(fmtDate(asOf)) + "." : ""}</p>`;
     $("roomResultsBody").innerHTML = html;
   }
 

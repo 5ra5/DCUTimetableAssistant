@@ -2,13 +2,9 @@
    featureA.js: Student Timetable
    ---------------------------------------------------------------------
    Requires app.js (API_BASE, $, esc, iso, fmtDay, dublinDate).
-   Set USE_MOCK_* = true to use illustrative data instead of the backend.
    apiGetProgrammes, apiGetAnalysisOptions, apiGetWeeks, apiGetTimetable
    and apiAnalyze are the ONLY functions that talk to the backend.
    ===================================================================== */
-const USE_MOCK_TIMETABLE = false;   // false = use the real /api/weekly/timetable
-const USE_MOCK_ANALYZE = false;     // false = use the real analyze endpoint
-const USE_MOCK_PROGRAMMES = false;  // false = load the real list from /api/weekly/programmes
 
 // Group event types into the three colour classes used by the page.
 const kindOf = t => {
@@ -24,12 +20,6 @@ const kindOf = t => {
 let PROGRAMMES = [];
 
 async function apiGetProgrammes() {
-  if (USE_MOCK_PROGRAMMES) {
-    return [
-      { redbrick_name: "CASE2 (Computer Applications-2)", redbrick_uuid: "mock-1" },
-      { redbrick_name: "CASE3 (Computer Applications-3)", redbrick_uuid: "mock-2" },
-    ];
-  }
   const res = await fetch(`/api/weekly/programmes`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load courses (" + res.status + ")");
   return res.json();
@@ -65,7 +55,6 @@ async function apiGetWeeks() {
    Events are mapped to the shape the page renders:
    { module, type, room, building, description, start, end } */
 async function apiGetTimetable({ programme, weekStart, start, end }) {
-  if (USE_MOCK_TIMETABLE) return mockTimetable(weekStart);
   const qs = new URLSearchParams({ programme_uuid: programme, start, end });
   const res = await fetch(`/api/weekly/timetable?${qs}`, { headers: { accept: "application/json" } });
   if (!res.ok) throw new Error("Could not load timetable (" + res.status + ")");
@@ -91,7 +80,6 @@ async function apiGetTimetable({ programme, weekStart, start, end }) {
    (for example when the backend needs you to choose between matches).
    Adjust readStats() below if your facts are shaped differently. */
 async function apiAnalyze({ programme, weekStart, start, end }, option) {
-  if (USE_MOCK_ANALYZE) return mockAnalyze(currentEvents);
   const res = await fetch(`/api/weekly/analysis`, {
     method: "POST",
     headers: { "Content-Type": "application/json", accept: "application/json" },
@@ -350,38 +338,3 @@ function renderAnalysis(data) {
   $("highlightsBody").innerHTML = html;
 }
 
-/* ===================== Mock data (illustrative only) ===================== */
-function mockTimetable(weekStart) {
-  const [y, m, d] = weekStart.split("-").map(Number);
-  const mk = (dayOffset, sh, sm, eh, em, module, type, room, building) => ({
-    module, type, room, building,
-    start: new Date(y, m - 1, d + dayOffset, sh, sm).toISOString(),
-    end: new Date(y, m - 1, d + dayOffset, eh, em).toISOString(),
-  });
-  const events = [
-    mk(0, 9, 0, 11, 0,  "Algorithms & Data Structures", "Lecture",  "L2.05", "Henry Grattan"),
-    mk(0, 14, 0, 16, 0, "Databases",                      "Lab",      "LG25",  "Computer Science"),
-    mk(1, 10, 0, 11, 0, "Operating Systems",              "Lecture",  "X104",  "Marconi"),
-    mk(1, 15, 0, 16, 0, "Operating Systems",              "Tutorial", "C166",  "Henry Grattan"),
-    mk(2, 9, 0, 10, 0,  "Algorithms & Data Structures",   "Tutorial", "L1.12", "Henry Grattan"),
-    mk(2, 13, 0, 15, 0, "Software Engineering",           "Lab",      "LG26",  "Computer Science"),
-    mk(3, 11, 0, 13, 0, "Databases",                      "Lecture",  "L2.05", "Henry Grattan"),
-    mk(3, 17, 0, 18, 0, "Software Engineering",           "Lecture",  "X204",  "Marconi"),
-  ];
-  return new Promise(r => setTimeout(() => r({ events }), 500));
-}
-
-// Placeholder for the real analyze endpoint: computes the stats from the events
-// currently shown on the page, so the numbers match the real timetable.
-function mockAnalyze(events) {
-  return new Promise(resolve => {
-    const st = computeStats(events);
-    setTimeout(() => resolve({
-      status: "ok",
-      summary: `You have ${events.length} scheduled classes this week, totalling ${st.class_hours} hours across ${st.days} days.`,
-      ai_note: null,
-      facts: { stats: { lectures: st.lectures, labs: st.labs, class_hours: st.class_hours, gaps: st.gaps } },
-      trace: {},
-    }), 800);
-  });
-}

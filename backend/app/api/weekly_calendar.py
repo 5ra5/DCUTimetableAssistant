@@ -15,7 +15,8 @@ def get_weekly_timetable(programme_uuid, start, end):
     url = f"{base_url}/category/course/items/{programme_uuid}/events"
    
     weekly_events = fetch_timetable_events(url, start, end) #getting the time table as dictionary from the redbrick_client.py
-    
+    if weekly_events is None:
+        return {"error": "Failed to fetch timetable events, try again later."}
     #where we will store the events of between start and end of the programme
     usable_timetable = []
 

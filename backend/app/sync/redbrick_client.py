@@ -11,17 +11,20 @@ def fetch_timetable_events(url, start, end):
         "accept": '*/*',
         "media-type": "application/json"
     }
-
-    response = requests.get(
-        url,
-        headers=headers,
-        params={
-            "start": start,
-            "end": end
-        },
-        timeout=15)
-    
-    response.raise_for_status()
+    try:
+        response = requests.get(
+            url,
+            headers=headers,
+            params={
+                "start": start,
+                "end": end
+            },
+            timeout=15)
+        
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching timetable events: {e}")
+        return None
     return response.json() #turning the response into a dictionary
 
 if __name__ == "__main__":

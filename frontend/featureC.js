@@ -1,7 +1,7 @@
 /* =====================================================================
    featureC.js: Lecturer Finder
    ---------------------------------------------------------------------
-   Requires app.js ($, esc, iso, dublinDate, API_BASE). UI lives in #panel-C.
+   Requires app.js ($, esc, iso, dublinDate, API_BASE, makeWheel, makePicker). UI lives in #panel-C.
    Wrapped in an IIFE so its names never clash with other feature files.
    Backend routes (JSON bodies, no query parameters):
      POST /api/lecturers/search    { lecturer_name }
@@ -65,6 +65,31 @@
   const statusBox = (data, fallback) =>
     `<div class="status-msg" style="white-space:pre-line">${esc(data.summary || fallback)}${optionsList(data)}</div>`;
   const aiNote = data => data.ai_note ? `<div class="ai-note"><strong>AI note:</strong> ${esc(data.ai_note)}</div>` : "";
+
+  /* ---------- Phone-style time wheels (same picker as Room Locator) ---------- */
+  // The hidden input holds the confirmed HH:MM; minutes go in 5-minute steps.
+  const timeInput = $("lectTime");
+  const hourWheel = makeWheel($("lectHour"), () => {});
+  const minuteWheel = makeWheel($("lectMinute"), () => {});
+  hourWheel.set(Array.from({ length: 24 }, (_, i) => String(i).padStart(2, "0")));
+  minuteWheel.set(Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, "0")));
+  const timePicker = makePicker({
+    box: $("lectTimePicker"), btn: $("lectTimeBtn"), text: $("lectTimeText"),
+    panel: $("lectTimePanel"), done: $("lectTimeDone"), input: timeInput, focusEl: $("lectHour"),
+    empty: "--:--", display: v => v,
+    reset: v => { const [h, m] = v.split(":"); hourWheel.select(h); minuteWheel.select(m); },
+    read: () => hourWheel.value() + ":" + minuteWheel.value(),
+  });
+
+  function setTime(hhmm) {
+    let [h, m] = hhmm.split(":").map(Number);
+    m = Math.min(55, Math.round(m / 5) * 5);   // snap to the 5-minute grid
+    timeInput.value = String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+    hourWheel.select(String(h).padStart(2, "0"));
+    minuteWheel.select(String(m).padStart(2, "0"));
+    timePicker.show();
+  }
+  setTime("09:00");
 
   /* ---------- Step 1: search ---------- */
   // The result can be one lecturer or a list of candidates, so accept both shapes.
@@ -144,7 +169,6 @@
     setHint("lectScheduleHint", "");
     $("lectScheduleSub").textContent = "Choose a date and time to see where " + (l.full_name || l.redbrick_identifier || "this lecturer") + " is.";
     if (!$("lectDate").value) $("lectDate").value = iso(new Date());
-    if (!$("lectTime").value) $("lectTime").value = "09:00";
     $("lectScheduleCard").classList.remove("hidden");
   }
 

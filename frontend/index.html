@@ -171,8 +171,21 @@
           <input type="date" id="lectDate">
         </div>
         <div class="field">
-          <label for="lectTime">Time (24-hour)</label>
-          <input type="time" id="lectTime" step="300">
+          <label id="lectTimeLabel" for="lectTimeBtn">Time</label>
+          <div class="timepicker" id="lectTimePicker">
+            <!-- Collapsed: same height as the other boxes, shows the chosen time -->
+            <button type="button" class="time-display" id="lectTimeBtn" aria-haspopup="true" aria-expanded="false"><span id="lectTimeText">--:--</span></button>
+            <!-- Expanded: scroll wheels plus a confirm button -->
+            <div class="time-panel hidden" id="lectTimePanel" role="group" aria-labelledby="lectTimeLabel">
+              <div class="timewheel">
+                <div class="wheel" id="lectHour" tabindex="0" role="listbox" aria-label="Hour"></div>
+                <span class="colon">:</span>
+                <div class="wheel" id="lectMinute" tabindex="0" role="listbox" aria-label="Minute"></div>
+              </div>
+              <button type="button" class="btn time-confirm" id="lectTimeDone">Confirm</button>
+            </div>
+          </div>
+          <input type="hidden" id="lectTime">
         </div>
         <button class="btn" id="lectScheduleBtn">Check Schedule</button>
       </div>

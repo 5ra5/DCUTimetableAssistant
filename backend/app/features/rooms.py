@@ -9,7 +9,7 @@ facts, so it is always consistent with the database.
     facts["find_rooms_in_building"]   always present   (see tools/rooms.py `_in_building`)
     facts["find_rooms_nearby"]        only if the search was widened (see tools/rooms.py `_nearby`)
 
-Wording rules from the brief: always say "potentially available", never claim a room is guaranteed empty,
+Wording rules from the brief: always say "potentially available", never claim a room is guaranteed to be empty,
 unlocked or open to students, and explain WHY the search was widened.
 """
 import datetime as dt
@@ -20,12 +20,13 @@ _WEEKDAYS = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
 _MONTHS = ("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
            "November", "December")
 
-# CONCISENESS DIAL: how many room names are printed per building before "and N more". Lower = shorter summary.
+# CONCISENESS DIAL: how many room names are printed per building before "and N more".
+# For example: the summary will output the SHOW_ROOMS value for each building and follow on with and more.
 # The full list (with 'free until' times) is always in `facts`, so nothing is lost.
 SHOW_ROOMS = 2
 
 def _caveat(total: int) -> str:
-    """Never promise that a room is free, empty or accessible."""
+    # Never promise that a room is guaranteed to be free, empty or accessible
     return (
         "This room is not guaranteed to be empty, unlocked or open to students."
         if total == 1
@@ -45,19 +46,19 @@ NOTE_INSTRUCTION = ("State ONE fact in a single sentence: how many rooms were fo
                     "codes or times. Do not say a room is guaranteed to be free.")
 
 
-# ---------------------------------------------------------------- small formatting helpers
+# small formatting helpers for grammar
 def _plural(n: int, word: str) -> str:
     return f"{n} {word}" + ("" if n == 1 else "s")
 
 
 def _pretty_date(iso: str) -> str:
-    """'2026-11-17' -> 'Tuesday 17 November 2026' (explicit tables, so the result never depends on the OS locale)."""
+    # '2026-11-17' -> 'Tuesday 17 November 2026' (explicit tables, so the result never depends on the OS locale)
     d = dt.date.fromisoformat(iso)
     return f"{_WEEKDAYS[d.weekday()]} {d.day} {_MONTHS[d.month - 1]} {d.year}"
 
 
 def _short_date(iso: str) -> str:
-    """'2026-11-17' -> 'Tue 17 Nov' (used in the summary; _pretty_date gives the long form)."""
+    # '2026-11-17' -> 'Tue 17 Nov' (used in the summary)
     d = dt.date.fromisoformat(iso)
     return f"{_WEEKDAYS[d.weekday()][:3]} {d.day} {_MONTHS[d.month - 1][:3]}"
 
@@ -89,14 +90,14 @@ def total_rooms(facts: dict) -> int:
     return first["count"] + (second["count"] if second else 0)
 
 
-# ---------------------------------------------------------------- hooks used by FeatureConfig
+# hooks used by FeatureConfig
 def rooms_is_empty(facts: dict) -> bool:
-    """True -> the response status is 'none' (nothing found)."""
+    # True -> the response status is 'none' (nothing found)
     return total_rooms(facts) == 0
 
 
 def rooms_note_when(facts: dict) -> bool:
-    """Only ask the model for a note when there is something positive to say."""
+    # Only ask the model for a note when there is something positive to say
     return total_rooms(facts) > 0
 
 
@@ -105,18 +106,18 @@ def rooms_note_must_mention(facts: dict) -> tuple:
 
 
 def rooms_decision_question(first: dict) -> str:
-    """The plain-language question the model answers when asked whether to widen the search."""
+    # The plain-language question the model answers when asked whether to widen the search
     allowed = "yes" if first["can_expand"] else "no"
     return (f"Rooms found: {first['count']}. Minimum needed: {settings.min_rooms}. "
             f"Search preference allows a wider search: {allowed}.")
 
 
 def rooms_needs_next(first: dict) -> bool:
-    """THE RULE (Python has the last word): widen only if we are short AND the student's preference allows it."""
+    # THE RULE (Python has the last word): widen only if we are short AND the student's preference allows it
     return first["count"] < settings.min_rooms and first["can_expand"]
 
 
-# ---------------------------------------------------------------- the summary
+# the summary
 def _widening_sentence(first: dict, second: dict, building_code: str) -> str:
     n = first["count"]
     lead = (
@@ -168,7 +169,7 @@ def rooms_summary(facts: dict) -> str:
     total = total_rooms(facts)
     when = f"{_short_date(first['date'])}, {first['start_time']}-{first['end_time']}"
 
-    # --- sentence 1: the result. "N rooms" stays adjacent so the optional AI note can quote the number safely.
+    # sentence 1: the result. "N rooms" stays adjacent so the optional AI note can quote the number safely.
     if total:
         groups = []
 
@@ -189,7 +190,7 @@ def rooms_summary(facts: dict) -> str:
     else:
         lines = [f"No potentially available rooms on {when}."]
 
-    # --- sentence 2
+    # --- sentence 2: informs about why the search was widened and tells to try more options for if no building rooms were found based on the search preferences
     if second:
         lines.append(_widening_sentence(first, second, building_code))
     elif total == 0:

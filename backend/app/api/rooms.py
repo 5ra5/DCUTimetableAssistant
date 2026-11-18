@@ -23,22 +23,22 @@ router = APIRouter(tags=["rooms"])
 
 # Durations offered on the form. The API itself accepts any 15-240 minutes (see RoomSearchRequest).
 MAX_DURATION = settings.max_room_duration_minutes
-DURATION_CHOICES = list(range(30, MAX_DURATION + 1, 30))
+DURATION_CHOICES = list(range(30, MAX_DURATION + 1, 30)) # Allows for the MAX_DURATION variable to be defined in .env and not a hardcoded value
 
 
 def _db_error(e: sqlite3.Error):
-    """Database problems are the server's fault, not the student's: 503 rather than a crash."""
+    # Database problems are the server's fault, not the student's: 503 rather than a crash
     raise HTTPException(status_code=503, detail="The timetable database is not available.") from e
 
 
 @router.get("/rooms/options")
 def room_options():
-    """Everything the search form needs, so the frontend never hard-codes building lists."""
+    # Everything the search form needs, so the frontend never hard-codes building lists
     try:
         with closing(room_tools._connect()) as conn:
             buildings = room_tools.list_supported_buildings(conn)
             dates = room_tools.date_range(conn)
-            as_of = room_tools.data_as_of(conn)
+            as_of = room_tools.data_as_of(conn) # Considering removing this
     except sqlite3.Error as e:
         _db_error(e)
     return {
@@ -49,13 +49,13 @@ def room_options():
         "date_max": dates[1] if dates else None,
         "earliest_start": room_tools.SEARCH_DAY_START.strftime("%H:%M"),
         "latest_finish": room_tools.SEARCH_DAY_END.strftime("%H:%M"),
-        "data_as_of": as_of,
+        "data_as_of": as_of, # Considering removing this
     }
 
 
 @router.post("/rooms/search", response_model=AgentResult)
 def search_rooms(request: RoomSearchRequest):
-    # --- Validate BEFORE any tool or model work ------------------------------------------------------------
+    # Validate BEFORE any tool or model work
     try:
         slot = room_tools.parse_slot(request.date, request.start_time, request.duration_minutes)
     except room_tools.SlotError as e:
@@ -74,7 +74,7 @@ def search_rooms(request: RoomSearchRequest):
         span = f" Available dates: {dates[0]} to {dates[1]}." if dates else ""
         raise HTTPException(status_code=422, detail="No timetable data covers that date." + span)
 
-    # --- Hand over to the agent -----------------------------------------------------------------------------
+    # Hand over to the agent
     # PINNED values are trusted form values: whatever arguments the model writes in a tool call, the tools get
     # these. The keys must match the tools' parameter names (tools/rooms.py).
     pinned = {

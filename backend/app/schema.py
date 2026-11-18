@@ -20,6 +20,22 @@ def check_time(v: str) -> str:
     datetime.strptime(v, TIME)  # raises ValueError if invalid
     return v
 
+class LecturerSearchQuery(BaseModel):
+    lecturer_name: str
+
+class LecturerScheduleQuery(BaseModel):
+    lecturer_name: str
+    date: str
+    time: str
+    @field_validator("date")
+    @classmethod
+    def validate_date(clss, v: str) -> str:
+        return check_date(v)
+    @field_validator("time")
+    @classmethod
+    def validate_time(clss, v: str) -> str:
+        return check_time(v)
+
 
 class AgentResult(BaseModel):
     """The response of every agent endpoint. The frontend renders `facts` and `summary`,

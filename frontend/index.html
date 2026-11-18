@@ -17,7 +17,7 @@
     </div>
     <nav class="switcher" aria-label="Features">
       <button data-feature="A" class="active">Student Timetable</button>
-      <button data-feature="B">Feature B <span class="soon">coming soon</span></button>
+      <button data-feature="B">Room Locator</button>
       <button data-feature="C">Feature C <span class="soon">coming soon</span></button>
     </nav>
   </div>
@@ -80,10 +80,42 @@
 
   <!-- ============ FEATURE B ============ -->
   <section id="panel-B" class="panel">
-    <div class="card placeholder">
-      <h2>Feature B</h2>
-      <p>This feature hasn't been implemented yet. Check back soon.</p>
+
+    <div class="card">
+      <h2><span class="step">1</span>Find a room</h2>
+      <p class="sub">Search for teaching rooms with no recorded timetable event or booking during your time slot.</p>
+      <div class="form-row">
+        <div class="field field-wide">
+          <label for="roomBuilding">Building</label>
+          <select id="roomBuilding"></select>
+        </div>
+        <div class="field">
+          <label for="roomDate">Date</label>
+          <input type="date" id="roomDate">
+        </div>
+        <div class="field">
+          <label for="roomStart">Start time</label>
+          <input type="time" id="roomStart" step="900">
+        </div>
+        <div class="field">
+          <label for="roomDuration">Duration</label>
+          <select id="roomDuration"></select>
+        </div>
+        <div class="field field-wide">
+          <label for="roomPreference">Search area</label>
+          <select id="roomPreference"></select>
+        </div>
+        <button class="btn" id="roomSearchBtn" disabled>Find Rooms</button>
+      </div>
+      <span class="hint" id="roomHint"></span>
     </div>
+
+    <div class="card hidden" id="roomResultsCard">
+      <h2><span class="step">2</span>Available rooms</h2>
+      <p class="sub" id="roomResultsSub"></p>
+      <div id="roomResultsBody"></div>
+    </div>
+
   </section>
 
   <!-- ============ FEATURE C ============ -->

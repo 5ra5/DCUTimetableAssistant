@@ -105,18 +105,48 @@
     };
   }
 
-  // The hidden input holds the CONFIRMED HH:MM. Scrolling the start-time wheels only
-  // previews a time; it is committed when the user presses Confirm.
+  // Collapsible picker: a compact box showing the confirmed value that expands in place
+  // into scroll wheels with a Confirm button. Scrolling only previews a value; Confirm
+  // commits it to the hidden input. Clicking elsewhere or pressing Escape closes the
+  // wheels without changing anything.
+  function makePicker({ box, btn, text, panel, done, input, focusEl, empty, display, reset, read }) {
+    const show = () => { text.textContent = input.value ? display(input.value) : empty; };
+    const open = () => {
+      if (!input.value) return;                 // options not loaded yet
+      panel.classList.remove("hidden");
+      btn.setAttribute("aria-expanded", "true");
+      reset(input.value);                       // start the wheels on the confirmed value
+      focusEl.focus({ preventScroll: true });
+    };
+    const close = () => { panel.classList.add("hidden"); btn.setAttribute("aria-expanded", "false"); };
+    const confirm = () => {
+      const v = read();
+      if (v !== input.value) { input.value = v; input.dispatchEvent(new Event("change")); }
+      show(); close(); btn.focus();
+    };
+    btn.addEventListener("click", open);
+    done.addEventListener("click", confirm);
+    document.addEventListener("pointerdown", e => {
+      if (!panel.classList.contains("hidden") && !box.contains(e.target)) close();
+    });
+    panel.addEventListener("keydown", e => {
+      if (e.key === "Escape") { close(); btn.focus(); }
+      else if (e.key === "Enter" && e.target !== done) { e.preventDefault(); confirm(); }
+    });
+    return { show };
+  }
+
+  // Start time (hidden input holds the confirmed HH:MM)
   const startInput = $("roomStart");
   const hourWheel = makeWheel($("roomHour"), () => {});
   const minuteWheel = makeWheel($("roomMinute"), () => {});
   minuteWheel.set(Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, "0")));
-
-  // Duration wheel: shows "1 hour 30 min" etc. but holds the minutes (e.g. "90") in a hidden input.
-  const durationInput = $("roomDuration");
-  const durationWheel = makeWheel($("roomDurationWheel"), () => {
-    const v = durationWheel.cur();
-    if (v !== durationInput.value) { durationInput.value = v; durationInput.dispatchEvent(new Event("change")); }
+  const startPicker = makePicker({
+    box: $("roomTimePicker"), btn: $("roomTimeBtn"), text: $("roomTimeText"),
+    panel: $("roomTimePanel"), done: $("roomTimeDone"), input: startInput, focusEl: $("roomHour"),
+    empty: "--:--", display: v => v,
+    reset: v => { const [h, m] = v.split(":"); hourWheel.select(h); minuteWheel.select(m); },
+    read: () => hourWheel.value() + ":" + minuteWheel.value(),
   });
 
   function setTime(hhmm) {
@@ -125,42 +155,18 @@
     startInput.value = String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
     hourWheel.select(String(h).padStart(2, "0"));
     minuteWheel.select(String(m).padStart(2, "0"));
-    showConfirmed();
+    startPicker.show();
   }
 
-  // Start time box: a compact button showing the confirmed time that expands in place
-  // into the wheels with a Confirm button, then collapses again.
-  const timeBtn = $("roomTimeBtn"), timePanel = $("roomTimePanel");
-  function showConfirmed() { $("roomTimeText").textContent = startInput.value || "--:--"; }
-  function openTimePicker() {
-    if (!startInput.value) return;                 // options not loaded yet
-    timePanel.classList.remove("hidden");
-    timeBtn.setAttribute("aria-expanded", "true");
-    const [h, m] = startInput.value.split(":");    // start the wheels on the confirmed time
-    hourWheel.select(h);
-    minuteWheel.select(m);
-    $("roomHour").focus({ preventScroll: true });
-  }
-  function closeTimePicker() {
-    timePanel.classList.add("hidden");
-    timeBtn.setAttribute("aria-expanded", "false");
-  }
-  function confirmTime() {
-    const v = hourWheel.value() + ":" + minuteWheel.value();
-    if (v !== startInput.value) { startInput.value = v; startInput.dispatchEvent(new Event("change")); }
-    showConfirmed();
-    closeTimePicker();
-    timeBtn.focus();
-  }
-  timeBtn.addEventListener("click", openTimePicker);
-  $("roomTimeDone").addEventListener("click", confirmTime);
-  // Clicking elsewhere or pressing Escape closes the wheels without changing the time.
-  document.addEventListener("pointerdown", e => {
-    if (!timePanel.classList.contains("hidden") && !$("roomTimePicker").contains(e.target)) closeTimePicker();
-  });
-  timePanel.addEventListener("keydown", e => {
-    if (e.key === "Escape") { closeTimePicker(); timeBtn.focus(); }
-    else if (e.key === "Enter" && e.target !== $("roomTimeDone")) { e.preventDefault(); confirmTime(); }
+  // Duration: the wheel shows "1 hour 30 min" etc. but the hidden input holds minutes ("90")
+  const durationInput = $("roomDuration");
+  const durationWheel = makeWheel($("roomDurationWheel"), () => {});
+  const durationPicker = makePicker({
+    box: $("roomDurationPicker"), btn: $("roomDurationBtn"), text: $("roomDurationText"),
+    panel: $("roomDurationPanel"), done: $("roomDurationDone"), input: durationInput, focusEl: $("roomDurationWheel"),
+    empty: "--", display: v => fmtDuration(Number(v)),
+    reset: v => durationWheel.select(v),
+    read: () => durationWheel.value(),
   });
 
   /* ---------- Form setup ---------- */
@@ -176,6 +182,7 @@
     const startDur = durs.includes("60") ? "60" : (durs[0] || "");
     durationInput.value = startDur;
     durationWheel.select(startDur);
+    durationPicker.show();
 
     const pSel = $("roomPreference");
     pSel.innerHTML = "";

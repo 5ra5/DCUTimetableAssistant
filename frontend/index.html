@@ -111,9 +111,15 @@
           <input type="hidden" id="roomStart">
         </div>
         <div class="field">
-          <label id="roomDurationLabel">Duration</label>
-          <div class="timewheel" role="group" aria-labelledby="roomDurationLabel">
-            <div class="wheel wide" id="roomDurationWheel" tabindex="0" role="listbox" aria-label="Duration"></div>
+          <label id="roomDurationLabel" for="roomDurationBtn">Duration</label>
+          <div class="timepicker" id="roomDurationPicker">
+            <button type="button" class="time-display" id="roomDurationBtn" aria-haspopup="true" aria-expanded="false"><span id="roomDurationText">--</span></button>
+            <div class="time-panel hidden" id="roomDurationPanel" role="group" aria-labelledby="roomDurationLabel">
+              <div class="timewheel">
+                <div class="wheel wide" id="roomDurationWheel" tabindex="0" role="listbox" aria-label="Duration"></div>
+              </div>
+              <button type="button" class="btn time-confirm" id="roomDurationDone">Confirm</button>
+            </div>
           </div>
           <input type="hidden" id="roomDuration">
         </div>

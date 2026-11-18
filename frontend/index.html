@@ -18,7 +18,7 @@
     <nav class="switcher" aria-label="Features">
       <button data-feature="A" class="active">Student Timetable</button>
       <button data-feature="B">Room Locator</button>
-      <button data-feature="C">Feature C <span class="soon">coming soon</span></button>
+      <button data-feature="C">Lecturer Finder</button>
     </nav>
   </div>
 </header>
@@ -142,10 +142,49 @@
 
   <!-- ============ FEATURE C ============ -->
   <section id="panel-C" class="panel">
-    <div class="card placeholder">
-      <h2>Feature C</h2>
-      <p>This feature hasn't been implemented yet. Check back soon.</p>
+
+    <div class="card">
+      <h2><span class="step">1</span>Find a lecturer</h2>
+      <p class="sub">Search by lecturer name or Redbrick identifier, e.g. McKenna.</p>
+      <div class="form-row">
+        <div class="field field-wide">
+          <label for="lectName">Lecturer name</label>
+          <input type="search" id="lectName" placeholder="Type a name, e.g. McKenna" autocomplete="off">
+        </div>
+        <button class="btn" id="lectSearchBtn">Search</button>
+      </div>
+      <span class="hint" id="lectHint"></span>
     </div>
+
+    <div class="card hidden" id="lectResultsCard">
+      <h2><span class="step">2</span>Matching lecturers</h2>
+      <p class="sub" id="lectResultsSub"></p>
+      <div id="lectResultsBody"></div>
+    </div>
+
+    <div class="card hidden" id="lectScheduleCard">
+      <h2><span class="step">3</span>Check schedule</h2>
+      <p class="sub" id="lectScheduleSub">Choose a date and time to see where this lecturer is.</p>
+      <div class="form-row">
+        <div class="field">
+          <label for="lectDate">Date</label>
+          <input type="date" id="lectDate">
+        </div>
+        <div class="field">
+          <label for="lectTime">Time (24-hour)</label>
+          <input type="time" id="lectTime" step="300">
+        </div>
+        <button class="btn" id="lectScheduleBtn">Check Schedule</button>
+      </div>
+      <span class="hint" id="lectScheduleHint"></span>
+    </div>
+
+    <div class="card hidden" id="lectScheduleResultCard">
+      <h2><span class="step">4</span>Lecturer schedule</h2>
+      <p class="sub" id="lectScheduleResultSub"></p>
+      <div id="lectScheduleResultBody"></div>
+    </div>
+
   </section>
 
 </main>

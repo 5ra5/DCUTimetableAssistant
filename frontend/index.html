@@ -94,17 +94,28 @@
           <input type="date" id="roomDate">
         </div>
         <div class="field">
-          <label id="roomStartLabel">Start time</label>
-          <div class="timewheel" role="group" aria-labelledby="roomStartLabel">
-            <div class="wheel" id="roomHour" tabindex="0" role="listbox" aria-label="Hour"></div>
-            <span class="colon">:</span>
-            <div class="wheel" id="roomMinute" tabindex="0" role="listbox" aria-label="Minute"></div>
+          <label id="roomStartLabel" for="roomTimeBtn">Start time</label>
+          <div class="timepicker" id="roomTimePicker">
+            <!-- Collapsed: same height as the other boxes, shows the chosen time -->
+            <button type="button" class="time-display" id="roomTimeBtn" aria-haspopup="true" aria-expanded="false"><span id="roomTimeText">--:--</span></button>
+            <!-- Expanded: scroll wheels plus a confirm button -->
+            <div class="time-panel hidden" id="roomTimePanel" role="group" aria-labelledby="roomStartLabel">
+              <div class="timewheel">
+                <div class="wheel" id="roomHour" tabindex="0" role="listbox" aria-label="Hour"></div>
+                <span class="colon">:</span>
+                <div class="wheel" id="roomMinute" tabindex="0" role="listbox" aria-label="Minute"></div>
+              </div>
+              <button type="button" class="btn time-confirm" id="roomTimeDone">Confirm</button>
+            </div>
           </div>
           <input type="hidden" id="roomStart">
         </div>
         <div class="field">
-          <label for="roomDuration">Duration</label>
-          <select id="roomDuration"></select>
+          <label id="roomDurationLabel">Duration</label>
+          <div class="timewheel" role="group" aria-labelledby="roomDurationLabel">
+            <div class="wheel wide" id="roomDurationWheel" tabindex="0" role="listbox" aria-label="Duration"></div>
+          </div>
+          <input type="hidden" id="roomDuration">
         </div>
         <div class="field field-wide">
           <label for="roomPreference">Search area</label>

@@ -171,7 +171,26 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: 2p
   font-size: 1.2rem; font-weight: 600; color: var(--muted); cursor: pointer; user-select: none;
 }
 .wheel .opt.sel { color: var(--primary); }
+.wheel.wide { width: 140px; }
+.wheel.wide .opt { font-size: 1rem; }
 .timewheel .colon { z-index: 1; font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+
+/* Start time: compact box that expands in place into the wheels */
+.timepicker { position: relative; }
+.time-display {
+  font: inherit; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+  background: #fff; color: var(--text); cursor: pointer; text-align: left;
+}
+.time-display::after { content: "\25BE"; color: var(--muted); font-size: .8rem; }
+.time-display:hover { border-color: var(--primary); }
+.time-panel {                /* sits over the collapsed box so the form layout doesn't shift */
+  position: absolute; top: 0; left: 0; right: 0; z-index: 20;
+  background: #fff; border: 1px solid var(--primary); border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(28, 32, 51, .15); padding: 6px;
+}
+.time-panel .timewheel { border: none; padding: 0; }
+.time-confirm { width: 100%; margin-top: 6px; padding: 8px 12px; }
 .room-summary { white-space: pre-line; margin: 0 0 16px; }
 .room-caveat {
   margin-top: 16px; font-size: .82rem; color: var(--muted);

@@ -52,6 +52,35 @@ def unicode_remover(text: str) -> str:
     parsed_text = normalised.encode("ascii", "ignore").decode()
     return parsed_text
 
+def resolve_candidates(lecturer_id: str | int) -> dict:
+    if not lecturer_id or not str(lecturer_id).strip():
+        return {"status": "error", "message": "Lecturer ID cannot be empty"}
+    query = """
+        SELECT
+            l.id,
+            l.redbrick_identifier,
+            COALESCE(ds.full_name, l.redbrick_identifier) AS full_name,
+            GROUP_CONCAT(DISTINCT m.module_code) as module_codes
+            FROM lecturers as l
+            LEFT JOIN lecturer_identity_mappings AS lim ON lim.lecturer_id = l.id
+            LEFT JOIN directory_staff AS ds on ds.id = lim.staff_id
+            LEFT JOIN lecturer_modules AS lm ON lm.lecturer_id = l.id
+            LEFT JOIN modules AS m ON m.id = lm.module_id
+            WHERE l.id = ?
+            GROUP BY l.id, l.redbrick_identifier, ds.full_name
+            """
+    results = fetch_all_events(query, (str(lecturer_id).strip(), ))
+    if not results:
+        return {"status": "error", "message": f"No lecturer found with ID {lecturer_id}"}
+    lecturer_data = results[0]
+    raw_data = lecturer_data["module_codes"] or ""
+    lecturer_data["module_codes"] = [code.strip() for code in raw_data.split(",") if code.strip()]
+
+    return {"status": "success", "data": lecturer_data}
+
+    
+
+
 # Tools that the LLM Agent will eventually call
 def search_lecturer(lecturer: str) -> dict:
     if not lecturer:
@@ -66,8 +95,9 @@ def search_lecturer(lecturer: str) -> dict:
 
     logging.info(f"Attempting to search for {lecturer} in the database")
     query = ("""SELECT
-                l.id
+                l.id,
                 l.redbrick_identifier,
+                COALESCE(ds.full_name, l.redbrick_identifier) AS full_name,
                 GROUP_CONCAT(m.module_name, ", ") AS modules
                 FROM lecturers as l
                 JOIN lecturer_modules as lm ON lm.lecturer_id = l.id
@@ -76,7 +106,7 @@ def search_lecturer(lecturer: str) -> dict:
                 LEFT JOIN directory_staff AS ds ON ds.id = lim.staff_id
                 WHERE l.redbrick_identifier LIKE ?
                     OR ds.full_name LIKE ?
-                GROUP BY l.id, l.redbrick_identifier""")
+                GROUP BY l.id, l.redbrick_identifier, ds.full_name""")
     
     results = fetch_all_events(query, (f"%{lecturer}%", f"%{lecturer}%",))
 
@@ -93,20 +123,21 @@ def search_lecturer(lecturer: str) -> dict:
     return {"status": "ambiguous", "candidates": results}
 
 def find_next_lecturer(lecturer_id, date=None, time=None):
-    if (not lecturer_id):
-        logging.warning("Missing lecturer ID recieved. Please provide a lecturer ID.")
-        return {"status": "error",
-                "message": "Lecturer ID cannot be empty"}
-    if ((not date or not time)):
-        missingdata = "date" if date == None else "time"
-        logging.warning(f"Missing {missingdata}")
-        return {"status": "error",
-                "message": "Both time and date are required"}
+    resolved = resolve_candidates(lecturer_id)
+    if resolved["status"] == "error":
+        return resolved
+    lecturer = resolved["data"]
+    module_codes = lecturer["module_codes"]
+    if not module_codes:
+        return {
+            "status": "error",
+            "message": f"No modules registered for {lecturer['full_name']}"
+        }
 
     now_utc = datetime.now(timezone.utc)
-    if not date or not date.strip():
+    if not date or not str(date).strip():
         date = now_utc.strftime("%Y-%m-%d")
-    if not time or not time.strip():
+    if not time or not str(time).strip():
         time = now_utc.strftime("%H:%M:%S")
 
     formatted_time = f"{time}:00" if len(time.strip()) == 5 else time.strip()
@@ -114,7 +145,9 @@ def find_next_lecturer(lecturer_id, date=None, time=None):
     
     logging.info(f"Checking ahead for next avaliable teaching slot for {lecturer_id} on {date} at {time}")
 
-    query = """
+    code_conditions = " OR ".join(["e.event_name LIKE ?" for _ in module_codes])
+    code_params = [f"{code}%" for code in module_codes]
+    query = f"""
             SELECT
             r.room_name,
             e.staff_member,
@@ -123,17 +156,14 @@ def find_next_lecturer(lecturer_id, date=None, time=None):
             e.module_name
             FROM timetable_events as e
             JOIN timetable_event_rooms AS er ON er.event_id = e.id
-            LEFT JOIN lecturers AS l on e.staff_member LIKE '%' || l.redbrick_identifier || '%'
-            LEFT JOIN lecturer_identity_mappings AS lim ON lim.lecturer_id = l.id
-            LEFT JOIN directory_staff AS ds ON ds.id = lim.staff_id
             JOIN teaching_rooms as r ON r.id = er.room_id
-            WHERE (e.staff_member LIKE ? OR ds.full_name  LIKE ? OR ds.last_name  LIKE ?)
+            WHERE ({code_conditions})
                 AND e.start_time >= ?
             ORDER BY e.start_time ASC
             LIMIT 1
             """
     
-    results = fetch_all_events(query,  (f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", target_time))
+    results = fetch_all_events(query,  (*code_params, target_time))
     if not results:
         logging.info(f"Search completed: No future classes found for {lecturer_id}")
         return {"status": "fail", "message": f"No upcoming classes found for lecturer {lecturer_id}"}
@@ -154,37 +184,47 @@ def get_lecturer_schedule(lecturer_id, date, time):
         logging.warning(f"Missing {missingdata}")
         return {"status": "error", 
                 "message": "Both time and date are required"}
+
+    resolved = resolve_candidates(lecturer_id)
+    if resolved["status"] == "error":
+        return resolved
+    lecturer = resolved["data"]
+    module_codes = lecturer["module_codes"]
+    if not module_codes:
+        return {
+            "status": "error",
+            "message": f"No modules registered for {lecturer['full_name']}"
+        }
     
     logging.info(f"Checking schedule for lecturer {lecturer_id} on {date} at {time}")
     formatted_time = f"{time}:00" if len(time.strip()) == 5 else time.strip()
     target_time = f"{date.strip()}T{formatted_time}Z"
-    query = """
+
+    code_conditions = " OR ".join(["e.event_name LIKE ?" for _ in module_codes])
+    code_params = [f"{code}%" for code in module_codes]
+    query = f"""
           SELECT
             r.room_name,
             e.staff_member,
             e.start_time,
             e.end_time,
             e.module_name
-            FROM timetable_events as e
+            FROM timetable_events AS e
             JOIN timetable_event_rooms AS er ON er.event_id = e.id
-            LEFT JOIN lecturers AS l on e.staff_member LIKE '%' || l.redbrick_identifier || '%'
-            LEFT JOIN lecturer_identity_mappings AS lim ON lim.lecturer_id = l.id
-            LEFT JOIN directory_staff AS ds ON ds.id = lim.staff_id
             JOIN teaching_rooms as r ON r.id = er.room_id
-            WHERE (e.staff_member LIKE ? OR ds.full_name  LIKE ? OR ds.last_name  LIKE ?)
+            WHERE ({code_conditions})
                AND ? >= e.start_time 
                AND ? < e.end_time 
-            LIMIT 1
+            ORDER BY e.start_time ASC
             """
-    results = fetch_all_events(query, (f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%", f"%{lecturer_id.strip()}%",  target_time, target_time))
+    results = fetch_all_events(query, (*code_params, target_time, target_time))
 
     if not results:
         logging.info(f"Search completed: Did not find class for {lecturer_id} at {time} on {date}")
         return {"status": "error", 
-                "message": f"No class found for lecturer {lecturer_id} at {time} on {date}"}
+                "message": f"No class found for {lecturer['full_name']} at {time} on {date}"}
     
     result = results[0]
-    logging.info(f"SUCCESS: Found class for {lecturer_id}: "
-    f"Module: {result['module_name']}, Room: {result['room_name']}")
+    logging.info(f"SUCCESS: Found class for {lecturer_id}: ")
     return {"status": "success", "data": result}
 

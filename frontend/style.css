@@ -138,6 +138,32 @@ select:focus, input:focus-visible, button:focus-visible { outline: 2px solid var
 .error { color: #b42318; }
 .hidden { display: none !important; }
 
+/* Room Locator (Feature B) */
+input[type="date"], input[type="time"] {
+  font: inherit; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--border); background: #fff; color: var(--text);
+}
+input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+#roomHint { display: block; margin-top: 10px; }
+.room-summary { white-space: pre-line; margin: 0 0 16px; }
+.room-caveat {
+  margin-top: 16px; font-size: .82rem; color: var(--muted);
+}
+.room-group { margin-bottom: 18px; }
+.room-group h3 { margin: 0 0 8px; font-size: .95rem; }
+.room-group h3 span { font-weight: 400; color: var(--muted); font-size: .82rem; margin-left: 6px; }
+.room-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.room {
+  border: 1px solid var(--border); border-left: 4px solid var(--lab);
+  border-radius: 8px; padding: 10px 12px; background: #f1faf8;
+}
+.room .room-name { font-weight: 700; }
+.room .room-meta { color: var(--muted); font-size: .82rem; }
+.room-badge {
+  display: inline-block; font-size: .7rem; font-weight: 600; padding: 1px 8px;
+  border-radius: 999px; background: var(--primary-soft); color: var(--primary); margin-top: 4px;
+}
+
 .placeholder { text-align: center; padding: 60px 20px; }
 .placeholder h2 { font-size: 1.4rem; }
 .placeholder p { color: var(--muted); max-width: 440px; margin: 8px auto 0; }

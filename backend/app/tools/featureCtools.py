@@ -55,6 +55,9 @@ def unicode_remover(text: str) -> str:
 def resolve_candidates(lecturer_id: str | int) -> dict:
     if not lecturer_id or not str(lecturer_id).strip():
         return {"status": "error", "message": "Lecturer ID cannot be empty"}
+    cleaned_id = unicode_remover(str(lecturer_id).strip())
+    cleaned_id = " ".join(cleaned_id.split())
+
     query = """
         SELECT
             l.id,
@@ -66,15 +69,27 @@ def resolve_candidates(lecturer_id: str | int) -> dict:
             LEFT JOIN directory_staff AS ds on ds.id = lim.staff_id
             LEFT JOIN lecturer_modules AS lm ON lm.lecturer_id = l.id
             LEFT JOIN modules AS m ON m.id = lm.module_id
-            WHERE l.id = ?
-            GROUP BY l.id, l.redbrick_identifier, ds.full_name
             """
-    results = fetch_all_events(query, (str(lecturer_id).strip(), ))
+    if cleaned_id.isdigit():
+        results = fetch_all_events(query + " WHERE l.id = ? GROUP BY l.id, l.redbrick_identifier, ds.full_name", (int(cleaned_id), ))
+    else:
+        results = fetch_all_events(query + """ WHERE l.redbrick_identifier LIKE ?  OR ds.full_name LIKE ? GROUP BY l.id, l.redbrick_identifier, ds.full_name""", (f"%{cleaned_id}%", f"%{cleaned_id}%"))
     if not results:
         return {"status": "error", "message": f"No lecturer found with ID {lecturer_id}"}
+
+    if len(results) > 1:
+            return {
+                "status": "ambiguous",
+                "message": f"Multiple lecturers found matching '{lecturer_id}'. Please refine your search.",
+                "candidates": results
+            }
+
+    
     lecturer_data = results[0]
     raw_data = lecturer_data["module_codes"] or ""
     lecturer_data["module_codes"] = [code.strip() for code in raw_data.split(",") if code.strip()]
+
+
 
     return {"status": "success", "data": lecturer_data}
 
@@ -124,7 +139,7 @@ def search_lecturer(lecturer: str) -> dict:
 
 def find_next_lecturer(lecturer_id, date=None, time=None):
     resolved = resolve_candidates(lecturer_id)
-    if resolved["status"] == "error":
+    if resolved["status"] != "success":
         return resolved
     lecturer = resolved["data"]
     module_codes = lecturer["module_codes"]
@@ -186,7 +201,7 @@ def get_lecturer_schedule(lecturer_id, date, time):
                 "message": "Both time and date are required"}
 
     resolved = resolve_candidates(lecturer_id)
-    if resolved["status"] == "error":
+    if resolved["status"] != "success":
         return resolved
     lecturer = resolved["data"]
     module_codes = lecturer["module_codes"]

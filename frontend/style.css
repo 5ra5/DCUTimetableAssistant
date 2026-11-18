@@ -232,6 +232,16 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: 2p
 .lect-detail .lect-row { color: var(--muted); }
 .lect-detail .lect-row strong { color: var(--text); font-weight: 600; }
 
+/* Home page */
+.home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.home-tile {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+  border: 1px solid var(--border); border-radius: 10px; padding: 18px; background: #f8f9fe;
+}
+.home-tile h3 { margin: 0; font-size: 1rem; }
+.home-tile p { margin: 0 0 6px; color: var(--muted); font-size: .9rem; flex: 1; }
+.home-tile .btn { width: 100%; }
+
 .placeholder { text-align: center; padding: 60px 20px; }
 .placeholder h2 { font-size: 1.4rem; }
 .placeholder p { color: var(--muted); max-width: 440px; margin: 8px auto 0; }

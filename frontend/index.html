@@ -16,7 +16,8 @@
       <p>An AI assistant for DCU students that turns your weekly schedule into clear statistics and useful highlights.</p>
     </div>
     <nav class="switcher" aria-label="Features">
-      <button data-feature="A" class="active">Student Timetable</button>
+      <button data-feature="Home" class="active">Home</button>
+      <button data-feature="A">Student Timetable</button>
       <button data-feature="B">Room Locator</button>
       <button data-feature="C">Lecturer Finder</button>
     </nav>
@@ -25,8 +26,33 @@
 
 <main class="wrap">
 
+  <!-- ============ HOME ============ -->
+  <section id="panel-Home" class="panel active">
+    <div class="card home-intro">
+      <h2>Welcome</h2>
+      <p class="sub">Pick a tool to get started. You can switch between them at any time using the buttons at the top of the page.</p>
+      <div class="home-grid">
+        <div class="home-tile">
+          <h3>Student Timetable</h3>
+          <p>View your weekly timetable and get statistics and highlights about your week.</p>
+          <button class="btn" data-goto="A">Open</button>
+        </div>
+        <div class="home-tile">
+          <h3>Room Locator</h3>
+          <p>Find teaching rooms with no recorded timetable event or booking in your time slot.</p>
+          <button class="btn" data-goto="B">Open</button>
+        </div>
+        <div class="home-tile">
+          <h3>Lecturer Finder</h3>
+          <p>Search for a lecturer and see which class they are teaching at a given date and time.</p>
+          <button class="btn" data-goto="C">Open</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ FEATURE A ============ -->
-  <section id="panel-A" class="panel active">
+  <section id="panel-A" class="panel">
 
     <div class="card">
       <h2><span class="step">1</span>Select your timetable</h2>

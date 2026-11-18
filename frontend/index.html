@@ -94,8 +94,13 @@
           <input type="date" id="roomDate">
         </div>
         <div class="field">
-          <label for="roomStart">Start time</label>
-          <input type="time" id="roomStart" step="900">
+          <label id="roomStartLabel">Start time</label>
+          <div class="timewheel" role="group" aria-labelledby="roomStartLabel">
+            <div class="wheel" id="roomHour" tabindex="0" role="listbox" aria-label="Hour"></div>
+            <span class="colon">:</span>
+            <div class="wheel" id="roomMinute" tabindex="0" role="listbox" aria-label="Minute"></div>
+          </div>
+          <input type="hidden" id="roomStart">
         </div>
         <div class="field">
           <label for="roomDuration">Duration</label>

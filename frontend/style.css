@@ -145,6 +145,33 @@ input[type="date"], input[type="time"] {
 }
 input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 #roomHint { display: block; margin-top: 10px; }
+
+/* Phone-style time picker: two scroll-snap wheels */
+.timewheel {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 2px;
+  height: 120px; padding: 0 12px; border: 1px solid var(--border); border-radius: 8px; background: #fff;
+}
+.timewheel::before {            /* highlight band behind the selected row */
+  content: ""; position: absolute; left: 6px; right: 6px; top: 40px; height: 40px;
+  background: var(--primary-soft); border-radius: 6px; pointer-events: none;
+}
+.timewheel::after {             /* fade rows above and below the selection */
+  content: ""; position: absolute; inset: 0; border-radius: 8px; pointer-events: none; z-index: 2;
+  background: linear-gradient(#fff 0, rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, #fff 100%);
+  opacity: .85;
+}
+.wheel {
+  position: relative; z-index: 1; width: 52px; height: 120px; padding: 40px 0; box-sizing: border-box;
+  overflow-y: auto; scroll-snap-type: y mandatory; scrollbar-width: none; overscroll-behavior: contain;
+}
+.wheel::-webkit-scrollbar { display: none; }
+.wheel:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; border-radius: 6px; }
+.wheel .opt {
+  height: 40px; line-height: 40px; text-align: center; scroll-snap-align: center;
+  font-size: 1.2rem; font-weight: 600; color: var(--muted); cursor: pointer; user-select: none;
+}
+.wheel .opt.sel { color: var(--primary); }
+.timewheel .colon { z-index: 1; font-size: 1.2rem; font-weight: 700; color: var(--primary); }
 .room-summary { white-space: pre-line; margin: 0 0 16px; }
 .room-caveat {
   margin-top: 16px; font-size: .82rem; color: var(--muted);

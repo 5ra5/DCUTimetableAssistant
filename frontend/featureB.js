@@ -63,6 +63,64 @@
     $("roomHint").classList.toggle("error", !!isError);
   };
 
+  /* ---------- Phone-style time wheels ---------- */
+  const ROW = 40;   // must match .wheel .opt height in style.css
+  function makeWheel(el, onPick) {
+    let values = [], cur = null, timer;
+    const index = () => Math.max(0, Math.min(values.length - 1, Math.round(el.scrollTop / ROW)));
+    const mark = () => {
+      const i = index();
+      [...el.children].forEach((c, j) => { c.classList.toggle("sel", j === i); c.setAttribute("aria-selected", j === i); });
+    };
+    const goTo = (i, smooth) => el.scrollTo({ top: Math.max(0, Math.min(values.length - 1, i)) * ROW, behavior: smooth ? "smooth" : "auto" });
+    el.addEventListener("scroll", () => {
+      mark();
+      clearTimeout(timer);
+      timer = setTimeout(() => { cur = values[index()]; onPick(cur); }, 120);   // after the wheel settles
+    });
+    el.addEventListener("click", e => {
+      const o = e.target.closest(".opt");
+      if (o) goTo([...el.children].indexOf(o), true);
+    });
+    el.addEventListener("keydown", e => {
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+      e.preventDefault();
+      goTo(index() + (e.key === "ArrowDown" ? 1 : -1), true);
+    });
+    // The panel can be hidden (display:none) when the value is set; re-apply once it is shown.
+    new ResizeObserver(() => { if (el.clientHeight && cur !== null) { goTo(values.indexOf(cur), false); mark(); } }).observe(el);
+    return {
+      cur: () => cur,
+      set(list) {
+        values = list;
+        el.innerHTML = list.map(v => `<div class="opt" role="option">${v}</div>`).join("");
+        cur = list[0];
+      },
+      select(v) {
+        cur = values.includes(v) ? v : values[0];
+        goTo(values.indexOf(cur), false);
+        mark();
+      },
+    };
+  }
+
+  const startInput = $("roomStart");   // hidden input that holds the chosen HH:MM
+  const pickTime = () => {
+    const v = hourWheel.cur() + ":" + minuteWheel.cur();
+    if (v !== startInput.value) { startInput.value = v; startInput.dispatchEvent(new Event("change")); }
+  };
+  const hourWheel = makeWheel($("roomHour"), pickTime);
+  const minuteWheel = makeWheel($("roomMinute"), pickTime);
+  minuteWheel.set(Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, "0")));
+
+  function setTime(hhmm) {
+    let [h, m] = hhmm.split(":").map(Number);
+    m = Math.min(55, Math.round(m / 5) * 5);   // snap to the 5-minute grid
+    startInput.value = String(h).padStart(2, "0") + ":" + String(m).padStart(2, "0");
+    hourWheel.select(String(h).padStart(2, "0"));
+    minuteWheel.select(String(m).padStart(2, "0"));
+  }
+
   /* ---------- Form setup ---------- */
   function fillForm(o) {
     const bSel = $("roomBuilding");
@@ -89,14 +147,16 @@
     if (o.date_max && today > o.date_max) today = o.date_max;
     date.value = today;
 
-    const t = $("roomStart");
-    if (o.earliest_start) t.min = o.earliest_start;
-    if (o.latest_finish) t.max = o.latest_finish;
-    t.value = o.earliest_start || "";
+    // Hours only cover the allowed search window; minutes go in 5-minute steps.
+    const h0 = o.earliest_start ? parseInt(o.earliest_start, 10) : 0;
+    const h1 = o.latest_finish ? parseInt(o.latest_finish, 10) : 23;
+    hourWheel.set(Array.from({ length: h1 - h0 + 1 }, (_, i) => String(h0 + i).padStart(2, "0")));
+    setTime(o.earliest_start || String(h0).padStart(2, "0") + ":00");
 
     const usable = (o.buildings || []).length > 0 && o.date_min && o.date_max;
     $("roomSearchBtn").disabled = !usable;
     if (!usable) setHint("No timetable coverage is available yet, so rooms can't be searched.", true);
+    else setHint(o.data_as_of ? "Based on timetable data as of " + fmtDate(o.data_as_of) + ". Bookings made after that may be missing." : "");
   }
 
   async function loadRoomOptions() {
@@ -143,6 +203,7 @@
     const problem = validate(f);
     $("roomResultsCard").classList.add("hidden");
     if (problem) { setHint(problem, true); return; }
+    setHint(OPTIONS.data_as_of ? "Based on timetable data as of " + fmtDate(OPTIONS.data_as_of) + ". Bookings made after that may be missing." : "");
 
     $("roomResultsCard").classList.remove("hidden");
     $("roomResultsSub").textContent = "";

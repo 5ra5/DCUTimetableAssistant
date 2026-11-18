@@ -93,14 +93,17 @@
 
   /* ---------- Step 1: search ---------- */
   // The result can be one lecturer or a list of candidates, so accept both shapes.
-  function readCandidates(data) {
-    const d = ((data.facts || {}).search_lecturer || {}).data;
-    if (!d) return [];
-    if (Array.isArray(d)) return d;
-    const list = d.candidates || d.lecturers || d.matches || d.results;
-    if (Array.isArray(list)) return list;
-    return d.id !== undefined ? [d] : [];
-  }
+    function readCandidates(data) {
+        const r = (data.facts || {}).search_lecturer || {};
+        // ambiguous result: the list lives in `candidates`
+        if (Array.isArray(r.candidates)) return r.candidates;
+        const d = r.data;
+        if (!d) return [];
+        if (Array.isArray(d)) return d;
+        const list = d.candidates || d.lecturers || d.matches || d.results;
+        if (Array.isArray(list)) return list;
+        return d.id !== undefined ? [d] : [];
+    }
 
   function resetBelow() {
     SELECTED = null;
@@ -136,30 +139,32 @@
     return `<button type="button" class="lect" data-id="${esc(l.id)}"><div class="lect-name">${esc(label)}</div>${id}${mods}</button>`;
   }
 
-  function renderCandidates(data, query) {
-    $("lectResultsSub").textContent = `Results for “${query}”`;
-    const status = data.status || "ok";
-    const list = status === "ok" ? readCandidates(data).filter(l => l && l.id !== undefined && l.id !== null) : [];
+    function renderCandidates(data, query) {
+        $("lectResultsSub").textContent = `Results for “${query}”`;
+        // don't gate on top-level status: ambiguous results come back as "none" but still carry a list to choose from
+        const list = readCandidates(data).filter(l => l && l.id !== undefined && l.id !== null);
 
-    // none / ambiguous / error: show the backend's message only
-    if (status !== "ok" || !list.length) {
-      $("lectResultsBody").innerHTML = statusBox(data, "No lecturers were found for that search.");
-      return;
+        // nothing to choose from (not found / error / too many matches): show the backend's message only
+        if (!list.length) {
+            $("lectResultsBody").innerHTML = statusBox(data, "No lecturers were found for that search.");
+            return;
+        }
+
+        // (rest of the function unchanged)
+
+        let html = `<p class="lect-summary">${esc(data.summary || "")}</p>`;
+        html += `<p class="sub">${list.length === 1 ? "Select the lecturer to check their schedule." : "Select a lecturer to check their schedule."}</p>`;
+        html += `<div class="lect-list">${list.map(lecturerCard).join("")}</div>`;
+        html += aiNote(data);
+        $("lectResultsBody").innerHTML = html;
+
+        const byId = new Map(list.map(l => [String(l.id), l]));
+        $("lectResultsBody").querySelectorAll(".lect").forEach(btn =>
+        btn.addEventListener("click", () => selectLecturer(byId.get(btn.dataset.id), btn)));
+
+        // A single match is selected for the person straight away.
+        if (list.length === 1) selectLecturer(list[0], $("lectResultsBody").querySelector(".lect"));
     }
-
-    let html = `<p class="lect-summary">${esc(data.summary || "")}</p>`;
-    html += `<p class="sub">${list.length === 1 ? "Select the lecturer to check their schedule." : "Select a lecturer to check their schedule."}</p>`;
-    html += `<div class="lect-list">${list.map(lecturerCard).join("")}</div>`;
-    html += aiNote(data);
-    $("lectResultsBody").innerHTML = html;
-
-    const byId = new Map(list.map(l => [String(l.id), l]));
-    $("lectResultsBody").querySelectorAll(".lect").forEach(btn =>
-      btn.addEventListener("click", () => selectLecturer(byId.get(btn.dataset.id), btn)));
-
-    // A single match is selected for the person straight away.
-    if (list.length === 1) selectLecturer(list[0], $("lectResultsBody").querySelector(".lect"));
-  }
 
   /* ---------- Step 3: schedule form ---------- */
   function selectLecturer(l, btn) {

@@ -218,3 +218,9 @@ input[type="date"]:focus-visible, input[type="time"]:focus-visible { outline: 2p
   .week { grid-template-columns: 1fr; }
   h1 { font-size: 1.6rem; }
 }
+
+/* Mobile: feature buttons stack, each spanning the full width of the screen */
+@media (max-width: 600px) {
+  .switcher { flex-direction: column; flex-wrap: nowrap; gap: 10px; }
+  .switcher button { width: 100%; padding: 12px 18px; text-align: center; }
+}

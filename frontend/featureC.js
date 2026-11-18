@@ -195,29 +195,35 @@
     }
   }
 
-  function renderSchedule(data) {
-    const status = data.status || "ok";
-    const s = ((data.facts || {}).get_lecturer_schedule || {}).data;
+    function renderSchedule(data) {
+        const status = data.status || "ok";
+        const f = data.facts || {};
+        const isObj = o => o && typeof o === "object";
+        const current = (f.get_lecturer_schedule || {}).data;
+        const next = (f.find_next_lecturer || {}).data;
+        const s = isObj(current) ? current : (isObj(next) ? next : null);
+        const isNext = !isObj(current) && !!s;
 
-    // none / error: show the backend's message only
-    if (status !== "ok" || !s || typeof s !== "object") {
-      $("lectScheduleResultBody").innerHTML = statusBox(data, "No class was found for this lecturer.");
-      return;
-    }
+        // nothing at the requested time AND no next class: show the backend's message only
+        if (status !== "ok" || !s) {
+            $("lectScheduleResultBody").innerHTML = statusBox(data, "No class was found for this lecturer.");
+            return;
+        }
 
-    const row = (label, value) => value ? `<div class="lect-row"><strong>${label}:</strong> ${esc(value)}</div>` : "";
-    const when = s.start_time && s.end_time ? `${fmtDateTime(s.start_time)} to ${fmtTime(s.end_time)}` : "";
-    let html = `<p class="lect-summary">${esc(data.summary || "")}</p>`;
-    html += `<div class="lect-detail">
+        const row = (label, value) => value ? `<div class="lect-row"><strong>${label}:</strong> ${esc(value)}</div>` : "";
+        const when = s.start_time && s.end_time ? `${fmtDateTime(s.start_time)} to ${fmtTime(s.end_time)}` : "";
+        let html = `<p class="lect-summary" style="white-space:pre-line">${esc(data.summary || "")}</p>`;
+        html += `<div class="lect-detail">
+      ${isNext ? `<div class="lect-row"><strong>Next class</strong></div>` : ""}
       <div class="lect-module">${esc(s.module_name || "Class")}</div>
       ${row("Room", s.room_name)}
       ${row("When", when)}
       ${row("Lecturer", s.staff_member)}
     </div>`;
-    html += aiNote(data);
-    html += `<p class="room-caveat">Times shown in Irish local time (Europe/Dublin). If no class is running at your chosen time, the next upcoming class is shown.</p>`;
-    $("lectScheduleResultBody").innerHTML = html;
-  }
+        html += aiNote(data);
+        html += `<p class="room-caveat">Times shown in Irish local time (Europe/Dublin).</p>`;
+        $("lectScheduleResultBody").innerHTML = html;
+    }
 
   /* ---------- Wire up ---------- */
   $("lectSearchBtn").addEventListener("click", runSearch);

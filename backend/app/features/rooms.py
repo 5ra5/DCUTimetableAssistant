@@ -200,6 +200,6 @@ def rooms_summary(facts: dict) -> str:
         lines.append("Try 'Closest buildings' or 'More options' for more rooms.")
 
     # --- sentence 3: never promise a room is free/empty/open. Only shown when rooms were found.
-    if total:
-        lines.append(_caveat(total))
+    #if total:
+    #    lines.append(_caveat(total))
     return "\n".join(lines)

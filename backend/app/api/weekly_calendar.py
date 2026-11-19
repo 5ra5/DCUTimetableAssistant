@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from ..sync.redbrick_client import fetch_timetable_events
 from datetime import datetime
+from fastapi import HTTPException
 
 """This is the function for endpoint GET /weekly/timetable 
    used in feature A to get and display the weekly timetable
@@ -16,7 +17,7 @@ def get_weekly_timetable(programme_uuid, start, end):
    
     weekly_events = fetch_timetable_events(url, start, end) #getting the time table as dictionary from the redbrick_client.py
     if weekly_events is None:
-        return {"error": "Failed to fetch timetable events, try again later."}
+        raise HTTPException(status_code=503, detail="Failed to fetch timetable events, try again later.")
     #where we will store the events of between start and end of the programme
     usable_timetable = []
 

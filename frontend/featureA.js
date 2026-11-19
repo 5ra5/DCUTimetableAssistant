@@ -68,7 +68,7 @@ async function apiGetTimetable({ programme, weekStart, start, end }) {
   if (USE_MOCK_TIMETABLE) return mockTimetable(weekStart);
   const qs = new URLSearchParams({ programme_uuid: programme, start, end });
   const res = await fetch(`/api/weekly/timetable?${qs}`, { headers: { accept: "application/json" } });
-  if (!res.ok) throw new Error("Could not load timetable (" + res.status + ")");
+  if (!res.ok) throw new Error("Could not load timetable, please try again later");
   const data = await res.json();
   return {
     events: (data.events || []).map(e => ({
